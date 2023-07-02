@@ -9,12 +9,12 @@ const matchList = [
 ];
 
 type GetMatchListSuccess = {
-  type: 'GetMatchListSuccess';
+  message: 'GET_MATCH_LIST_SUCCESS';
   matchList: Match[];
 };
 
 type MatchListEmpty = {
-  type: 'MatchListEmpty';
+  message: 'MATCH_LIST_EMPTY';
 };
 
 export type GetMatchListResult = GetMatchListSuccess | MatchListEmpty;
@@ -24,7 +24,7 @@ export default class GetMatchList {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({
-          type: 'GetMatchListSuccess',
+          message: 'GET_MATCH_LIST_SUCCESS',
           matchList: matchList,
         });
       }, 1000);

@@ -8,10 +8,10 @@ export class GetMatchListController {
     try {
       const result = await new GetMatchList().execute();
 
-      switch (result.type) {
-        case 'GetMatchListSuccess':
+      switch (result.message) {
+        case 'GET_MATCH_LIST_SUCCESS':
           return res.status(200).json(result);
-        case 'MatchListEmpty':
+        case 'MATCH_LIST_EMPTY':
           return res.status(404).json(result);
       }
     } catch (err) {}

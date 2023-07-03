@@ -5,7 +5,7 @@ const matchList = [
   Match.stub(),
   Match.stub(),
   Match.stub(),
-  Match.stub(),
+  Match.stub()
 ];
 
 type GetMatchListSuccess = {
@@ -25,7 +25,7 @@ export default class GetMatchList {
       setTimeout(() => {
         resolve({
           message: 'GET_MATCH_LIST_SUCCESS',
-          matchList: matchList,
+          matchList: matchList
         });
       }, 1000);
     });

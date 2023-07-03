@@ -28,4 +28,22 @@ export default class User {
   comparePassword(password: string): boolean {
     return bcrypt.compareSync(password, this.password);
   }
+
+  static stub(
+    data: Partial<User> = {
+      id: 'abcd-1234',
+      username: 'jones',
+      email: 'jones@gmail.com',
+      password: 'abcd1234',
+      createdAt: 'abcd',
+      imageUrl: 'qwer',
+      ustaLevel: '1234',
+      description: 'description',
+      telegram: 'clo',
+      whatsapp: '1234567',
+      signal: '7654321'
+    }
+  ): User {
+    return User.create(data);
+  }
 }

@@ -1,9 +1,7 @@
-// tsconfig.json
-
 {
   "compilerOptions": {
-    "module": "esnext"
-    // ... rest of config
+    "module": "esnext",
+    "allowSyntheticDefaultImports": true
   },
   "ts-node": {
     "compilerOptions": {

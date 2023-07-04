@@ -12,7 +12,7 @@ describe('User login with existing user record', () => {
     repository.getFirstUserByUsername.mockClear();
   });
 
-  test('return login success when password is correct', async () => {
+  it('return login success when password is correct', async () => {
     const login = new Login(repository);
 
     repository.getFirstUserByUsername.mockResolvedValueOnce(
@@ -27,7 +27,7 @@ describe('User login with existing user record', () => {
     expect(result.type).toBe('LOGIN_SUCCESS');
   });
 
-  test('return login success and token when password is correct', async () => {
+  it('return login success and token when password is correct', async () => {
     const login = new Login(repository);
 
     repository.getFirstUserByUsername.mockResolvedValueOnce(
@@ -46,7 +46,7 @@ describe('User login with existing user record', () => {
     }
   });
 
-  test('return login failure when password is incorrect', async () => {
+  it('return login failure when password is incorrect', async () => {
     const login = new Login(repository);
 
     repository.getFirstUserByUsername.mockResolvedValueOnce(
@@ -67,7 +67,7 @@ describe('User login without user record', () => {
     repository.getFirstUserByUsername.mockClear();
   });
 
-  test('return login failure when user does not exist', async () => {
+  it('return login failure when user does not exist', async () => {
     const login = new Login(repository);
 
     repository.getFirstUserByUsername.mockResolvedValueOnce(

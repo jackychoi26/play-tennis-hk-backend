@@ -1,4 +1,4 @@
-import { UserNotExistedError } from '../../../../domain/errors/user-not-existed-error';
+import Result from '../../../../core/result';
 import User from '../../domain/entities/user';
 import IUserRepository, {
   CreateUserParam
@@ -15,9 +15,8 @@ export default class UserRepository implements IUserRepository {
     telegram,
     whatsapp,
     signal
-  }: CreateUserParam): Promise<User> {
+  }: CreateUserParam): Promise<Result<User>> {
     return new Promise((res, rej) => {
-      console.log('ROMAROMAEI');
       setTimeout(() => {
         res(
           User.create({
@@ -33,17 +32,21 @@ export default class UserRepository implements IUserRepository {
       }, 1000);
     });
   }
-  getFirstUserByEmail({ email }: { email: string }): Promise<User> {
+  getFirstUserByEmail({ email }: { email: string }): Promise<Result<User>> {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        rej(new UserNotExistedError());
+        rej(Result.fail<User>('Cannot find user'));
       }, 1000);
     });
   }
-  getFirstUserByUsername({ username }: { username: string }): Promise<User> {
+  getFirstUserByUsername({
+    username
+  }: {
+    username: string;
+  }): Promise<Result<User>> {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        rej(new Error('User not existed'));
+        res(Result.fail<User>('Cannot find user'));
       }, 1000);
     });
   }

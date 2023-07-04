@@ -2,6 +2,7 @@
   "name": "play_tennis_hk_backend",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
@@ -26,6 +27,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",

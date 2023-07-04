@@ -1,6 +1,11 @@
 import JwtHelper from '../../../../core/jwt-helper';
-import User from '../entities/user';
 import IUserRepository from '../repositories/i-user-repository';
+import Usecase from '../../../../core/usecase';
+
+interface LoginParam {
+  username: string;
+  password: string;
+}
 
 type LoginSuccess = {
   type: 'LOGIN_SUCCESS';
@@ -13,21 +18,24 @@ type LoginFailure = {
 
 export type LoginResult = LoginSuccess | LoginFailure;
 
-export default class Login {
+export default class Login implements Usecase<LoginParam, LoginResult> {
   constructor(private repository: IUserRepository) {}
 
-  async execute({
-    username,
-    password
-  }: {
-    username: string;
-    password: string;
-  }): Promise<LoginResult> {
-    const user = await this.repository.getFirstUserByUsername({
+  async execute(input: LoginParam): Promise<LoginResult> {
+    const { username, password } = input;
+    const result = await this.repository.getFirstUserByUsername({
       username: username
     });
 
-    if (user.comparePassword(password)) {
+    if (result.isFailure) {
+      return {
+        type: 'LOGIN_FAILURE'
+      };
+    }
+
+    const user = result.getValue();
+
+    if (user && user.comparePassword(password)) {
       return {
         type: 'LOGIN_SUCCESS',
         token: JwtHelper.sign({

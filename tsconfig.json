@@ -1,0 +1,13 @@
+// tsconfig.json
+
+{
+  "compilerOptions": {
+    "module": "esnext"
+    // ... rest of config
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "ES6"
+    }
+  }
+}

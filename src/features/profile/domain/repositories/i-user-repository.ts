@@ -13,6 +13,17 @@ export interface CreateUserParam {
   signal?: string;
 }
 
+export interface UpdateUserParam {
+  id: string;
+  password: string;
+  imageUrl?: string;
+  ustaLevel?: number;
+  description?: string;
+  telegram?: string;
+  whatsapp?: string;
+  signal?: string;
+}
+
 export default interface IUserRepository {
   createUser({
     username,
@@ -26,6 +37,8 @@ export default interface IUserRepository {
     signal
   }: CreateUserParam): Promise<Result<User>>;
 
+  getFirstUserById({ id }: { id: string }): Promise<Result<User>>;
+
   getFirstUserByEmail({ email }: { email: string }): Promise<Result<User>>;
 
   getFirstUserByUsername({
@@ -33,4 +46,14 @@ export default interface IUserRepository {
   }: {
     username: string;
   }): Promise<Result<User>>;
+
+  updateUser({
+    id,
+    imageUrl,
+    ustaLevel,
+    description,
+    telegram,
+    whatsapp,
+    signal
+  }: UpdateUserParam): Promise<Result<User>>;
 }

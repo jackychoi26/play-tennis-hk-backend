@@ -38,8 +38,7 @@ export default class User {
   }
 
   static hashPassword(password: string): string {
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   }
 
   comparePassword(password: string): boolean {

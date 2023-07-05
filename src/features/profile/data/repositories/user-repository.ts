@@ -1,7 +1,8 @@
 import Result from '../../../../core/result';
 import User from '../../domain/entities/user';
 import IUserRepository, {
-  CreateUserParam
+  CreateUserParam,
+  UpdateUserParam
 } from '../../domain/repositories/i-user-repository';
 
 export default class UserRepository implements IUserRepository {
@@ -32,6 +33,15 @@ export default class UserRepository implements IUserRepository {
       }, 1000);
     });
   }
+
+  getFirstUserById({ id }: { id: string }): Promise<Result<User>> {
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        rej(Result.fail<User>('Cannot find user'));
+      }, 1000);
+    });
+  }
+
   getFirstUserByEmail({ email }: { email: string }): Promise<Result<User>> {
     return new Promise((res, rej) => {
       setTimeout(() => {
@@ -39,6 +49,7 @@ export default class UserRepository implements IUserRepository {
       }, 1000);
     });
   }
+
   getFirstUserByUsername({
     username
   }: {
@@ -48,6 +59,23 @@ export default class UserRepository implements IUserRepository {
       setTimeout(() => {
         res(Result.fail<User>('Cannot find user'));
       }, 1000);
+    });
+  }
+
+  updateUser({
+    id,
+    password,
+    imageUrl,
+    ustaLevel,
+    description,
+    telegram,
+    whatsapp,
+    signal
+  }: UpdateUserParam): Promise<Result<User>> {
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        res(Result.fail<User>('Cannot find user'));
+      });
     });
   }
 }

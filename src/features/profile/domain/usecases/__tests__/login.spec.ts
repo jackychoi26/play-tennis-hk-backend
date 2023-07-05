@@ -1,7 +1,7 @@
 import Result from '../../../../../core/result';
 import UserRepository from '../../../data/repositories/user-repository';
 import User from '../../entities/user';
-import Login, { LoginResult } from '../login';
+import Login from '../login';
 
 jest.mock('../../../data/repositories/user-repository');
 

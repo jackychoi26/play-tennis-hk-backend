@@ -9,7 +9,7 @@ export default class User {
   public readonly password: string;
   public readonly createdAt: string;
   public readonly imageUrl: string;
-  public readonly ustaLevel: string;
+  public readonly ustaLevel: number;
   public readonly description?: string;
   public readonly telegram?: string;
   public readonly whatsapp?: string;
@@ -53,7 +53,7 @@ export default class User {
     password = 'abcd1234',
     createdAt = 'abcd',
     imageUrl = 'qwer',
-    ustaLevel = '1234',
+    ustaLevel = 3.5,
     description = 'description',
     telegram = 'clo',
     whatsapp = '1234567',

@@ -1,6 +1,6 @@
-import JwtHelper from '../../../../core/jwt-helper';
+import JwtHelper from '@core/jwt-helper';
 import IUserRepository from '../repositories/i-user-repository';
-import Usecase from '../../../../core/usecase';
+import Usecase from '@core/usecase';
 
 interface LoginParam {
   username: string;

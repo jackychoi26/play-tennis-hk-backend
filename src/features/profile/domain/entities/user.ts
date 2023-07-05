@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
-import Guard from '../../../../core/guard';
-import Result from '../../../../core/result';
+import Guard from '@core/guard';
+import Result from '@core/result';
 
 export default class User {
   public readonly id: string;

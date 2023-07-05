@@ -1,4 +1,4 @@
-import { Match } from '../entities/Match';
+import { Match } from '../entities/match';
 
 const matchList = [
   Match.stub(),

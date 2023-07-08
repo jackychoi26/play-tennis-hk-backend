@@ -8,12 +8,10 @@ export class GetMatchListController {
     try {
       const result = await new GetMatchList().execute();
 
-      console.log(req.headers['user-agent']);
-
       switch (result.message) {
-        case 'GET_MATCH_LIST_SUCCESS':
+        case 'GET_MATCHES_SUCCESS':
           return res.status(200).json(result);
-        case 'MATCH_LIST_EMPTY':
+        case 'MATCHES_EMPTY':
           return res.status(404).json(result);
       }
     } catch (err) {}

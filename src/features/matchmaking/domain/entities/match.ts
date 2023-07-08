@@ -4,23 +4,45 @@ export class Match {
     public createdAt: Date,
     // Person who created the post
     public poster: string,
-    public ustaLevelRange: [number, number],
+    public ustaLevelRange: number[],
     public startDateTime: Date,
     public endDateTime: Date,
-    public location: string,
-    public remark?: string
+    public district: string,
+    public court: string,
+    public remarks?: string
   ) {}
 
-  static stub(): Match {
+  static stub({
+    id = 'abcd-1234',
+    createdAt = new Date(),
+    poster = 'efgt-9876',
+    ustaLevelRange = [3.5, 4],
+    startDateTime = new Date(),
+    endDateTime = new Date(),
+    district = 'TAI_PO',
+    court = '運頭塘',
+    remarks = 'Please bring your own racquest'
+  }: {
+    id?: string;
+    createdAt?: Date;
+    poster?: string;
+    ustaLevelRange?: number[];
+    startDateTime?: Date;
+    endDateTime?: Date;
+    district?: string;
+    court?: string;
+    remarks?: string;
+  }): Match {
     return new Match(
-      'abcd-efhg-1234',
-      new Date(),
-      'efdg-1rf3-41ff',
-      [3.0, 4.5],
-      new Date(),
-      new Date(),
-      'Tai Po',
-      'asd fdad'
+      id,
+      createdAt,
+      poster,
+      ustaLevelRange,
+      startDateTime,
+      endDateTime,
+      district,
+      court,
+      remarks
     );
   }
 }

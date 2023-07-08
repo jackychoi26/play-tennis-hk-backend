@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import GetMatchList from '../../domain/usecases/get-match-list';
+import GetMatchList from '../../domain/usecases/get-matches';
 
 export class GetMatchListController {
   constructor() {}

@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { GetMatchListController } from './controllers/get-match-list-controller';
+import { GetMatchListController } from './controllers/get-matches-controller';
 
 export class MatchDetailRouter {
   private basePath = '/';

@@ -1,11 +1,11 @@
 import { Match } from '../entities/match';
 
 const matches = [
-  Match.stub(),
-  Match.stub(),
-  Match.stub(),
-  Match.stub(),
-  Match.stub()
+  Match.stub({ remarks: 'ASJIDOAJSIDO' }),
+  Match.stub({}),
+  Match.stub({}),
+  Match.stub({}),
+  Match.stub({})
 ];
 
 type GetMatchesSuccess = {
@@ -21,6 +21,7 @@ export type GetMatchesResult = GetMatchesSuccess | MatchesEmpty;
 
 export default class GetMatches {
   execute(): Promise<GetMatchesResult> {
+    console.log(matches);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({

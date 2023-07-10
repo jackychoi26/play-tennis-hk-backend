@@ -2,9 +2,9 @@ import { Match } from '../entities/match';
 
 const matches = [
   Match.stub({ remarks: 'ASJIDOAJSIDO' }),
-  Match.stub({}),
-  Match.stub({}),
-  Match.stub({}),
+  Match.stub({ district: 'ISLANDS' }),
+  Match.stub({ district: 'WAN_CHAI' }),
+  Match.stub({ district: 'KWUN_TONG' }),
   Match.stub({})
 ];
 

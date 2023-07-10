@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import Guard from '@core/guard';
 import Result from '@core/result';
+import { District } from '@domain/district';
 
 export default class User {
   public readonly id: string;
@@ -10,6 +11,8 @@ export default class User {
   public readonly createdAt: string;
   public readonly imageUrl: string;
   public readonly ustaLevel: number;
+  public readonly age?: number;
+  public readonly districts: District[];
   public readonly description?: string;
   public readonly telegram?: string;
   public readonly whatsapp?: string;
@@ -53,6 +56,8 @@ export default class User {
     createdAt = 'abcd',
     imageUrl = 'qwer',
     ustaLevel = 3.5,
+    age = 29,
+    districts = [District.north, District.islands],
     description = 'description',
     telegram = 'clo',
     whatsapp = '1234567',
@@ -66,6 +71,8 @@ export default class User {
       createdAt,
       imageUrl,
       ustaLevel,
+      age,
+      districts,
       description,
       telegram,
       whatsapp,

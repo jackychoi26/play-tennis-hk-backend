@@ -1,3 +1,6 @@
+import { District } from '../../../../domain/district';
+import { MatchType } from '../../../../domain/match-type';
+
 export class Match {
   constructor(
     public id: string,
@@ -7,8 +10,9 @@ export class Match {
     public ustaLevelRange: number[],
     public startDateTime: Date,
     public endDateTime: Date,
-    public district: string,
+    public district: District,
     public court: string,
+    public matchType: MatchType,
     public remarks?: string
   ) {}
 
@@ -19,8 +23,9 @@ export class Match {
     ustaLevelRange = [3.5, 4],
     startDateTime = new Date(),
     endDateTime = new Date(),
-    district = 'TAI_PO',
+    district = District.taiPo,
     court = '運頭塘',
+    matchType = MatchType.mensSingles,
     remarks = 'Please bring your own racquest'
   }: {
     id?: string;
@@ -29,8 +34,9 @@ export class Match {
     ustaLevelRange?: number[];
     startDateTime?: Date;
     endDateTime?: Date;
-    district?: string;
+    district?: District;
     court?: string;
+    matchType?: MatchType;
     remarks?: string;
   }): Match {
     return new Match(
@@ -42,6 +48,7 @@ export class Match {
       endDateTime,
       district,
       court,
+      matchType,
       remarks
     );
   }

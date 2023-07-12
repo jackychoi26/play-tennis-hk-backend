@@ -1,4 +1,5 @@
 export enum MatchType {
+  training = 'TRAINING',
   singles = 'SINGLES',
   doubles = 'DOUBLES',
   mensSingles = 'MENS_SINGLES',

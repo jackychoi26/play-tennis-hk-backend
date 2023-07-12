@@ -1,7 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
-import { MatchDetailRouter } from './features/matchmaking/router/match-list-router';
+import { MatchDetailRouter } from './features/matchmaking/router/matchmaking-router';
 
 const app = express();
 

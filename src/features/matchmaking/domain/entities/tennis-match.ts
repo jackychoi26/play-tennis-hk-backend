@@ -1,12 +1,13 @@
+import User from '../../../../features/profile/domain/entities/user';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
 
-export class Match {
+export class TennisMatch {
   constructor(
     public id: string,
     public createdAt: Date,
     // Person who created the post
-    public poster: string,
+    public poster: User,
     public ustaLevelRange: number[],
     public startDateTime: Date,
     public endDateTime: Date,
@@ -19,7 +20,7 @@ export class Match {
   static stub({
     id = 'abcd-1234',
     createdAt = new Date(),
-    poster = 'efgt-9876',
+    poster = User.stub({}).getValue()!,
     ustaLevelRange = [3.5, 4],
     startDateTime = new Date(),
     endDateTime = new Date(),
@@ -30,7 +31,7 @@ export class Match {
   }: {
     id?: string;
     createdAt?: Date;
-    poster?: string;
+    poster?: User;
     ustaLevelRange?: number[];
     startDateTime?: Date;
     endDateTime?: Date;
@@ -38,8 +39,8 @@ export class Match {
     court?: string;
     matchType?: MatchType;
     remarks?: string;
-  }): Match {
-    return new Match(
+  }): TennisMatch {
+    return new TennisMatch(
       id,
       createdAt,
       poster,

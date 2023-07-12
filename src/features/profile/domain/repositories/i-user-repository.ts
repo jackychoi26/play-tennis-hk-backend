@@ -1,4 +1,4 @@
-import Result from '@core/result';
+import Result from '../../../../core/result';
 import User from '../entities/user';
 
 export interface CreateUserParam {

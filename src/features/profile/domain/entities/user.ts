@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
-import Guard from '@core/guard';
-import Result from '@core/result';
+import Result from '../../../../core/result';
 import { District } from '../../../../domain/district';
+import Guard from '../../../../core/guard';
 
 export default class User {
   public readonly id: string;

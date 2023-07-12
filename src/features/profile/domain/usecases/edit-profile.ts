@@ -1,4 +1,4 @@
-import UseCase from '@core/usecase';
+import UseCase from '../../../../core/usecase';
 import User from '../entities/user';
 import IUserRepository from '../repositories/i-user-repository';
 

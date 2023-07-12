@@ -14,11 +14,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "_moduleAliases": {
-    "@features": "dist/features",
-    "@core": "dist/core",
-    "@domain": "dist/domain"
-  },
+  "_moduleAliases": {},
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",

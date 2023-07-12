@@ -1,42 +1,44 @@
-import { Match } from '../entities/match';
+import { TennisMatch } from '../entities/tennis-match';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
 
 const tennisMatches = [
-  Match.stub({
+  TennisMatch.stub({
     remarks:
       'Bye bye miss american pie, drove my chevy to the levee but the levee was dry'
   }),
-  Match.stub({
+  TennisMatch.stub({
     district: District.islands,
     matchType: MatchType.womensDoubles
   }),
-  Match.stub({ district: District.wanChai }),
-  Match.stub({
+  TennisMatch.stub({ district: District.wanChai }),
+  TennisMatch.stub({
     district: District.kwunTong,
     matchType: MatchType.womensSingles
   }),
-  Match.stub({})
+  TennisMatch.stub({})
 ];
 
-type GetMatchesSuccess = {
-  message: 'GET_MATCHES_SUCCESS';
-  tennisMatches: Match[];
+type GetTennisMatchesSuccess = {
+  message: 'GET_TENNIS_MATCHES_SUCCESS';
+  tennisMatches: TennisMatch[];
 };
 
-type MatchesEmpty = {
-  message: 'MATCHES_EMPTY';
+type TennisMatchesEmpty = {
+  message: 'TENNIS_MATCHES_EMPTY';
 };
 
-export type GetMatchesResult = GetMatchesSuccess | MatchesEmpty;
+export type GetTennisMatchesResult =
+  | GetTennisMatchesSuccess
+  | TennisMatchesEmpty;
 
-export default class GetMatches {
-  execute(): Promise<GetMatchesResult> {
+export default class GetTennisMatches {
+  execute(): Promise<GetTennisMatchesResult> {
     console.log(tennisMatches);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({
-          message: 'GET_MATCHES_SUCCESS',
+          message: 'GET_TENNIS_MATCHES_SUCCESS',
           tennisMatches: tennisMatches
         });
       }, 1000);

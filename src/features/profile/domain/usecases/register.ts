@@ -1,5 +1,5 @@
-import JwtHelper from '@core/jwt-helper';
-import UseCase from '@core/usecase';
+import JwtHelper from '../../../../core/jwt-helper';
+import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 
 interface RegisterParam {

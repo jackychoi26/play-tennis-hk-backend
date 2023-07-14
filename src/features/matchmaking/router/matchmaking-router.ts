@@ -1,6 +1,5 @@
 import express, { Router } from 'express';
 import { GetTennisMatchesController } from './controllers/get-tennis-matches-controller';
-import emailValidator from 'validatons/email-validator';
 
 export class MatchDetailRouter {
   private basePath = '/';
@@ -10,11 +9,7 @@ export class MatchDetailRouter {
   constructor() {}
 
   setup(): Router {
-    this.router.get(
-      this.basePath,
-      [emailValidator],
-      this.getTennisMatchesController.handle
-    );
+    this.router.get(this.basePath, this.getTennisMatchesController.handle);
     return this.router;
   }
 }

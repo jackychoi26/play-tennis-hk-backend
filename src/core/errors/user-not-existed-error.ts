@@ -1,4 +1,4 @@
-import CustomError from '../../core/custom-error';
+import CustomError from './custom-error';
 
 export class UserNotExistedError extends CustomError {
   statusCode = 404;

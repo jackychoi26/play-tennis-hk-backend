@@ -1,4 +1,4 @@
-import { TennisMatch } from '../entities/tennis-match';
+import TennisMatch from '../entities/tennis-match';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
 

@@ -43,7 +43,7 @@ describe('Register with unique username or email', () => {
       imageUrl: 'abcd1234'
     });
 
-    expect(result.type).toBe('REGISTER_SUCCESS');
+    expect(result.message).toBe('REGISTER_SUCCESS');
 
     expect(repository.getFirstUserByUsername).toBeCalledTimes(1);
     expect(repository.getFirstUserByUsername).toBeCalledWith({
@@ -64,8 +64,8 @@ describe('Register with unique username or email', () => {
       imageUrl: 'abcd1234'
     });
 
-    if (result.type === 'REGISTER_SUCCESS') {
-      expect(result.type).toBeDefined();
+    if (result.message === 'REGISTER_SUCCESS') {
+      expect(result.message).toBeDefined();
     }
   });
 });
@@ -97,7 +97,7 @@ describe('Register with an existing username or email', () => {
 
     expect(repository.getFirstUserByEmail).not.toBeCalled();
 
-    expect(result.type).toBe('USERNAME_ALREADY_EXISTED_FAILURE');
+    expect(result.message).toBe('USERNAME_ALREADY_EXISTED_FAILURE');
   });
 
   it('return register failure when user inputs an existing email', async () => {
@@ -129,6 +129,6 @@ describe('Register with an existing username or email', () => {
 
     expect(repository.createUser).not.toBeCalled();
 
-    expect(result.type).toBe('EMAIL_ALREADY_EXISTED_FAILURE');
+    expect(result.message).toBe('EMAIL_ALREADY_EXISTED_FAILURE');
   });
 });

@@ -24,7 +24,7 @@ describe('User login with existing user record', () => {
       password: 'abcd1234'
     });
 
-    expect(result.type).toBe('LOGIN_SUCCESS');
+    expect(result.message).toBe('LOGIN_SUCCESS');
   });
 
   it('return login success and token when password is correct', async () => {
@@ -39,9 +39,9 @@ describe('User login with existing user record', () => {
       password: 'abcd1234'
     });
 
-    expect(result.type).toBe('LOGIN_SUCCESS');
+    expect(result.message).toBe('LOGIN_SUCCESS');
 
-    if (result.type == 'LOGIN_SUCCESS') {
+    if (result.message == 'LOGIN_SUCCESS') {
       expect(result.token).toBeDefined();
     }
   });
@@ -58,7 +58,7 @@ describe('User login with existing user record', () => {
       password: 'dcba4321'
     });
 
-    expect(result.type).toBe('LOGIN_FAILURE');
+    expect(result.message).toBe('LOGIN_FAILURE');
   });
 });
 
@@ -79,6 +79,6 @@ describe('User login without user record', () => {
       password: 'abcd1234'
     });
 
-    expect(result.type).toBe('LOGIN_FAILURE');
+    expect(result.message).toBe('LOGIN_FAILURE');
   });
 });

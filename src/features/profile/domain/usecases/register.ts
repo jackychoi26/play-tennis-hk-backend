@@ -1,5 +1,5 @@
-import JwtHelper from '@core/jwt-helper';
-import UseCase from '@core/usecase';
+import JwtHelper from '../../../../core/jwt-helper';
+import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 
 interface RegisterParam {
@@ -15,16 +15,16 @@ interface RegisterParam {
 }
 
 type RegisterSuccess = {
-  type: 'REGISTER_SUCCESS';
+  message: 'REGISTER_SUCCESS';
   token: string;
 };
 
 type UsernameAlreadyExsitedFailure = {
-  type: 'USERNAME_ALREADY_EXISTED_FAILURE';
+  message: 'USERNAME_ALREADY_EXISTED_FAILURE';
 };
 
 type EmailAlreadyExistedFailure = {
-  type: 'EMAIL_ALREADY_EXISTED_FAILURE';
+  message: 'EMAIL_ALREADY_EXISTED_FAILURE';
 };
 
 type RegisterResult =
@@ -46,7 +46,7 @@ export default class Register
 
     if (usernameSearchResult.isSuccess) {
       return {
-        type: 'USERNAME_ALREADY_EXISTED_FAILURE'
+        message: 'USERNAME_ALREADY_EXISTED_FAILURE'
       };
     }
 
@@ -56,7 +56,7 @@ export default class Register
 
     if (emailSearchResult.isSuccess) {
       return {
-        type: 'EMAIL_ALREADY_EXISTED_FAILURE'
+        message: 'EMAIL_ALREADY_EXISTED_FAILURE'
       };
     }
 
@@ -65,7 +65,7 @@ export default class Register
 
     if (createUserResult?.isSuccess && user) {
       return Promise.resolve({
-        type: 'REGISTER_SUCCESS',
+        message: 'REGISTER_SUCCESS',
         token: JwtHelper.sign({
           id: user.id,
           username: user.username,

@@ -1,4 +1,4 @@
-import UseCase from '@core/usecase';
+import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 import User from '../entities/user';
 
@@ -8,15 +8,15 @@ interface ChangePasswordParam {
 }
 
 type ChangePasswordSuccess = {
-  type: 'CHANGE_PASSWORD_SUCCESS';
+  message: 'CHANGE_PASSWORD_SUCCESS';
 };
 
 type ChangePasswordFailure = {
-  type: 'CHANGE_PASSWORD_FAILURE';
+  message: 'CHANGE_PASSWORD_FAILURE';
 };
 
 type SamePasswordFailure = {
-  type: 'SAME_PASSWORD_FAILURE';
+  message: 'SAME_PASSWORD_FAILURE';
 };
 
 type ChangePasswordResult =
@@ -36,7 +36,7 @@ export default class ChangePassword
 
     if (searchUserResult.isFailure) {
       return {
-        type: 'CHANGE_PASSWORD_FAILURE'
+        message: 'CHANGE_PASSWORD_FAILURE'
       };
     }
 
@@ -48,7 +48,7 @@ export default class ChangePassword
 
         if (isSameAsOldPassword) {
           return {
-            type: 'SAME_PASSWORD_FAILURE'
+            message: 'SAME_PASSWORD_FAILURE'
           };
         } else {
           const updateUserResult = await this.repository.updateUser({
@@ -58,7 +58,7 @@ export default class ChangePassword
 
           if (updateUserResult.isSuccess) {
             return {
-              type: 'CHANGE_PASSWORD_SUCCESS'
+              message: 'CHANGE_PASSWORD_SUCCESS'
             };
           }
         }
@@ -66,7 +66,7 @@ export default class ChangePassword
     }
 
     return {
-      type: 'CHANGE_PASSWORD_FAILURE'
+      message: 'CHANGE_PASSWORD_FAILURE'
     };
   }
 }

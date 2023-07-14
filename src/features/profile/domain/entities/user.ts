@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import Result from '../../../../core/result';
 import { District } from '../../../../domain/district';
 import Guard from '../../../../core/guard';
+import Nullable from '../../../../core/nullable';
 
 export default class User {
   public readonly id: string;
@@ -11,12 +12,12 @@ export default class User {
   public readonly createdAt: string;
   public readonly imageUrl: string;
   public readonly ustaLevel: number;
-  public readonly age?: number;
+  public readonly age: Nullable<number>;
   public readonly districts: District[];
-  public readonly description?: string;
-  public readonly telegram?: string;
-  public readonly whatsapp?: string;
-  public readonly signal?: string;
+  public readonly description: Nullable<string>;
+  public readonly telegram: Nullable<string>;
+  public readonly whatsapp: Nullable<string>;
+  public readonly signal: Nullable<string>;
 
   private constructor(data: Partial<User>) {
     Object.assign(this, data);
@@ -59,10 +60,10 @@ export default class User {
     age = 29,
     districts = [District.north, District.islands],
     description = 'description',
-    telegram = 'clo',
-    whatsapp = '1234567',
-    signal = '7654321'
-  }): Result<User> {
+    telegram = '1213',
+    whatsapp = '78123',
+    signal = '123421'
+  }: Partial<User>): Result<User> {
     return User.create({
       id,
       username,

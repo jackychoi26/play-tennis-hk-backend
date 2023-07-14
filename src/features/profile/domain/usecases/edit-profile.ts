@@ -13,12 +13,12 @@ interface EditProfileParam {
 }
 
 type EditProfileSuccess = {
-  type: 'EDIT_PROFILE_SUCCESS';
+  message: 'EDIT_PROFILE_SUCCESS';
   user: User;
 };
 
 type EditProfileFailure = {
-  type: 'EDIT_PROFILE_FAILURE';
+  message: 'EDIT_PROFILE_FAILURE';
 };
 
 type EditProfileResult = EditProfileSuccess | EditProfileFailure;
@@ -36,7 +36,7 @@ export default class EditProfile
 
     if (userResult.isFailure) {
       return {
-        type: 'EDIT_PROFILE_FAILURE'
+        message: 'EDIT_PROFILE_FAILURE'
       };
     }
 
@@ -58,14 +58,14 @@ export default class EditProfile
       const updatedUser = updatedUserResult.getValue();
       if (updatedUser) {
         return {
-          type: 'EDIT_PROFILE_SUCCESS',
+          message: 'EDIT_PROFILE_SUCCESS',
           user: updatedUser
         };
       }
     }
 
     return {
-      type: 'EDIT_PROFILE_FAILURE'
+      message: 'EDIT_PROFILE_FAILURE'
     };
   }
 }

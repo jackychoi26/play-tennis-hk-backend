@@ -2,7 +2,7 @@ import User from '../../../../features/profile/domain/entities/user';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
 
-export class TennisMatch {
+export default class TennisMatch {
   constructor(
     public id: string,
     public createdAt: Date,

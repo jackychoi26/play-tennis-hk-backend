@@ -8,12 +8,12 @@ interface LoginParam {
 }
 
 type LoginSuccess = {
-  type: 'LOGIN_SUCCESS';
+  message: 'LOGIN_SUCCESS';
   token: string;
 };
 
 type LoginFailure = {
-  type: 'LOGIN_FAILURE';
+  message: 'LOGIN_FAILURE';
 };
 
 export type LoginResult = LoginSuccess | LoginFailure;
@@ -29,7 +29,7 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
 
     if (result.isFailure) {
       return {
-        type: 'LOGIN_FAILURE'
+        message: 'LOGIN_FAILURE'
       };
     }
 
@@ -37,7 +37,7 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
 
     if (user && user.comparePassword(password)) {
       return {
-        type: 'LOGIN_SUCCESS',
+        message: 'LOGIN_SUCCESS',
         token: JwtHelper.sign({
           id: user.id,
           username: user.username,
@@ -46,7 +46,7 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
       };
     } else {
       return {
-        type: 'LOGIN_FAILURE'
+        message: 'LOGIN_FAILURE'
       };
     }
   }

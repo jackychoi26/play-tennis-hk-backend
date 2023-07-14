@@ -24,7 +24,7 @@ describe('Change password success', () => {
       password: 'Abcd1234'
     });
 
-    expect(result.type).toBe('CHANGE_PASSWORD_SUCCESS');
+    expect(result.message).toBe('CHANGE_PASSWORD_SUCCESS');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
     expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
@@ -51,7 +51,7 @@ describe('Change password failure', () => {
       password: 'Abcd1234567'
     });
 
-    expect(result.type).toBe('CHANGE_PASSWORD_FAILURE');
+    expect(result.message).toBe('CHANGE_PASSWORD_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
     expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
@@ -71,7 +71,7 @@ describe('Change password failure', () => {
       password: 'testing-password'
     });
 
-    expect(result.type).toBe('SAME_PASSWORD_FAILURE');
+    expect(result.message).toBe('SAME_PASSWORD_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
     expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });

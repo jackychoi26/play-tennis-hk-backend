@@ -28,9 +28,9 @@ describe('Update user profile success', () => {
       ustaLevel: 4.5
     });
 
-    expect(result.type).toBe('EDIT_PROFILE_SUCCESS');
+    expect(result.message).toBe('EDIT_PROFILE_SUCCESS');
 
-    if (result.type == 'EDIT_PROFILE_SUCCESS') {
+    if (result.message == 'EDIT_PROFILE_SUCCESS') {
       expect(result.user).toBeDefined();
     }
 
@@ -65,7 +65,7 @@ describe('Update user profile failure', () => {
       ustaLevel: 4.5
     });
 
-    expect(result.type).toBe('EDIT_PROFILE_FAILURE');
+    expect(result.message).toBe('EDIT_PROFILE_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
     expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
@@ -90,7 +90,7 @@ describe('Update user profile failure', () => {
       ustaLevel: 4.5
     });
 
-    expect(result.type).toBe('EDIT_PROFILE_FAILURE');
+    expect(result.message).toBe('EDIT_PROFILE_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
     expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });

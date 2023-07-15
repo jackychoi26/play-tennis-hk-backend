@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import Result from '../../../../core/result';
 import { District } from '../../../../domain/district';
 import Guard from '../../../../core/guard';
+import UserProfile from './user-profile';
 import Nullable from '../../../../core/nullable';
 
 export default class User {
@@ -11,8 +12,8 @@ export default class User {
   public readonly password: string;
   public readonly createdAt: string;
   public readonly imageUrl: string;
-  public readonly ustaLevel: number;
-  public readonly age: Nullable<number>;
+  public readonly ntrpLevel: number;
+  public readonly age?: number;
   public readonly districts: District[];
   public readonly description: Nullable<string>;
   public readonly telegram: Nullable<string>;
@@ -31,7 +32,7 @@ export default class User {
       { argument: data.password, argumentName: 'password' },
       { argument: data.createdAt, argumentName: 'createdAt' },
       { argument: data.imageUrl, argumentName: 'imageUrl' },
-      { argument: data.ustaLevel, argumentName: 'ustaLevel' }
+      { argument: data.ntrpLevel, argumentName: 'ntrpLevel' }
     ]);
 
     if (!guardResult.succeeded) {
@@ -49,6 +50,10 @@ export default class User {
     return bcrypt.compareSync(password, this.password);
   }
 
+  toUserProfile(): UserProfile {
+    return new UserProfile(this);
+  }
+
   static stub({
     id = 'abcd-1234',
     username = 'jones',
@@ -56,7 +61,7 @@ export default class User {
     password = 'abcd1234',
     createdAt = 'abcd',
     imageUrl = 'qwer',
-    ustaLevel = 3.5,
+    ntrpLevel = 3.5,
     age = 29,
     districts = [District.north, District.islands],
     description = 'description',
@@ -71,7 +76,7 @@ export default class User {
       password,
       createdAt,
       imageUrl,
-      ustaLevel,
+      ntrpLevel,
       age,
       districts,
       description,

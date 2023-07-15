@@ -5,7 +5,7 @@ import IUserRepository from '../repositories/i-user-repository';
 interface EditProfileParam {
   id: string;
   imageUrl?: string;
-  ustaLevel: number;
+  ntrpLevel: number;
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -29,7 +29,7 @@ export default class EditProfile
   constructor(private repository: IUserRepository) {}
 
   async execute(input: EditProfileParam): Promise<EditProfileResult> {
-    const { id, imageUrl, ustaLevel, description, telegram, whatsapp, signal } =
+    const { id, imageUrl, ntrpLevel, description, telegram, whatsapp, signal } =
       input;
 
     const userResult = await this.repository.getFirstUserById({ id });
@@ -43,7 +43,7 @@ export default class EditProfile
     let newUserProfileObject = Object.assign(
       { id },
       imageUrl === undefined ? null : { imageUrl },
-      ustaLevel === undefined ? null : { ustaLevel },
+      ntrpLevel === undefined ? null : { ntrpLevel },
       description === undefined ? null : { description },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },

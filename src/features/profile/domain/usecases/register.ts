@@ -6,7 +6,7 @@ interface RegisterParam {
   username: string;
   email: string;
   password: string;
-  ustaLevel: number;
+  ntrpLevel: number;
   imageUrl: string;
   description?: string;
   telegram?: string;

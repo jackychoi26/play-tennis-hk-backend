@@ -8,7 +8,7 @@ export default class TennisMatch {
     public createdAt: Date,
     // Person who created the post
     public poster: User,
-    public ustaLevelRange: number[],
+    public ntrpLevelRange: number[],
     public startDateTime: Date,
     public endDateTime: Date,
     public district: District,
@@ -21,7 +21,7 @@ export default class TennisMatch {
     id = 'abcd-1234',
     createdAt = new Date(),
     poster = User.stub({}).getValue()!,
-    ustaLevelRange = [3.5, 4],
+    ntrpLevelRange = [3.5, 4],
     startDateTime = new Date(),
     endDateTime = new Date(),
     district = District.taiPo,
@@ -32,7 +32,7 @@ export default class TennisMatch {
     id?: string;
     createdAt?: Date;
     poster?: User;
-    ustaLevelRange?: number[];
+    ntrpLevelRange?: number[];
     startDateTime?: Date;
     endDateTime?: Date;
     district?: District;
@@ -44,7 +44,7 @@ export default class TennisMatch {
       id,
       createdAt,
       poster,
-      ustaLevelRange,
+      ntrpLevelRange,
       startDateTime,
       endDateTime,
       district,

@@ -6,7 +6,7 @@ export interface CreateUserParam {
   email: string;
   password: string;
   imageUrl: string;
-  ustaLevel: number;
+  ntrpLevel: number;
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -17,7 +17,7 @@ export interface UpdateUserParam {
   id: string;
   password: string;
   imageUrl?: string;
-  ustaLevel?: number;
+  ntrpLevel?: number;
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -30,7 +30,7 @@ export default interface IUserRepository {
     email,
     password,
     imageUrl,
-    ustaLevel,
+    ntrpLevel,
     description,
     telegram,
     whatsapp,
@@ -50,7 +50,7 @@ export default interface IUserRepository {
   updateUser({
     id,
     imageUrl,
-    ustaLevel,
+    ntrpLevel,
     description,
     telegram,
     whatsapp,

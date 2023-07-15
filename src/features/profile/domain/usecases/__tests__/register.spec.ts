@@ -29,7 +29,7 @@ describe('Register with unique username or email', () => {
       User.stub({
         username: 'tennisking',
         email: 'jones@gmail.com',
-        ustaLevel: 3.5,
+        ntrpLevel: 3.5,
         password: 'abcd1234',
         imageUrl: 'abcd1234'
       })
@@ -38,7 +38,7 @@ describe('Register with unique username or email', () => {
     const result = await register.execute({
       username: 'tennisking',
       email: 'jones@gmail.com',
-      ustaLevel: 3.5,
+      ntrpLevel: 3.5,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });
@@ -59,7 +59,7 @@ describe('Register with unique username or email', () => {
     expect(repository.createUser).toBeCalledWith({
       username: 'tennisking',
       email: 'jones@gmail.com',
-      ustaLevel: 3.5,
+      ntrpLevel: 3.5,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });
@@ -85,7 +85,7 @@ describe('Register with an existing username or email', () => {
     const result = await register.execute({
       username: 'tennisking',
       email: 'jones@gmail.com',
-      ustaLevel: 3.5,
+      ntrpLevel: 3.5,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });
@@ -112,7 +112,7 @@ describe('Register with an existing username or email', () => {
     const result = await register.execute({
       username: 'tennisking',
       email: 'jones@gmail.com',
-      ustaLevel: 3.5,
+      ntrpLevel: 3.5,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });

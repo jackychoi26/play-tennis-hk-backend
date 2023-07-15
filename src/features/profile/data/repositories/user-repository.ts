@@ -11,7 +11,7 @@ export default class UserRepository implements IUserRepository {
     email,
     password,
     imageUrl,
-    ustaLevel,
+    ntrpLevel,
     description,
     telegram,
     whatsapp,
@@ -27,7 +27,7 @@ export default class UserRepository implements IUserRepository {
             password: 'saw32ioj32t49s)J@!f2f',
             createdAt: 'afdwef',
             imageUrl: 'asdjiasosdjsa',
-            ustaLevel: 3.5
+            ntrpLevel: 3.5
           })
         );
       }, 1000);
@@ -66,7 +66,7 @@ export default class UserRepository implements IUserRepository {
     id,
     password,
     imageUrl,
-    ustaLevel,
+    ntrpLevel,
     description,
     telegram,
     whatsapp,

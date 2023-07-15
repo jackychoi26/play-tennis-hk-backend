@@ -25,7 +25,7 @@ describe('Update user profile success', () => {
     const result = await editProfile.execute({
       id: 'abcd-123456',
       description: 'testing',
-      ustaLevel: 4.5
+      ntrpLevel: 4.5
     });
 
     expect(result.message).toBe('EDIT_PROFILE_SUCCESS');
@@ -41,7 +41,7 @@ describe('Update user profile success', () => {
     expect(repository.updateUser).toBeCalledWith({
       id: 'abcd-123456',
       description: 'testing',
-      ustaLevel: 4.5
+      ntrpLevel: 4.5
     });
   });
 });
@@ -62,7 +62,7 @@ describe('Update user profile failure', () => {
     const result = await editProfile.execute({
       id: 'abcd-123456',
       description: 'testing',
-      ustaLevel: 4.5
+      ntrpLevel: 4.5
     });
 
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
@@ -87,7 +87,7 @@ describe('Update user profile failure', () => {
     const result = await editProfile.execute({
       id: 'abcd-123456',
       description: 'testing',
-      ustaLevel: 4.5
+      ntrpLevel: 4.5
     });
 
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
@@ -100,7 +100,7 @@ describe('Update user profile failure', () => {
     expect(repository.updateUser).toBeCalledWith({
       id: 'abcd-123456',
       description: 'testing',
-      ustaLevel: 4.5
+      ntrpLevel: 4.5
     });
   });
 });

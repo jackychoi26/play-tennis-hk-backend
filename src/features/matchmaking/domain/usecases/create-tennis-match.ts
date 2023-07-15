@@ -77,10 +77,10 @@ export default class CreateTennisMatch
       const user = userResult.getValue();
 
       if (user) {
-        console.log(this.hasAtLeastOneContactInfo(user));
         if (this.hasAtLeastOneContactInfo(user)) {
           const tennisMatchesResult =
             await this.tennisMatchesRepository.getMatches();
+
           if (tennisMatchesResult.isSuccess) {
             const tennisMatches = tennisMatchesResult.getValue() ?? [];
 

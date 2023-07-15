@@ -34,7 +34,6 @@ export type GetTennisMatchesResult =
 
 export default class GetTennisMatches {
   execute(): Promise<GetTennisMatchesResult> {
-    console.log(tennisMatches);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({

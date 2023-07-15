@@ -26,45 +26,34 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
   constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(input: LoginParam): Promise<LoginResult> {
-    console.log('testing');
-    // const { username, password } = input;
-    // console.log(username, password);
-    // console.log(username, password);
+    const { username, password } = input;
 
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res({
-          message: 'LOGIN_SUCCESS',
-          userProfile: User.stub({}).getValue()!.toUserProfile(),
-          accessToken: 'AccessToken'
-        });
-      }, 1000);
+    const result = await this.repository.getFirstUserByUsername({
+      username: username
     });
-    // const result = await this.repository.getFirstUserByUsername({
-    //   username: username
-    // });
 
-    // if (result.isFailure) {
-    //   return {
-    //     type: 'LOGIN_FAILURE'
-    //   };
-    // }
+    if (result.isFailure) {
+      return {
+        message: 'LOGIN_FAILURE'
+      };
+    }
 
-    // const user = result.getValue();
+    const user = result.getValue();
 
-    // if (user && user.comparePassword(password)) {
-    //   return {
-    //     type: 'LOGIN_SUCCESS',
-    //     token: JwtHelper.sign({
-    //       id: user.id,
-    //       username: user.username,
-    //       email: user.email
-    //     })
-    //   };
-    // } else {
-    //   return {
-    //     type: 'LOGIN_FAILURE'
-    //   };
-    // }
+    if (user && user.comparePassword(password)) {
+      return {
+        message: 'LOGIN_SUCCESS',
+        userProfile: user.toUserProfile(),
+        accessToken: JwtHelper.sign({
+          id: user.id,
+          username: user.username,
+          email: user.email
+        })
+      };
+    } else {
+      return {
+        message: 'LOGIN_FAILURE'
+      };
+    }
   }
 }

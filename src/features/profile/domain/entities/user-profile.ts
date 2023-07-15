@@ -6,8 +6,9 @@ export default class UserProfile {
   public readonly email: string;
   public readonly imageUrl: string;
   public readonly ntrpLevel: number;
-  public readonly age?: number;
   public readonly districts: District[];
+  public readonly age: Nullable<number>;
+  public readonly isProfilePublic: boolean;
   public readonly description: Nullable<string>;
   public readonly telegram: Nullable<string>;
   public readonly whatsapp: Nullable<string>;

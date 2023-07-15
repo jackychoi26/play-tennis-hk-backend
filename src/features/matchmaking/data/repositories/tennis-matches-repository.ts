@@ -12,7 +12,7 @@ export default class TennisMatchesRepository
   }
   saveMatch({
     user,
-    ustaLevelRange,
+    ntrpLevelRange,
     startDateTime,
     endDateTime,
     district,

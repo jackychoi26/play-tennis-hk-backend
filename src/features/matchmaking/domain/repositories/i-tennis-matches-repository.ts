@@ -6,7 +6,7 @@ import { District } from '../../../../domain/district';
 
 export interface SaveTennisMatchParam {
   user: User;
-  ustaLevelRange: number[];
+  ntrpLevelRange: number;
   startDateTime: Date;
   endDateTime: Date;
   district: District;
@@ -20,7 +20,7 @@ export default interface ITennisMatchesRepository {
 
   saveMatch({
     user,
-    ustaLevelRange,
+    ntrpLevelRange,
     startDateTime,
     endDateTime,
     district,

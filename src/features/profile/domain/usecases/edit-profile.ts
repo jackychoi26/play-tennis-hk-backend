@@ -1,5 +1,6 @@
 import UseCase from '../../../../core/usecase';
 import User from '../entities/user';
+import UserProfile from '../entities/user-profile';
 import IUserRepository from '../repositories/i-user-repository';
 
 interface EditProfileParam {
@@ -14,7 +15,7 @@ interface EditProfileParam {
 
 type EditProfileSuccess = {
   message: 'EDIT_PROFILE_SUCCESS';
-  user: User;
+  userProfile: UserProfile;
 };
 
 type EditProfileFailure = {
@@ -59,7 +60,7 @@ export default class EditProfile
       if (updatedUser) {
         return {
           message: 'EDIT_PROFILE_SUCCESS',
-          user: updatedUser
+          userProfile: updatedUser.toUserProfile()
         };
       }
     }

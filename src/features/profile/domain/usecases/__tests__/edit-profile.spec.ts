@@ -31,7 +31,7 @@ describe('Update user profile success', () => {
     expect(result.message).toBe('EDIT_PROFILE_SUCCESS');
 
     if (result.message == 'EDIT_PROFILE_SUCCESS') {
-      expect(result.user).toBeDefined();
+      expect(result.userProfile).toBeDefined();
     }
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);

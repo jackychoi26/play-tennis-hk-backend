@@ -36,7 +36,7 @@ describe('Create match failure', () => {
 
     const result = await createTennisMatch.execute({
       userId: 'abcd1234',
-      ustaLevelRange: [3.0],
+      ntrpLevelRange: 3.0,
       startDateTime: new Date(),
       endDateTime: new Date(),
       district: District.kwunTong,
@@ -57,12 +57,19 @@ describe('Create match failure', () => {
       User.stub({ telegram: 'Something' })
     );
 
-
-    tennisMatchesRepository.getMatches.mockResolvedValueOnce(new Result<string>(isSuccess: true, value: "sjaiodj"))
+    tennisMatchesRepository.getMatches.mockResolvedValueOnce(
+      Result.ok<TennisMatch[]>([
+        TennisMatch.stub({}),
+        TennisMatch.stub({}),
+        TennisMatch.stub({}),
+        TennisMatch.stub({}),
+        TennisMatch.stub({})
+      ])
+    );
 
     const result = await createTennisMatch.execute({
       userId: 'abcd1234',
-      ustaLevelRange: [3.0],
+      ntrpLevelRange: 3.0,
       startDateTime: new Date(),
       endDateTime: new Date(),
       district: District.kwunTong,
@@ -70,6 +77,6 @@ describe('Create match failure', () => {
       court: 'Court'
     });
 
-    expect(result.message).toBe('TOO_MANY_MATCHES_CREATED');
+    expect(result.message).toBe('TOO_MANY_MATCHES_CREATED_FAILURE');
   });
 });

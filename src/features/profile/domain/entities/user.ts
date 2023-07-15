@@ -10,11 +10,12 @@ export default class User {
   public readonly username: string;
   public readonly email: string;
   public readonly password: string;
+  public readonly isProfilePublic: boolean;
   public readonly createdAt: string;
   public readonly imageUrl: string;
   public readonly ntrpLevel: number;
-  public readonly age?: number;
   public readonly districts: District[];
+  public readonly age: Nullable<number>;
   public readonly description: Nullable<string>;
   public readonly telegram: Nullable<string>;
   public readonly whatsapp: Nullable<string>;
@@ -29,6 +30,7 @@ export default class User {
       { argument: data.id, argumentName: 'id' },
       { argument: data.username, argumentName: 'username' },
       { argument: data.email, argumentName: 'email' },
+      { argument: data.isProfilePublic, argumentName: 'isProfilePublic' },
       { argument: data.password, argumentName: 'password' },
       { argument: data.createdAt, argumentName: 'createdAt' },
       { argument: data.imageUrl, argumentName: 'imageUrl' },
@@ -59,6 +61,7 @@ export default class User {
     username = 'jones',
     email = 'jones@gmail.com',
     password = 'abcd1234',
+    isProfilePublic = false,
     createdAt = 'abcd',
     imageUrl = 'qwer',
     ntrpLevel = 3.5,
@@ -74,6 +77,7 @@ export default class User {
       username,
       email,
       password,
+      isProfilePublic,
       createdAt,
       imageUrl,
       ntrpLevel,

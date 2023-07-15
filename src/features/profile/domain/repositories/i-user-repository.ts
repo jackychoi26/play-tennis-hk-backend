@@ -56,4 +56,6 @@ export default interface IUserRepository {
     whatsapp,
     signal
   }: UpdateUserParam): Promise<Result<User>>;
+
+  getPublicUsers(): Promise<Result<User[]>>;
 }

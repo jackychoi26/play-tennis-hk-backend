@@ -26,13 +26,13 @@ type GetTennisMatchesSuccess = {
   tennisMatches: TennisMatch[];
 };
 
-type TennisMatchesEmpty = {
-  message: 'TENNIS_MATCHES_EMPTY';
+type GetTennisMatchesFailure = {
+  message: 'GET_TENNIS_MATCHES_FAILURE';
 };
 
 export type GetTennisMatchesResult =
   | GetTennisMatchesSuccess
-  | TennisMatchesEmpty;
+  | GetTennisMatchesFailure;
 
 export default class GetTennisMatches {
   constructor(
@@ -40,9 +40,21 @@ export default class GetTennisMatches {
   ) {}
 
   async execute(): Promise<GetTennisMatchesResult> {
+    const tennisMatchesResult = await this.repository.getMatches();
+
+    if (tennisMatchesResult.isSuccess) {
+      const tennisMatches = tennisMatchesResult.getValue();
+
+      if (tennisMatches) {
+        return {
+          message: 'GET_TENNIS_MATCHES_SUCCESS',
+          tennisMatches: tennisMatches
+        };
+      }
+    }
+
     return {
-      message: 'GET_TENNIS_MATCHES_SUCCESS',
-      tennisMatches: (await this.repository.getMatches()).getValue()!
+      message: 'GET_TENNIS_MATCHES_FAILURE'
     };
   }
 }

@@ -7,7 +7,7 @@ import IUserRepository from '../../../../features/profile/domain/repositories/i-
 import User from '../../../../features/profile/domain/entities/user';
 
 interface CreateTennisMatchParam {
-  userId: string;
+  userId: number;
   ntrpLevel: number;
   startDateTime: Date;
   endDateTime: Date;

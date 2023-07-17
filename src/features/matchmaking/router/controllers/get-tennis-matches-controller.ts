@@ -11,8 +11,8 @@ export class GetTennisMatchesController {
       switch (result.message) {
         case 'GET_TENNIS_MATCHES_SUCCESS':
           return res.status(200).json(result);
-        case 'TENNIS_MATCHES_EMPTY':
-          return res.status(404).json(result);
+        case 'GET_TENNIS_MATCHES_FAILURE':
+          return res.status(500).json(result);
       }
     } catch (err) {}
   }

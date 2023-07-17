@@ -1,7 +1,7 @@
 FROM node:lts
 WORKDIR /usr/src/app
 COPY . .
-EXPOSE 8080
+EXPOSE 3000
 CMD npm install && \
     npx knex migrate:latest && \
     npx knex seed:run && \

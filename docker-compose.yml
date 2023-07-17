@@ -19,7 +19,7 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_HOST: db
             NODE_ENV: development
-            PORT: 8080
+            PORT: 3000
         depends_on: 
             - db
         build:
@@ -27,4 +27,4 @@ services:
             dockerfile: ./Dockerfile
         image: "be/play_tennis_hk:latest"
         ports:
-            - "8080:8080"
+            - "3000:3000"

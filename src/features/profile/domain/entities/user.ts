@@ -8,7 +8,7 @@ import Nullable from '../../../../core/nullable';
 export default class User {
   public readonly id: number;
   public readonly username: string;
-  public readonly email: string;
+  public email: Nullable<string>;
   public readonly password: string;
   public readonly isProfilePublic: boolean;
   public readonly createdAt: string;
@@ -51,7 +51,8 @@ export default class User {
     return bcrypt.compareSync(password, this.password);
   }
 
-  toUserProfile(): UserProfile {
+  toUserProfile({ withEmail }: { withEmail: boolean }): UserProfile {
+    if (!withEmail) this.email = null;
     return new UserProfile(this);
   }
 

@@ -41,19 +41,21 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
     const user = result.getValue();
 
     if (user && user.comparePassword(password)) {
-      return {
-        message: 'LOGIN_SUCCESS',
-        userProfile: user.toUserProfile(),
-        accessToken: JwtHelper.sign({
-          id: `${user.id}`,
-          username: user.username,
-          email: user.email
-        })
-      };
-    } else {
-      return {
-        message: 'LOGIN_FAILURE'
-      };
+      if (user.email) {
+        return {
+          message: 'LOGIN_SUCCESS',
+          userProfile: user.toUserProfile({ withEmail: true }),
+          accessToken: JwtHelper.sign({
+            id: `${user.id}`,
+            username: user.username,
+            email: user.email
+          })
+        };
+      }
     }
+
+    return {
+      message: 'LOGIN_FAILURE'
+    };
   }
 }

@@ -60,7 +60,7 @@ export default class EditProfile
       if (updatedUser) {
         return {
           message: 'EDIT_PROFILE_SUCCESS',
-          userProfile: updatedUser.toUserProfile()
+          userProfile: updatedUser.toUserProfile({ withEmail: true })
         };
       }
     }

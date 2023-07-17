@@ -33,7 +33,7 @@ export default class EditProfile
       const publicUsers = publicUserResult.getValue();
       if (publicUsers) {
         const publicUserProfiles = publicUsers.map((user) =>
-          user.toUserProfile()
+          user.toUserProfile({ withEmail: false })
         );
 
         return {

@@ -4,7 +4,7 @@ import Nullable from '../../../../core/nullable';
 export default class UserProfile {
   public readonly id: number;
   public readonly username: string;
-  public readonly email: string;
+  public email: Nullable<string>;
   public readonly imageUrl: Nullable<string>;
   public readonly ntrpLevel: number;
   public readonly districts: District[];

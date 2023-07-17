@@ -2,9 +2,11 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      database: 'play_tennis_hk',
-      user: 'choikinlung',
-      password: '',
+      // using env variables for security
+      host : "db",
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
       port: 5432
     },
     migrations: {

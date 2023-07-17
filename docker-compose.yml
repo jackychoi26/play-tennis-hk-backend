@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    db:
+        image: "postgres:15"
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data
+
+    backend:
+        environment: 
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_HOST: db
+            NODE_ENV: development
+            PORT: 8080
+        depends_on: 
+            - db
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        image: "be/play_tennis_hk:latest"
+        ports:
+            - "8080:8080"

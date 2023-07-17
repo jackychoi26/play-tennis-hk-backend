@@ -2,7 +2,6 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      // using env variables for security
       host : "db",
       database: process.env.POSTGRES_DB,
       user: process.env.POSTGRES_USER,

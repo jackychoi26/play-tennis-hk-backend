@@ -6,6 +6,7 @@ import ITennisMatchRepository, {
 } from '../../domain/repositories/i-tennis-match-repository';
 
 const knex = require('../../../../../database/config').knex;
+
 export default class TennisMatchRepository implements ITennisMatchRepository {
   async getTennisMatches(): Promise<Result<TennisMatch[]>> {
     try {

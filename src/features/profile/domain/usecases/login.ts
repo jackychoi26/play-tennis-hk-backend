@@ -1,7 +1,6 @@
 import JwtHelper from '../../../../core/jwt-helper';
 import IUserRepository from '../repositories/i-user-repository';
 import Usecase from '../../../../core/usecase';
-import User from '../entities/user';
 import UserRepository from '../../data/repositories/user-repository';
 import UserProfile from '../entities/user-profile';
 
@@ -33,6 +32,7 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
     });
 
     if (result.isFailure) {
+      console.log('No user');
       return {
         message: 'LOGIN_FAILURE'
       };
@@ -46,13 +46,15 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
           message: 'LOGIN_SUCCESS',
           userProfile: user.toUserProfile({ withEmail: true }),
           accessToken: JwtHelper.sign({
-            id: `${user.id}`,
+            id: user.id,
             username: user.username,
             email: user.email
           })
         };
       }
     }
+
+    console.log('Just failed');
 
     return {
       message: 'LOGIN_FAILURE'

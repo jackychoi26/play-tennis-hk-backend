@@ -13,7 +13,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('court').notNullable();
     table.string('remarks');
     table.timestamps(true, true);
-    table.boolean('is_deleted').defaultTo(false);
+    table.boolean('is_deleted').notNullable().defaultTo(false);
   });
 }
 

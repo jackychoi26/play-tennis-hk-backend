@@ -1,12 +1,13 @@
+import UserRepository from '../../../profile/data/repositories/user-repository';
 import UseCase from '../../../../core/usecase';
 import User from '../entities/user';
 import UserProfile from '../entities/user-profile';
 import IUserRepository from '../repositories/i-user-repository';
 
 interface EditProfileParam {
-  id: string;
+  id: number;
   imageUrl?: string;
-  ntrpLevel: number;
+  ntrpLevel?: number;
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -27,7 +28,7 @@ type EditProfileResult = EditProfileSuccess | EditProfileFailure;
 export default class EditProfile
   implements UseCase<EditProfileParam, EditProfileResult>
 {
-  constructor(private repository: IUserRepository) {}
+  constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(input: EditProfileParam): Promise<EditProfileResult> {
     const { id, imageUrl, ntrpLevel, description, telegram, whatsapp, signal } =

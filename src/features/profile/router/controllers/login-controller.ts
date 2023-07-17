@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Login from '../../../profile/domain/usecases/login';
 
-export class LoginController {
+export default class LoginController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
@@ -17,6 +17,7 @@ export class LoginController {
           return res.status(401).json(result);
       }
     } catch (err) {
+      console.error(err);
       return res.status(500).json();
     }
   }

@@ -1,17 +1,26 @@
 import * as jwt from 'jsonwebtoken';
+import UnauthorizedError from './errors/unauthorized-error';
 
 // TODO: replace secret with
 export default class JwtHelper {
   // expires in 3 months
   static sign(data: TokenData, expiresIn: number = 60 * 60 * 24 * 90): string {
-    return jwt.sign(data, 'secret', {
+    return jwt.sign(data, process.env.JWT_SECRET!, {
       expiresIn: 1000
     });
+  }
+
+  static verify(token: string): TokenData {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET!) as TokenData;
+    } catch {
+      throw new UnauthorizedError('Invalid token');
+    }
   }
 }
 
 export interface TokenData {
-  id: string;
+  id: number;
   username: string;
   email: string;
 }

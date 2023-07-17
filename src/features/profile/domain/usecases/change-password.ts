@@ -3,7 +3,7 @@ import IUserRepository from '../repositories/i-user-repository';
 import User from '../entities/user';
 
 interface ChangePasswordParam {
-  id: string;
+  id: number;
   password: string;
 }
 

@@ -5,6 +5,7 @@ import IUserRepository, {
   CreateUserParam,
   UpdateUserParam
 } from '../../domain/repositories/i-user-repository';
+const knex = require('../../../../../database/config').knex;
 
 export default class UserRepository implements IUserRepository {
   createUser({
@@ -51,16 +52,38 @@ export default class UserRepository implements IUserRepository {
     });
   }
 
-  getFirstUserByUsername({
+  async getFirstUserByUsername({
     username
   }: {
     username: string;
   }): Promise<Result<User>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res(Result.fail<User>('Cannot find user'));
-      }, 1000);
-    });
+    console.log(username);
+    const userQuery = await knex('player')
+      .where('username', '=', username)
+      .select('*')
+      .first();
+
+    if (userQuery) {
+      const data = userQuery;
+      return User.create({
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        isProfilePublic: data.is_profile_public,
+        createdAt: data.created_at,
+        imageUrl: data.image_url,
+        ntrpLevel: data.ntrp_level,
+        districts: data.districts,
+        age: data.age,
+        description: data.description,
+        telegram: data.telegram,
+        whatsapp: data.whatsapp,
+        signal: data.signal
+      });
+    } else {
+      return Result.fail('Cannot find user');
+    }
   }
 
   updateUser({

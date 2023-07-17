@@ -16,6 +16,17 @@ export default class UserProfile {
   public readonly signal: Nullable<string>;
 
   constructor(data: Partial<UserProfile>) {
-    Object.assign(this, data);
+    this.id = data.id as number;
+    this.username = data.username as string;
+    this.email = data.email as Nullable<string>;
+    this.imageUrl = data.imageUrl as Nullable<string>;
+    this.ntrpLevel = data.ntrpLevel as number;
+    this.districts = data.districts as District[];
+    this.age = data.age as Nullable<number>;
+    this.isProfilePublic = data.isProfilePublic as boolean;
+    this.description = data.description as Nullable<string>;
+    this.telegram = data.telegram as Nullable<string>;
+    this.whatsapp = data.whatsapp as Nullable<string>;
+    this.signal = data.signal as Nullable<string>;
   }
 }

@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import CustomError from '../core/errors/custom-error';
 import InternalError from '../core/errors/internal-error';
 
-export const errorHandler = (
+const errorHandler = (
   err: Error,
-  req: Request,
+  _: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -12,6 +12,7 @@ export const errorHandler = (
     return res.status(err.statusCode).send({ errorMessage: err.message });
   } else if (err instanceof InternalError) {
     console.error('❌ Unhandled Error: ', err.message);
+
     return res
       .status(err.statusCode)
       .send({ errorMessage: 'Internal server error' });
@@ -23,3 +24,5 @@ export const errorHandler = (
     errorMessage: 'Something went wrong'
   });
 };
+
+export default errorHandler;

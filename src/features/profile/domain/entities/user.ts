@@ -25,6 +25,7 @@ export default class User {
     Object.assign(this, data);
   }
 
+  // TODO: apply this create pattern to all other domain entities
   static create(data: Partial<User>): Result<User> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: data.id, argumentName: 'id' },

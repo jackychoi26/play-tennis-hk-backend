@@ -1,6 +1,4 @@
 import TennisMatch from '../entities/tennis-match';
-import { District } from '../../../../domain/district';
-import { MatchType } from '../../../../domain/match-type';
 import TennisMatchRepository from '../../data/repositories/tennis-match-repository';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 

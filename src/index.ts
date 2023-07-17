@@ -1,4 +1,3 @@
-import TennisMatchRepository from './features/matchmaking/data/repositories/tennis-match-repository';
 import { app } from './app';
 
 const start = async () => {

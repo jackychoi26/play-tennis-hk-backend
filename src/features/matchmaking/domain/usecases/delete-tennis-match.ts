@@ -1,5 +1,4 @@
 import UseCase from '../../../../core/usecase';
-import IUserRepository from 'features/profile/domain/repositories/i-user-repository';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 import TennisMatch from '../entities/tennis-match';
 

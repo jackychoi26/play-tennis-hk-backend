@@ -53,8 +53,7 @@ export default class User {
   }
 
   toUserProfile({ withEmail }: { withEmail: boolean }): UserProfile {
-    if (!withEmail) this.email = null;
-    return new UserProfile(this);
+    return new UserProfile(this, withEmail);
   }
 
   static stub({

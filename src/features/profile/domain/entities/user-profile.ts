@@ -15,10 +15,14 @@ export default class UserProfile {
   public readonly whatsapp: Nullable<string>;
   public readonly signal: Nullable<string>;
 
-  constructor(data: Partial<UserProfile>) {
+  constructor(data: Partial<UserProfile>, withEmail: boolean) {
     this.id = data.id as number;
     this.username = data.username as string;
-    this.email = data.email as Nullable<string>;
+
+    if (withEmail) {
+      this.email = data.email as Nullable<string>;
+    }
+
     this.imageUrl = data.imageUrl as Nullable<string>;
     this.ntrpLevel = data.ntrpLevel as number;
     this.districts = data.districts as District[];

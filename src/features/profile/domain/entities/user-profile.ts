@@ -2,9 +2,10 @@ import { District } from '../../../../domain/district';
 import Nullable from '../../../../core/nullable';
 
 export default class UserProfile {
+  public readonly id: number;
   public readonly username: string;
   public readonly email: string;
-  public readonly imageUrl: string;
+  public readonly imageUrl: Nullable<string>;
   public readonly ntrpLevel: number;
   public readonly districts: District[];
   public readonly age: Nullable<number>;

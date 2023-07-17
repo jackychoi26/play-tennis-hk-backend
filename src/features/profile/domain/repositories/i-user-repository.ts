@@ -5,7 +5,7 @@ export interface CreateUserParam {
   username: string;
   email: string;
   password: string;
-  imageUrl: string;
+  imageUrl?: string;
   ntrpLevel: number;
   description?: string;
   telegram?: string;
@@ -14,7 +14,7 @@ export interface CreateUserParam {
 }
 
 export interface UpdateUserParam {
-  id: string;
+  id: number;
   password: string;
   imageUrl?: string;
   ntrpLevel?: number;
@@ -37,7 +37,7 @@ export default interface IUserRepository {
     signal
   }: CreateUserParam): Promise<Result<User>>;
 
-  getFirstUserById({ id }: { id: string }): Promise<Result<User>>;
+  getFirstUserById({ id }: { id: number }): Promise<Result<User>>;
 
   getFirstUserByEmail({ email }: { email: string }): Promise<Result<User>>;
 

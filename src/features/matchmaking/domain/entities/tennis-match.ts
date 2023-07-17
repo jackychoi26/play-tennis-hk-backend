@@ -1,27 +1,31 @@
 import User from '../../../../features/profile/domain/entities/user';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
+import UserProfile from '../../../profile/domain/entities/user-profile';
+import Nullable from '../../../../core/nullable';
 
 export default class TennisMatch {
-  constructor(
-    public id: string,
-    public createdAt: Date,
-    // Person who created the post
-    public poster: User,
-    public ntrpLevelRange: number[],
-    public startDateTime: Date,
-    public endDateTime: Date,
-    public district: District,
-    public court: string,
-    public matchType: MatchType,
-    public remarks?: string
-  ) {}
+  public readonly id: number;
+  public readonly createdAt: Date;
+  // Person who created the post
+  public readonly poster: UserProfile;
+  public readonly ntrpLevel: number;
+  public readonly startDateTime: Date;
+  public readonly endDateTime: Date;
+  public readonly district: District;
+  public readonly court: string;
+  public readonly matchType: MatchType;
+  public readonly remarks: Nullable<string>;
+
+  constructor(data: Partial<TennisMatch>) {
+    Object.assign(this, data);
+  }
 
   static stub({
-    id = 'abcd-1234',
+    id = 1,
     createdAt = new Date(),
     poster = User.stub({}).getValue()!,
-    ntrpLevelRange = [3.5, 4],
+    ntrpLevel = 3.5,
     startDateTime = new Date(),
     endDateTime = new Date(),
     district = District.taiPo,
@@ -29,10 +33,10 @@ export default class TennisMatch {
     matchType = MatchType.mensSingles,
     remarks = 'Please bring your own racquest'
   }: {
-    id?: string;
+    id?: number;
     createdAt?: Date;
-    poster?: User;
-    ntrpLevelRange?: number[];
+    poster?: UserProfile;
+    ntrpLevel?: number;
     startDateTime?: Date;
     endDateTime?: Date;
     district?: District;
@@ -40,17 +44,17 @@ export default class TennisMatch {
     matchType?: MatchType;
     remarks?: string;
   }): TennisMatch {
-    return new TennisMatch(
+    return new TennisMatch({
       id,
       createdAt,
       poster,
-      ntrpLevelRange,
+      ntrpLevel,
       startDateTime,
       endDateTime,
       district,
       court,
       matchType,
       remarks
-    );
+    });
   }
 }

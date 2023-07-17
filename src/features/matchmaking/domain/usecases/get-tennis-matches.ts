@@ -1,6 +1,8 @@
 import TennisMatch from '../entities/tennis-match';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
+import TennisMatchesRepository from '../../data/repositories/tennis-matches-repository';
+import ITennisMatchesRepository from '../repositories/i-tennis-matches-repository';
 
 const tennisMatches = [
   TennisMatch.stub({
@@ -33,14 +35,14 @@ export type GetTennisMatchesResult =
   | TennisMatchesEmpty;
 
 export default class GetTennisMatches {
-  execute(): Promise<GetTennisMatchesResult> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          message: 'GET_TENNIS_MATCHES_SUCCESS',
-          tennisMatches: tennisMatches
-        });
-      }, 1000);
-    });
+  constructor(
+    private repository: ITennisMatchesRepository = new TennisMatchesRepository()
+  ) {}
+
+  async execute(): Promise<GetTennisMatchesResult> {
+    return {
+      message: 'GET_TENNIS_MATCHES_SUCCESS',
+      tennisMatches: (await this.repository.getMatches()).getValue()!
+    };
   }
 }

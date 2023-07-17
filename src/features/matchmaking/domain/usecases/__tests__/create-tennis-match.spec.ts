@@ -72,7 +72,7 @@ describe('Create match failure', () => {
 
     const result = await createTennisMatch.execute({
       userId: 'abcd1234',
-      ntrpLevelRange: 3.0,
+      ntrpLevel: 3.0,
       startDateTime: new Date(),
       endDateTime: new Date(),
       district: District.kwunTong,

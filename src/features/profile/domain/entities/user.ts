@@ -6,13 +6,13 @@ import UserProfile from './user-profile';
 import Nullable from '../../../../core/nullable';
 
 export default class User {
-  public readonly id: string;
+  public readonly id: number;
   public readonly username: string;
   public readonly email: string;
   public readonly password: string;
   public readonly isProfilePublic: boolean;
   public readonly createdAt: string;
-  public readonly imageUrl: string;
+  public readonly imageUrl: Nullable<string>;
   public readonly ntrpLevel: number;
   public readonly districts: District[];
   public readonly age: Nullable<number>;
@@ -33,7 +33,6 @@ export default class User {
       { argument: data.isProfilePublic, argumentName: 'isProfilePublic' },
       { argument: data.password, argumentName: 'password' },
       { argument: data.createdAt, argumentName: 'createdAt' },
-      { argument: data.imageUrl, argumentName: 'imageUrl' },
       { argument: data.ntrpLevel, argumentName: 'ntrpLevel' }
     ]);
 
@@ -57,7 +56,7 @@ export default class User {
   }
 
   static stub({
-    id = 'abcd-1234',
+    id = 1,
     username = 'jones',
     email = 'jones@gmail.com',
     password = 'abcd1234',

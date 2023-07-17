@@ -7,7 +7,7 @@ interface RegisterParam {
   email: string;
   password: string;
   ntrpLevel: number;
-  imageUrl: string;
+  imageUrl?: string;
   description?: string;
   telegram?: string;
   whatsapp?: string;

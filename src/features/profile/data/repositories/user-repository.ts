@@ -22,7 +22,7 @@ export default class UserRepository implements IUserRepository {
       setTimeout(() => {
         res(
           User.create({
-            id: 'abcd-1234',
+            id: 1,
             username: 'jackychoi',
             email: 'jackychoikinlung@gmail.com',
             password: 'saw32ioj32t49s)J@!f2f',
@@ -35,7 +35,7 @@ export default class UserRepository implements IUserRepository {
     });
   }
 
-  getFirstUserById({ id }: { id: string }): Promise<Result<User>> {
+  getFirstUserById({ id }: { id: number }): Promise<Result<User>> {
     return new Promise((res, rej) => {
       setTimeout(() => {
         rej(Result.fail<User>('Cannot find user'));

@@ -8,7 +8,7 @@ import User from '../../../../features/profile/domain/entities/user';
 
 interface CreateTennisMatchParam {
   userId: string;
-  ntrpLevelRange: number;
+  ntrpLevel: number;
   startDateTime: Date;
   endDateTime: Date;
   district: District;
@@ -53,7 +53,7 @@ export default class CreateTennisMatch
   ): Promise<CreateTennisMatchResult> {
     const {
       userId,
-      ntrpLevelRange,
+      ntrpLevel,
       startDateTime,
       endDateTime,
       district,
@@ -96,7 +96,7 @@ export default class CreateTennisMatch
               const tennisMatchResult =
                 await this.tennisMatchesRepository.saveMatch({
                   user,
-                  ntrpLevelRange,
+                  ntrpLevel,
                   startDateTime,
                   endDateTime,
                   district,

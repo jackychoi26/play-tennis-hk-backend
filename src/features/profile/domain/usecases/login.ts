@@ -45,7 +45,7 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
         message: 'LOGIN_SUCCESS',
         userProfile: user.toUserProfile(),
         accessToken: JwtHelper.sign({
-          id: user.id,
+          id: `${user.id}`,
           username: user.username,
           email: user.email
         })

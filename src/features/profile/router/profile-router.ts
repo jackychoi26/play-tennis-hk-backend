@@ -4,13 +4,15 @@ import EditProfileController from './controllers/edit-profile-controller';
 import requireAuth from '../../../middlewares/require-auth';
 import errorHandler from '../../../middlewares/error-handler';
 import validateRequest from '../../../middlewares/validate-request';
-import ntrpLevelValidator from '../../../validatons/ntrp-level-validator';
-import descriptionValidator from '../../../validatons/description-validator';
-import signalValidator from '../../../validatons/signal-validator';
-import whatsappValidator from '../../../validatons/whatsapp-validator';
-import telegramValidator from '../../../validatons/telegram-validator';
-import usernameValidator from '../../../validatons/username-validator';
-import passwordValidator from '../../../validatons/password-validator';
+import {
+  descriptionValidator,
+  ntrpLevelValidator,
+  passwordValidator,
+  signalValidator,
+  telegramValidator,
+  usernameValidator,
+  whatsappValidator
+} from '../../../validatons';
 
 export class ProfileRouter {
   private router: Router = express.Router();
@@ -37,7 +39,7 @@ export class ProfileRouter {
         descriptionValidator.optional(),
         signalValidator.optional(),
         whatsappValidator.optional(),
-        telegramValidator
+        telegramValidator.optional()
       ],
       validateRequest,
       errorHandler,

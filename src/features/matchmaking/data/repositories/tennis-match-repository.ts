@@ -28,7 +28,6 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
           const userProfile = new UserProfile({
             id: data.player_id,
             username: data.username,
-            email: data.email,
             imageUrl: data.image_url,
             ntrpLevel: data.player_ntrp_level,
             districts: data.player_districts,
@@ -86,7 +85,6 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
       const userProfile = new UserProfile({
         id: data.player_id,
         username: data.username,
-        email: data.email,
         imageUrl: data.image_url,
         ntrpLevel: data.player_ntrp_level,
         districts: data.player_districts,

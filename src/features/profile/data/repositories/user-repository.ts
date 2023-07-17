@@ -1,4 +1,3 @@
-import UserProfile from 'features/profile/domain/entities/user-profile';
 import Result from '../../../../core/result';
 import User from '../../domain/entities/user';
 import IUserRepository, {

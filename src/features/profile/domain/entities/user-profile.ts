@@ -15,7 +15,7 @@ export default class UserProfile {
   public readonly whatsapp: Nullable<string>;
   public readonly signal: Nullable<string>;
 
-  constructor(data: Partial<UserProfile>, withEmail: boolean) {
+  constructor(data: Partial<UserProfile>, withEmail: boolean = false) {
     this.id = data.id as number;
     this.username = data.username as string;
 

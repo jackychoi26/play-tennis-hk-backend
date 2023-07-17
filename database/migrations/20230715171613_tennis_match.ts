@@ -3,7 +3,6 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('tennis_match', (table) => {
     table.increments('id').primary();
-    table.timestamps(true, true);
     table.integer('poster_id');
     table.foreign('poster_id').references('id').inTable('player');
     table.float('ntrp_level', 1).notNullable();
@@ -13,6 +12,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('match_type').notNullable();
     table.string('court').notNullable();
     table.string('remarks');
+    table.timestamps(true, true);
+    table.boolean('is_deleted').defaultTo(false);
   });
 }
 

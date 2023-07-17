@@ -3,7 +3,6 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('player', (table) => {
     table.increments().primary();
-    table.timestamps(true, true);
     table.string('username').notNullable();
     table.string('email').notNullable();
     table.boolean('is_profile_public');
@@ -16,6 +15,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('telegram');
     table.string('whatsapp');
     table.string('signal');
+    table.timestamps(true, true);
+    table.boolean('is_deleted').notNullable().defaultTo(false);
   });
 }
 

@@ -1,4 +1,4 @@
-import User from '../../../../features/profile/domain/entities/user';
+import User from '../../../profile/domain/entities/user';
 import Result from '../../../../core/result';
 import TennisMatch from '../entities/tennis-match';
 import { MatchType } from '../../../../domain/match-type';
@@ -15,8 +15,14 @@ export interface SaveTennisMatchParam {
   remarks?: string;
 }
 
-export default interface ITennisMatchesRepository {
-  getMatches(): Promise<Result<TennisMatch[]>>;
+export default interface ITennisMatchRepository {
+  getTennisMatches(): Promise<Result<TennisMatch[]>>;
+
+  getTennisMatchById({
+    tennisMatchId
+  }: {
+    tennisMatchId: number;
+  }): Promise<Result<TennisMatch>>;
 
   saveMatch({
     user,
@@ -28,4 +34,10 @@ export default interface ITennisMatchesRepository {
     court,
     remarks
   }: SaveTennisMatchParam): Promise<Result<TennisMatch>>;
+
+  deleteTennisMatch({
+    tennisMatchId
+  }: {
+    tennisMatchId: number;
+  }): Promise<Result<void>>;
 }

@@ -2,7 +2,7 @@ import TennisMatch from '../entities/tennis-match';
 import { District } from '../../../../domain/district';
 import { MatchType } from '../../../../domain/match-type';
 import UseCase from '../../../../core/usecase';
-import ITennisMatchesRepository from '../repositories/i-tennis-matches-repository';
+import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 import IUserRepository from '../../../../features/profile/domain/repositories/i-user-repository';
 import User from '../../../../features/profile/domain/entities/user';
 
@@ -44,7 +44,7 @@ export default class CreateTennisMatch
   implements UseCase<CreateTennisMatchParam, CreateTennisMatchResult>
 {
   constructor(
-    private tennisMatchesRepository: ITennisMatchesRepository,
+    private tennisMatchRepository: ITennisMatchRepository,
     private userRepository: IUserRepository
   ) {}
 
@@ -72,14 +72,13 @@ export default class CreateTennisMatch
       };
     }
 
-    User.create({ telegram: 'sjaiodsj' });
     if (userResult.isSuccess) {
       const user = userResult.getValue();
 
       if (user) {
         if (this.hasAtLeastOneContactInfo(user)) {
           const tennisMatchesResult =
-            await this.tennisMatchesRepository.getMatches();
+            await this.tennisMatchRepository.getTennisMatches();
 
           if (tennisMatchesResult.isSuccess) {
             const tennisMatches = tennisMatchesResult.getValue() ?? [];
@@ -88,13 +87,14 @@ export default class CreateTennisMatch
               (tennisMatch) => tennisMatch.poster.id === user.id
             );
 
+            // TODO: move to system param
             if (tennisMatchesCreatedByCurrentUser.length > 3) {
               return {
                 message: 'TOO_MANY_MATCHES_CREATED_FAILURE'
               };
             } else {
               const tennisMatchResult =
-                await this.tennisMatchesRepository.saveMatch({
+                await this.tennisMatchRepository.saveMatch({
                   user,
                   ntrpLevel,
                   startDateTime,

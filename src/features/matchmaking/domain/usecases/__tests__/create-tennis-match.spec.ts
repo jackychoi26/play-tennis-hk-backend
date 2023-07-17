@@ -3,7 +3,7 @@ import { District } from '../../../../../domain/district';
 import { MatchType } from '../../../../../domain/match-type';
 import User from '../../../../../features/profile/domain/entities/user';
 import UserRepository from '../../../../profile/data/repositories/user-repository';
-import TennisMatchesRepository from '../../../data/repositories/tennis-matches-repository';
+import TennisMatchRepository from '../../../data/repositories/tennis-match-repository';
 import CreateTennisMatch from '../create-tennis-match';
 import Result from '../../../../../core/result';
 
@@ -11,14 +11,14 @@ jest.mock('../../../../profile/data/repositories/user-repository');
 jest.mock('../../../data/repositories/tennis-matches-repository');
 
 const userRepository: jest.Mocked<UserRepository> = new UserRepository() as any;
-const tennisMatchesRepository: jest.Mocked<TennisMatchesRepository> =
-  new TennisMatchesRepository() as any;
+const tennisMatchRepository: jest.Mocked<TennisMatchRepository> =
+  new TennisMatchRepository() as any;
 
 describe('Create match failure', () => {
   beforeEach(() => {
     userRepository.getFirstUserById.mockClear();
-    tennisMatchesRepository.getMatches.mockClear();
-    tennisMatchesRepository.saveMatch.mockClear();
+    tennisMatchRepository.getTennisMatches.mockClear();
+    tennisMatchRepository.saveMatch.mockClear();
   });
 
   // https://www.google.com/search?q=nodejs+jest+Cannot+read+properties+of+undefined&rlz=1C5CHFA_enHK970HK970&oq=nodejs+jest+Cannot+read+properties+of+undefined&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABiiBDIHCAIQABiiBDIHCAMQABiiBNIBCTEwODEzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
@@ -26,7 +26,7 @@ describe('Create match failure', () => {
 
   // it('returns missing contact info failure when user does not have any contact info', async () => {
   //   const createTennisMatch = new CreateTennisMatch(
-  //     tennisMatchesRepository,
+  //     tennisMatchRepository,
   //     userRepository
   //   );
 
@@ -34,7 +34,7 @@ describe('Create match failure', () => {
   //     User.stub({ telegram: null })
   //   );
 
-  //   tennisMatchesRepository.getMatches.mockResolvedValueOnce(
+  //   tennisMatchRepository.getTennisMatches.mockResolvedValueOnce(
   //     Result.ok<TennisMatch[]>([TennisMatch.stub({}), TennisMatch.stub({})])
   //   );
 
@@ -53,11 +53,11 @@ describe('Create match failure', () => {
 
   it('returns too many matches created failure when user creates more than 3 matches already', async () => {
     const createTennisMatch = new CreateTennisMatch(
-      tennisMatchesRepository,
+      tennisMatchRepository,
       userRepository
     );
 
-    tennisMatchesRepository.getMatches.mockResolvedValueOnce(
+    tennisMatchRepository.getTennisMatches.mockResolvedValueOnce(
       Result.ok<TennisMatch[]>([
         TennisMatch.stub({}),
         TennisMatch.stub({}),

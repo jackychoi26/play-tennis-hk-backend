@@ -1,4 +1,4 @@
-import TennisMatchesRepository from './features/matchmaking/data/repositories/tennis-matches-repository';
+import TennisMatchRepository from './features/matchmaking/data/repositories/tennis-match-repository';
 import { app } from './app';
 
 const start = async () => {

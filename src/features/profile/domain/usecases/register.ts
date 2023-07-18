@@ -1,3 +1,4 @@
+import InternalError from '../../../../core/errors/internal-error';
 import JwtHelper from '../../../../core/jwt-helper';
 import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
@@ -61,19 +62,22 @@ export default class Register
     }
 
     const createUserResult = await this.repository.createUser(input);
-    const user = createUserResult?.getValue();
 
-    if (createUserResult?.isSuccess && user) {
-      return Promise.resolve({
-        message: 'REGISTER_SUCCESS',
-        token: JwtHelper.sign({
-          id: user.id,
-          username: user.username,
-          email: user.email
-        })
-      });
-    } else {
-      throw new Error();
+    if (createUserResult?.isSuccess) {
+      const user = createUserResult?.getValue();
+
+      if (user && user.email) {
+        return {
+          message: 'REGISTER_SUCCESS',
+          token: JwtHelper.sign({
+            id: user.id,
+            username: user.username,
+            email: user.email
+          })
+        };
+      }
     }
+
+    throw new InternalError('Something went wrong');
   }
 }

@@ -21,7 +21,7 @@ const errorHandler = (
   console.error('❌ Unhandled Error: ', err);
 
   res.status(500).send({
-    errorMessage: 'Something went wrong'
+    errorMessage: 'Internal server error'
   });
 };
 

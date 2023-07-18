@@ -24,6 +24,12 @@ export default interface ITennisMatchRepository {
     tennisMatchId: number;
   }): Promise<Result<TennisMatch>>;
 
+  getTennisMatchesByUserId({
+    userId
+  }: {
+    userId: number;
+  }): Promise<Result<TennisMatch[]>>;
+
   saveMatch({
     user,
     ntrpLevel,

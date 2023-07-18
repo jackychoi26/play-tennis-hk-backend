@@ -20,14 +20,14 @@ describe('Change password success', () => {
     repository.updateUser.mockResolvedValueOnce(User.stub({}));
 
     const result = await changePassword.execute({
-      id: 'abcd-123456',
+      id: 1,
       password: 'Abcd1234'
     });
 
     expect(result.message).toBe('CHANGE_PASSWORD_SUCCESS');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).toBeCalledTimes(1);
   });
@@ -47,14 +47,14 @@ describe('Change password failure', () => {
     );
 
     const result = await changePassword.execute({
-      id: 'abcd-123456',
+      id: 1,
       password: 'Abcd1234567'
     });
 
     expect(result.message).toBe('CHANGE_PASSWORD_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).not.toBeCalled();
   });
@@ -67,14 +67,14 @@ describe('Change password failure', () => {
     );
 
     const result = await changePassword.execute({
-      id: 'abcd-123456',
+      id: 1,
       password: 'testing-password'
     });
 
     expect(result.message).toBe('SAME_PASSWORD_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).not.toBeCalled();
   });

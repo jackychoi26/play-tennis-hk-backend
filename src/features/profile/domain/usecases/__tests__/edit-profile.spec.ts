@@ -16,14 +16,12 @@ describe('Update user profile success', () => {
   it('returns update profile success when executed with correct informaiton', async () => {
     const editProfile = new EditProfile(repository);
 
-    repository.getFirstUserById.mockResolvedValueOnce(
-      User.stub({ id: 'abcd-123456' })
-    );
+    repository.getFirstUserById.mockResolvedValueOnce(User.stub({ id: 1 }));
 
     repository.updateUser.mockResolvedValueOnce(User.stub({}));
 
     const result = await editProfile.execute({
-      id: 'abcd-123456',
+      id: 1,
       description: 'testing',
       ntrpLevel: 4.5
     });
@@ -35,11 +33,11 @@ describe('Update user profile success', () => {
     }
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).toBeCalledTimes(1);
     expect(repository.updateUser).toBeCalledWith({
-      id: 'abcd-123456',
+      id: 1,
       description: 'testing',
       ntrpLevel: 4.5
     });
@@ -60,7 +58,7 @@ describe('Update user profile failure', () => {
     );
 
     const result = await editProfile.execute({
-      id: 'abcd-123456',
+      id: 1,
       description: 'testing',
       ntrpLevel: 4.5
     });
@@ -68,7 +66,7 @@ describe('Update user profile failure', () => {
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).not.toBeCalled();
   });
@@ -76,16 +74,14 @@ describe('Update user profile failure', () => {
   it('returns failure when profile cannot be edited for unknown reasons', async () => {
     const editProfile = new EditProfile(repository);
 
-    repository.getFirstUserById.mockResolvedValueOnce(
-      User.stub({ id: 'abcd-123456' })
-    );
+    repository.getFirstUserById.mockResolvedValueOnce(User.stub({ id: 1 }));
 
     repository.updateUser.mockResolvedValueOnce(
       Result.fail<User>('Cannot edit profile')
     );
 
     const result = await editProfile.execute({
-      id: 'abcd-123456',
+      id: 1,
       description: 'testing',
       ntrpLevel: 4.5
     });
@@ -93,12 +89,12 @@ describe('Update user profile failure', () => {
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
 
     expect(repository.getFirstUserById).toBeCalledTimes(1);
-    expect(repository.getFirstUserById).toBeCalledWith({ id: 'abcd-123456' });
+    expect(repository.getFirstUserById).toBeCalledWith({ id: 1 });
 
     expect(repository.updateUser).toBeCalledTimes(1);
 
     expect(repository.updateUser).toBeCalledWith({
-      id: 'abcd-123456',
+      id: 1,
       description: 'testing',
       ntrpLevel: 4.5
     });

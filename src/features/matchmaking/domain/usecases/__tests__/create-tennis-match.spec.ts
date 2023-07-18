@@ -8,7 +8,7 @@ import CreateTennisMatch from '../create-tennis-match';
 import Result from '../../../../../core/result';
 
 jest.mock('../../../../profile/data/repositories/user-repository');
-jest.mock('../../../data/repositories/tennis-matches-repository');
+jest.mock('../../../data/repositories/tennis-match-repository');
 
 const userRepository: jest.Mocked<UserRepository> = new UserRepository() as any;
 const tennisMatchRepository: jest.Mocked<TennisMatchRepository> =
@@ -39,8 +39,8 @@ describe('Create match failure', () => {
   //   );
 
   //   const result = await createTennisMatch.execute({
-  //     userId: 'abcd1234',
-  //     ntrpLevelRange: 3.0,
+  //     userId: 1,
+  //     ntrpLevel: 3.0,
   //     startDateTime: new Date(),
   //     endDateTime: new Date(),
   //     district: District.kwunTong,

@@ -1,6 +1,7 @@
 import UseCase from '../../../../core/usecase';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 import TennisMatch from '../entities/tennis-match';
+import TennisMatchRepository from '../../data/repositories/tennis-match-repository';
 
 interface DeleteTennisMatchParam {
   tennisMatchId: number;
@@ -22,7 +23,9 @@ export type DeleteTennisMatchResult =
 export default class DeleteTennisMatch
   implements UseCase<DeleteTennisMatchParam, DeleteTennisMatchResult>
 {
-  constructor(private tennisMatchRepository: ITennisMatchRepository) {}
+  constructor(
+    private tennisMatchRepository: ITennisMatchRepository = new TennisMatchRepository()
+  ) {}
 
   async execute(
     input: DeleteTennisMatchParam
@@ -40,6 +43,10 @@ export default class DeleteTennisMatch
       if (tennisMatch) {
         if (tennisMatch.poster.id == userId) {
           this.tennisMatchRepository.deleteTennisMatch({ tennisMatchId });
+
+          return {
+            message: 'DELETE_TENNIS_MATCH_SUCCESS'
+          };
         }
       }
     }

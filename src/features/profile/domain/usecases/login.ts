@@ -32,7 +32,6 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
     });
 
     if (result.isFailure) {
-      console.log('No user');
       return {
         message: 'LOGIN_FAILURE'
       };
@@ -53,8 +52,6 @@ export default class Login implements Usecase<LoginParam, LoginResult> {
         };
       }
     }
-
-    console.log('Just failed');
 
     return {
       message: 'LOGIN_FAILURE'

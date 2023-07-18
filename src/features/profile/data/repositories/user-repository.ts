@@ -35,31 +35,8 @@ export default class UserRepository implements IUserRepository {
     });
   }
 
-  getFirstUserById({ id }: { id: number }): Promise<Result<User>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        rej(Result.fail<User>('Cannot find user'));
-      }, 1000);
-    });
-  }
-
-  getFirstUserByEmail({ email }: { email: string }): Promise<Result<User>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        rej(Result.fail<User>('Cannot find user'));
-      }, 1000);
-    });
-  }
-
-  async getFirstUserByUsername({
-    username
-  }: {
-    username: string;
-  }): Promise<Result<User>> {
-    const userQuery = await knex('player')
-      .select('*')
-      .whereRaw('LOWER(username) = LOWER(?)', username)
-      .first();
+  async getFirstUserById({ id }: { id: number }): Promise<Result<User>> {
+    const userQuery = await knex('player').select('*').where('id', id).first();
 
     if (userQuery) {
       const data = userQuery;
@@ -84,7 +61,77 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  updateUser({
+  async getFirstUserByEmail({
+    email
+  }: {
+    email: string;
+  }): Promise<Result<User>> {
+    const userQuery = await knex('player')
+      .select('*')
+      .where('email', email)
+      .first();
+
+    console.log('Email', userQuery);
+
+    if (userQuery == undefined) {
+      return Result.fail('Failed to find user');
+    }
+
+    const data = userQuery;
+
+    return User.create({
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      isProfilePublic: data.is_profile_public,
+      createdAt: data.created_at,
+      imageUrl: data.image_url,
+      ntrpLevel: data.ntrp_level,
+      districts: data.districts,
+      age: data.age,
+      description: data.description,
+      telegram: data.telegram,
+      whatsapp: data.whatsapp,
+      signal: data.signal
+    });
+  }
+
+  async getFirstUserByUsername({
+    username
+  }: {
+    username: string;
+  }): Promise<Result<User>> {
+    const userQuery = await knex('player')
+      .select('*')
+      .whereRaw('LOWER(username) = LOWER(?)', username)
+      .first();
+
+    if (userQuery == undefined) {
+      return Result.fail('Failed to find user');
+    }
+
+    const data = userQuery;
+
+    return User.create({
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      isProfilePublic: data.is_profile_public,
+      createdAt: data.created_at,
+      imageUrl: data.image_url,
+      ntrpLevel: data.ntrp_level,
+      districts: data.districts,
+      age: data.age,
+      description: data.description,
+      telegram: data.telegram,
+      whatsapp: data.whatsapp,
+      signal: data.signal
+    });
+  }
+
+  async updateUser({
     id,
     password,
     imageUrl,
@@ -94,25 +141,91 @@ export default class UserRepository implements IUserRepository {
     whatsapp,
     signal
   }: UpdateUserParam): Promise<Result<User>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res(Result.fail<User>('Cannot find user'));
-      });
+    let newUserProfileObject = Object.assign(
+      {},
+      password === undefined ? null : { password },
+      imageUrl === undefined ? null : { imageUrl },
+      ntrpLevel === undefined ? null : { ntrpLevel },
+      description === undefined ? null : { description },
+      telegram === undefined ? null : { telegram },
+      whatsapp === undefined ? null : { whatsapp },
+      signal === undefined ? null : { signal }
+    );
+
+    const userUpdate = await knex('player')
+      .where('id', id)
+      .first()
+      .update(newUserProfileObject)
+      .returning('*');
+
+    if (userUpdate == undefined || userUpdate?.length < 1) {
+      return Result.fail('Failed to update user');
+    }
+
+    const data = userUpdate[0];
+
+    const userResult = User.create({
+      id: data.id,
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      isProfilePublic: data.is_profile_public,
+      createdAt: data.created_at,
+      imageUrl: data.image_url,
+      ntrpLevel: data.ntrp_level,
+      districts: data.districts,
+      age: data.age,
+      description: data.description,
+      telegram: data.telegram,
+      whatsapp: data.whatsapp,
+      signal: data.signal
     });
+
+    if (userResult.isSuccess) {
+      return userResult;
+    } else {
+      return Result.fail('Something went wrong after updating user');
+    }
   }
 
-  getPublicUsers(): Promise<Result<User[]>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res(
-          Result.ok<User[]>([
-            User.stub({ username: 'David', ntrpLevel: 5 }).getValue()!,
-            User.stub({ username: 'Bonds', ntrpLevel: 3.5 }).getValue()!,
-            User.stub({ username: 'Chan', ntrpLevel: 2.5 }).getValue()!,
-            User.stub({ username: 'Lee', ntrpLevel: 6.5 }).getValue()!
-          ])
-        );
-      }, 1000);
-    });
+  async getPublicUsers(): Promise<Result<User[]>> {
+    const publicProfilesQuery = await knex('player')
+      .select('*')
+      .where('is_profile_public', true);
+
+    try {
+      const publicProfiles: User[] = [];
+
+      publicProfilesQuery.forEach((data: any) => {
+        const userResult = User.create({
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          isProfilePublic: data.is_profile_public,
+          createdAt: data.created_at,
+          imageUrl: data.image_url,
+          ntrpLevel: data.ntrp_level,
+          districts: data.districts,
+          age: data.age,
+          description: data.description,
+          telegram: data.telegram,
+          whatsapp: data.whatsapp,
+          signal: data.signal
+        });
+
+        if (userResult.isSuccess) {
+          const user = userResult.getValue();
+
+          if (user) {
+            publicProfiles.push(user);
+          }
+        }
+      });
+
+      return Result.ok(publicProfiles);
+    } catch (err) {
+      return Result.fail('Cannot get public profiles');
+    }
   }
 }

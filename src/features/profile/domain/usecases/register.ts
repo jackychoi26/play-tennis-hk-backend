@@ -1,3 +1,4 @@
+import UserRepository from '../../data/repositories/user-repository';
 import InternalError from '../../../../core/errors/internal-error';
 import JwtHelper from '../../../../core/jwt-helper';
 import UseCase from '../../../../core/usecase';
@@ -8,6 +9,7 @@ interface RegisterParam {
   email: string;
   password: string;
   ntrpLevel: number;
+  isProfilePublic: boolean;
   imageUrl?: string;
   description?: string;
   telegram?: string;
@@ -17,7 +19,7 @@ interface RegisterParam {
 
 type RegisterSuccess = {
   message: 'REGISTER_SUCCESS';
-  token: string;
+  accessToken: string;
 };
 
 type UsernameAlreadyExsitedFailure = {
@@ -36,7 +38,7 @@ type RegisterResult =
 export default class Register
   implements UseCase<RegisterParam, RegisterResult>
 {
-  constructor(private repository: IUserRepository) {}
+  constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(input: RegisterParam): Promise<RegisterResult> {
     const { username, email } = input;
@@ -69,7 +71,7 @@ export default class Register
       if (user && user.email) {
         return {
           message: 'REGISTER_SUCCESS',
-          token: JwtHelper.sign({
+          accessToken: JwtHelper.sign({
             id: user.id,
             username: user.username,
             email: user.email

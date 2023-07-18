@@ -1,31 +1,32 @@
 import UserProfile from 'features/profile/domain/entities/user-profile';
 import UseCase from '../../../../core/usecase';
 import IUserRepository from 'features/profile/domain/repositories/i-user-repository';
+import UserRepository from '../../data/repositories/user-repository';
 
 type GetPublicProfilesSuccess = {
-  message: 'GET_PUBLIC_PROFILE_SUCCESS';
+  message: 'GET_PUBLIC_PROFILES_SUCCESS';
   userProfiles: UserProfile[];
 };
 
 type GetPublicProfilesFailure = {
-  message: 'GET_PUBLIC_PROFILE_FAILURE';
+  message: 'GET_PUBLIC_PROFILES_FAILURE';
 };
 
 type GetPublicProfilesResult =
   | GetPublicProfilesSuccess
   | GetPublicProfilesFailure;
 
-export default class EditProfile
+export default class GetPublicProfiles
   implements UseCase<null, GetPublicProfilesResult>
 {
-  constructor(private repository: IUserRepository) {}
+  constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(): Promise<GetPublicProfilesResult> {
     const publicUserResult = await this.repository.getPublicUsers();
 
     if (publicUserResult.isFailure) {
       return {
-        message: 'GET_PUBLIC_PROFILE_FAILURE'
+        message: 'GET_PUBLIC_PROFILES_FAILURE'
       };
     }
 
@@ -37,14 +38,14 @@ export default class EditProfile
         );
 
         return {
-          message: 'GET_PUBLIC_PROFILE_SUCCESS',
+          message: 'GET_PUBLIC_PROFILES_SUCCESS',
           userProfiles: publicUserProfiles
         };
       }
     }
 
     return {
-      message: 'GET_PUBLIC_PROFILE_FAILURE'
+      message: 'GET_PUBLIC_PROFILES_FAILURE'
     };
   }
 }

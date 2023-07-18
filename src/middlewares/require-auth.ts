@@ -11,18 +11,17 @@ declare global {
 }
 
 const requireAuth = (req: Request, res: Response, next: NextFunction) => {
-  next();
-  // const authorization = req.headers.authorization;
-  // const bearerToken = authorization?.split(' ');
+  const authorization = req.headers.authorization;
+  const bearerToken = authorization?.split(' ');
 
-  // if (bearerToken && bearerToken.length > 0) {
-  //   const token = bearerToken[1];
-  //   const tokenData: TokenData = JwtHelper.verify(token);
-  //   req.currentUser = tokenData;
-  //   next();
-  // } else {
-  //   throw new UnauthorizedError();
-  // }
+  if (bearerToken && bearerToken.length > 0) {
+    const token = bearerToken[1];
+    const tokenData: TokenData = JwtHelper.verify(token);
+    req.currentUser = tokenData;
+    next();
+  } else {
+    throw new UnauthorizedError();
+  }
 };
 
 export default requireAuth;

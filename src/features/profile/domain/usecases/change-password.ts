@@ -1,6 +1,7 @@
 import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 import User from '../entities/user';
+import UserRepository from '../../data/repositories/user-repository';
 
 interface ChangePasswordParam {
   id: number;
@@ -27,7 +28,7 @@ type ChangePasswordResult =
 export default class ChangePassword
   implements UseCase<ChangePasswordParam, ChangePasswordResult>
 {
-  constructor(private repository: IUserRepository) {}
+  constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(input: ChangePasswordParam): Promise<ChangePasswordResult> {
     const { id, password } = input;

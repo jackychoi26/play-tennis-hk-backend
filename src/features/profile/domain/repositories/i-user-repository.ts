@@ -5,6 +5,7 @@ export interface CreateUserParam {
   username: string;
   email: string;
   password: string;
+  isProfilePublic: boolean;
   imageUrl?: string;
   ntrpLevel: number;
   description?: string;
@@ -15,7 +16,7 @@ export interface CreateUserParam {
 
 export interface UpdateUserParam {
   id: number;
-  password: string;
+  password?: string;
   imageUrl?: string;
   ntrpLevel?: number;
   description?: string;
@@ -29,6 +30,7 @@ export default interface IUserRepository {
     username,
     email,
     password,
+    isProfilePublic,
     imageUrl,
     ntrpLevel,
     description,

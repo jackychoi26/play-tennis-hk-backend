@@ -14,7 +14,7 @@ import {
   whatsappValidator
 } from '../../../validatons';
 
-export class ProfileRouter {
+export default class ProfileRouter {
   private router: Router = express.Router();
 
   private loginController = new LoginController();

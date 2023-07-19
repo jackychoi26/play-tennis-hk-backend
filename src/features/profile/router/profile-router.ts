@@ -30,7 +30,7 @@ export default class ProfileRouter {
   constructor() {}
 
   setup(): Router {
-    this.router.get('/', this.getPublicProfilesController.handle);
+    this.router.get('/all', this.getPublicProfilesController.handle);
 
     this.router.post(
       '/login',

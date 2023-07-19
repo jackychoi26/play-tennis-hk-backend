@@ -13,17 +13,6 @@ export default class ChangePasswordController {
     }
 
     const editProfile = new ChangePassword();
-    type ChangePasswordSuccess = {
-      message: 'CHANGE_PASSWORD_SUCCESS';
-    };
-
-    type ChangePasswordFailure = {
-      message: 'CHANGE_PASSWORD_FAILURE';
-    };
-
-    type SamePasswordFailure = {
-      message: 'SAME_PASSWORD_FAILURE';
-    };
 
     try {
       const result = await editProfile.execute({

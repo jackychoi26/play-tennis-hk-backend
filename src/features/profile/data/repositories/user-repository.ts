@@ -7,32 +7,51 @@ import IUserRepository, {
 const knex = require('../../../../../database/config').knex;
 
 export default class UserRepository implements IUserRepository {
-  createUser({
+  async createUser({
     username,
     email,
     password,
     imageUrl,
+    isProfilePublic,
     ntrpLevel,
     description,
     telegram,
     whatsapp,
     signal
   }: CreateUserParam): Promise<Result<User>> {
-    return new Promise((res, rej) => {
-      setTimeout(() => {
-        res(
-          User.create({
-            id: 1,
-            username: 'jackychoi',
-            email: 'jackychoikinlung@gmail.com',
-            password: 'saw32ioj32t49s)J@!f2f',
-            createdAt: 'afdwef',
-            imageUrl: 'asdjiasosdjsa',
-            ntrpLevel: 3.5
-          })
-        );
-      }, 1000);
-    });
+    let userRegistrationObject = Object.assign(
+      { username, email, password, isProfilePublic, ntrpLevel },
+      imageUrl === undefined ? null : { image_url: imageUrl },
+      description === undefined ? null : { description },
+      telegram === undefined ? null : { telegram },
+      whatsapp === undefined ? null : { whatsapp },
+      signal === undefined ? null : { signal }
+    );
+
+    try {
+      const userCreation = await knex('player')
+        .insert(userRegistrationObject)
+        .returning('*');
+
+      return User.create({
+        id: userCreation.id,
+        username: userCreation.username,
+        email: userCreation.email,
+        password: userCreation.password,
+        isProfilePublic: userCreation.is_profile_public,
+        createdAt: userCreation.created_at,
+        imageUrl: userCreation.image_url,
+        ntrpLevel: userCreation.ntrp_level,
+        districts: userCreation.districts,
+        age: userCreation.age,
+        description: userCreation.description,
+        telegram: userCreation.telegram,
+        whatsapp: userCreation.whatsapp,
+        signal: userCreation.signal
+      });
+    } catch (err) {
+      return Result.fail('Cannot insert user');
+    }
   }
 
   async getFirstUserById({ id }: { id: number }): Promise<Result<User>> {
@@ -136,6 +155,7 @@ export default class UserRepository implements IUserRepository {
     password,
     imageUrl,
     ntrpLevel,
+    isProfilePublic,
     description,
     telegram,
     whatsapp,
@@ -144,8 +164,11 @@ export default class UserRepository implements IUserRepository {
     let newUserProfileObject = Object.assign(
       {},
       password === undefined ? null : { password },
-      imageUrl === undefined ? null : { imageUrl },
-      ntrpLevel === undefined ? null : { ntrpLevel },
+      imageUrl === undefined ? null : { image_url: imageUrl },
+      ntrpLevel === undefined ? null : { ntrp_level: ntrpLevel },
+      isProfilePublic === undefined
+        ? null
+        : { is_profile_public: isProfilePublic },
       description === undefined ? null : { description },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },

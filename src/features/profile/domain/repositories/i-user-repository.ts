@@ -18,6 +18,7 @@ export interface UpdateUserParam {
   id: number;
   password?: string;
   imageUrl?: string;
+  isProfilePublic?: boolean;
   ntrpLevel?: number;
   description?: string;
   telegram?: string;

@@ -8,6 +8,7 @@ interface EditProfileParam {
   id: number;
   imageUrl?: string;
   ntrpLevel?: number;
+  isProfilePublic?: boolean;
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -31,8 +32,16 @@ export default class EditProfile
   constructor(private repository: IUserRepository = new UserRepository()) {}
 
   async execute(input: EditProfileParam): Promise<EditProfileResult> {
-    const { id, imageUrl, ntrpLevel, description, telegram, whatsapp, signal } =
-      input;
+    const {
+      id,
+      imageUrl,
+      ntrpLevel,
+      description,
+      telegram,
+      whatsapp,
+      signal,
+      isProfilePublic
+    } = input;
 
     const userResult = await this.repository.getFirstUserById({ id });
 
@@ -46,6 +55,7 @@ export default class EditProfile
       { id },
       imageUrl === undefined ? null : { imageUrl },
       ntrpLevel === undefined ? null : { ntrpLevel },
+      isProfilePublic === undefined ? null : { isProfilePublic },
       description === undefined ? null : { description },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },

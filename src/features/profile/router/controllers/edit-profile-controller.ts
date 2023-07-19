@@ -6,9 +6,23 @@ export default class EditProfileController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
-    const { ntrpLevel, description, telegram, whatsapp, signal } = req.body;
+    const {
+      ntrpLevel,
+      description,
+      telegram,
+      whatsapp,
+      signal,
+      isProfilePublic
+    } = req.body;
 
-    if (!ntrpLevel && !description && !telegram && !whatsapp && !signal) {
+    if (
+      !ntrpLevel &&
+      !description &&
+      !telegram &&
+      !whatsapp &&
+      !signal &&
+      !isProfilePublic
+    ) {
       res.status(400).json({ errorMessage: 'Invalid edit profile request' });
     }
 
@@ -23,6 +37,7 @@ export default class EditProfileController {
         id: req.currentUser.id,
         ntrpLevel,
         telegram,
+        isProfilePublic,
         whatsapp,
         signal
       });

@@ -85,6 +85,7 @@ export default class CreateTennisMatch
           if (tennisMatchesResult.isSuccess) {
             const tennisMatches = tennisMatchesResult.getValue() ?? [];
 
+            // Optimize this part
             const tennisMatchesCreatedByCurrentUser = tennisMatches.filter(
               (tennisMatch) => tennisMatch.poster.id === user.id
             );

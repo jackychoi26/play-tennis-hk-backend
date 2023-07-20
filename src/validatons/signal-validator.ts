@@ -11,6 +11,6 @@ const signalValidator = body('signal')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid signal');
+  .withMessage('INVALID_SIGNAL');
 
 export default signalValidator;

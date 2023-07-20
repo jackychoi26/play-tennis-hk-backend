@@ -11,6 +11,6 @@ const telegramValidator = body('telegram')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid telegram');
+  .withMessage('INVALID_TELEGRAM');
 
 export default telegramValidator;

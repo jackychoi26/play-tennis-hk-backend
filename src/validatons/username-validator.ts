@@ -11,6 +11,6 @@ const usernameValidator = body('username')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid username');
+  .withMessage('INVALID_USERNAME');
 
 export default usernameValidator;

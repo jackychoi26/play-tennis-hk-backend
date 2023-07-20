@@ -9,7 +9,7 @@ const errorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof CustomError) {
-    return res.status(err.statusCode).send({ errorMessage: err.message });
+    return res.status(err.statusCode).send({ message: err.message });
   } else if (err instanceof InternalError) {
     console.error('❌ Unhandled Error: ', err.message);
 

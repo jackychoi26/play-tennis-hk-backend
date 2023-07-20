@@ -87,7 +87,7 @@ export default class UserRepository implements IUserRepository {
   }): Promise<Result<User>> {
     const userQuery = await knex('player')
       .select('*')
-      .where('email', email)
+      .whereRaw('LOWER(email) = LOWER(?)', email)
       .first();
 
     console.log('Email', userQuery);

@@ -14,7 +14,7 @@ export default class JwtHelper {
     try {
       return jwt.verify(token, process.env.JWT_SECRET!) as TokenData;
     } catch {
-      throw new UnauthorizedError('Invalid token');
+      throw new UnauthorizedError('INVALID_TOKEN');
     }
   }
 }

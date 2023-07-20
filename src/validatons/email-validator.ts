@@ -11,6 +11,6 @@ const emailValidator = body('email')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid email address');
+  .withMessage('INVALID_EMAIL_ADDRESS');
 
 export default emailValidator;

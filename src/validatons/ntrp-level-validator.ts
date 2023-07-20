@@ -15,6 +15,6 @@ const ntrpLevelValidator = body('ntrpLevel')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid ntrp level');
+  .withMessage('INVALID_NTRP_LEVEL');
 
 export default ntrpLevelValidator;

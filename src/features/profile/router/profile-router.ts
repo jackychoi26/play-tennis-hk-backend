@@ -36,8 +36,8 @@ export default class ProfileRouter {
       '/login',
       [usernameValidator, passwordValidator],
       validateRequest,
-      errorHandler,
-      this.loginController.handle
+      this.loginController.handle,
+      errorHandler
     );
 
     this.router.post(
@@ -53,8 +53,8 @@ export default class ProfileRouter {
         telegramValidator.optional()
       ],
       validateRequest,
-      errorHandler,
-      this.registerController.handle
+      this.registerController.handle,
+      errorHandler
     );
 
     this.router.patch(
@@ -62,8 +62,8 @@ export default class ProfileRouter {
       requireAuth,
       [passwordValidator],
       validateRequest,
-      errorHandler,
-      this.changePasswordController.handle
+      this.changePasswordController.handle,
+      errorHandler
     );
 
     this.router.patch(
@@ -77,8 +77,8 @@ export default class ProfileRouter {
         telegramValidator.optional()
       ],
       validateRequest,
-      errorHandler,
-      this.editProfileController.handle
+      this.editProfileController.handle,
+      errorHandler
     );
 
     return this.router;

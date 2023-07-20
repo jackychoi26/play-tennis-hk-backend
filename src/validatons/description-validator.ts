@@ -11,6 +11,6 @@ const descriptionValidator = body('description')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid description');
+  .withMessage('INVALID_DESCRIPTION');
 
 export default descriptionValidator;

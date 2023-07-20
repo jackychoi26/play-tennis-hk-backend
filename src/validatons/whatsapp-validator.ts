@@ -11,6 +11,6 @@ const whatsappValidator = body('whatsapp')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid whatsapp');
+  .withMessage('INVALID_WHATSAPP');
 
 export default whatsappValidator;

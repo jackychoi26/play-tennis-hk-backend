@@ -12,6 +12,6 @@ const passwordValidator = body('password')
       return Promise.reject();
     }
   })
-  .withMessage('Invalid password');
+  .withMessage('INVALID_PASSWORD');
 
 export default passwordValidator;

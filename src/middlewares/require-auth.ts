@@ -12,7 +12,6 @@ declare global {
 
 const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
-  console.log(authorization);
   const bearerToken = authorization?.split(' ');
 
   if (bearerToken && bearerToken.length > 0) {

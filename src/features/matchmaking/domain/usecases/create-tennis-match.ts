@@ -90,7 +90,7 @@ export default class CreateTennisMatch
             );
 
             // TODO: move to system param
-            if (tennisMatchesCreatedByCurrentUser.length > 99) {
+            if (tennisMatchesCreatedByCurrentUser.length > 3) {
               return {
                 message: 'TOO_MANY_MATCHES_CREATED_FAILURE'
               };

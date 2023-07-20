@@ -1,3 +1,4 @@
+import { District } from '../../../../domain/district';
 import Result from '../../../../core/result';
 import User from '../entities/user';
 
@@ -6,6 +7,7 @@ export interface CreateUserParam {
   email: string;
   password: string;
   isProfilePublic: boolean;
+  districts: District[];
   imageUrl?: string;
   ntrpLevel: number;
   description?: string;
@@ -19,6 +21,7 @@ export interface UpdateUserParam {
   password?: string;
   imageUrl?: string;
   isProfilePublic?: boolean;
+  districts?: District[];
   ntrpLevel?: number;
   description?: string;
   telegram?: string;
@@ -32,6 +35,7 @@ export default interface IUserRepository {
     email,
     password,
     isProfilePublic,
+    districts,
     imageUrl,
     ntrpLevel,
     description,
@@ -54,6 +58,7 @@ export default interface IUserRepository {
     id,
     imageUrl,
     ntrpLevel,
+    districts,
     description,
     telegram,
     whatsapp,

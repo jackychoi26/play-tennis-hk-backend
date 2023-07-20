@@ -6,9 +6,9 @@ const usernameValidator = body('username')
     const isUsernameValid = usernameRegexp.test(value);
 
     if (isUsernameValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_USERNAME');

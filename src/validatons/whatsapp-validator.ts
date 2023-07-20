@@ -6,9 +6,9 @@ const whatsappValidator = body('whatsapp')
     const isWhatsappValid = regex.test(value);
 
     if (isWhatsappValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_WHATSAPP');

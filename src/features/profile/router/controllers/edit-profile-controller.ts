@@ -11,6 +11,7 @@ export default class EditProfileController {
       ntrpLevel,
       description,
       telegram,
+      districts,
       whatsapp,
       signal,
       isProfilePublic
@@ -21,6 +22,7 @@ export default class EditProfileController {
       !description &&
       !telegram &&
       !whatsapp &&
+      !districts &&
       !signal &&
       !isProfilePublic
     ) {
@@ -33,15 +35,24 @@ export default class EditProfileController {
 
     const editProfile = new EditProfile();
 
+    const data = Object.fromEntries(
+      Object.entries(req.body).filter(([_, value]) => value !== undefined)
+    );
+
+    const editProfileInput = Object.assign(
+      {
+        id: req.currentUser.id
+      },
+      ntrpLevel === undefined ? null : { ntrpLevel },
+      telegram === undefined ? null : { telegram },
+      districts === undefined ? null : { districts },
+      isProfilePublic === undefined ? null : { isProfilePublic },
+      whatsapp === undefined ? null : { whatsapp },
+      signal === undefined ? null : { signal }
+    );
+
     try {
-      const result = await editProfile.execute({
-        id: req.currentUser.id,
-        ntrpLevel,
-        telegram,
-        isProfilePublic,
-        whatsapp,
-        signal
-      });
+      const result = await editProfile.execute(editProfileInput);
 
       switch (result.message) {
         case 'EDIT_PROFILE_SUCCESS':

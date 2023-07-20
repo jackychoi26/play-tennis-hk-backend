@@ -6,9 +6,9 @@ const descriptionValidator = body('description')
     const isDescriptionValid = regex.test(value);
 
     if (isDescriptionValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_DESCRIPTION');

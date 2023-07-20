@@ -9,10 +9,13 @@ import {
   emailValidator,
   ntrpLevelValidator,
   passwordValidator,
+  districtsValidator,
   signalValidator,
   telegramValidator,
   usernameValidator,
-  whatsappValidator
+  whatsappValidator,
+  districtValidator,
+  matchTypeValidator
 } from '../../../validatons';
 import GetPublicProfilesController from './controllers/get-public-profiles-controller';
 import ChangePasswordController from './controllers/change-password-controller';
@@ -53,6 +56,7 @@ export default class ProfileRouter {
       '/register',
       [
         usernameValidator,
+        districtsValidator,
         emailValidator,
         passwordValidator,
         ntrpLevelValidator,
@@ -81,6 +85,7 @@ export default class ProfileRouter {
       [
         ntrpLevelValidator.optional(),
         descriptionValidator.optional(),
+        districtValidator.optional(),
         signalValidator.optional(),
         whatsappValidator.optional(),
         telegramValidator.optional()

@@ -31,6 +31,7 @@ export default class User {
       { argument: data.id, argumentName: 'id' },
       { argument: data.username, argumentName: 'username' },
       { argument: data.email, argumentName: 'email' },
+      { argument: data.districts, argumentName: 'districts' },
       { argument: data.isProfilePublic, argumentName: 'isProfilePublic' },
       { argument: data.password, argumentName: 'password' },
       { argument: data.createdAt, argumentName: 'createdAt' },

@@ -7,9 +7,9 @@ const passwordValidator = body('password')
     const isPasswordValid = passwordRegexp.test(value);
 
     if (isPasswordValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_PASSWORD');

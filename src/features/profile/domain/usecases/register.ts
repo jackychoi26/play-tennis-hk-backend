@@ -3,12 +3,14 @@ import InternalError from '../../../../core/errors/internal-error';
 import JwtHelper from '../../../../core/jwt-helper';
 import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
+import { District } from '../../../../domain/district';
 
 interface RegisterParam {
   username: string;
   email: string;
   password: string;
   ntrpLevel: number;
+  districts: District[];
   isProfilePublic: boolean;
   imageUrl?: string;
   description?: string;
@@ -42,6 +44,7 @@ export default class Register
 
   async execute(input: RegisterParam): Promise<RegisterResult> {
     const { username, email } = input;
+    console.log(input);
 
     const usernameSearchResult = await this.repository.getFirstUserByUsername({
       username

@@ -6,9 +6,9 @@ const telegramValidator = body('telegram')
     const isTelegramValid = regex.test(value);
 
     if (isTelegramValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_TELEGRAM');

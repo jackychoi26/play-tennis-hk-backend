@@ -1,14 +1,15 @@
 import UserRepository from '../../../profile/data/repositories/user-repository';
 import UseCase from '../../../../core/usecase';
-import User from '../entities/user';
 import UserProfile from '../entities/user-profile';
 import IUserRepository from '../repositories/i-user-repository';
+import { District } from '../../../../domain/district';
 
 interface EditProfileParam {
   id: number;
   imageUrl?: string;
   ntrpLevel?: number;
   isProfilePublic?: boolean;
+  districts: District[];
   description?: string;
   telegram?: string;
   whatsapp?: string;
@@ -38,6 +39,7 @@ export default class EditProfile
       ntrpLevel,
       description,
       telegram,
+      districts,
       whatsapp,
       signal,
       isProfilePublic
@@ -57,6 +59,7 @@ export default class EditProfile
       ntrpLevel === undefined ? null : { ntrpLevel },
       isProfilePublic === undefined ? null : { isProfilePublic },
       description === undefined ? null : { description },
+      districts === undefined ? null : { districts },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },
       signal === undefined ? null : { signal }

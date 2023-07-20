@@ -6,9 +6,9 @@ const signalValidator = body('signal')
     const isSignalValid = regex.test(value);
 
     if (isSignalValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_SIGNAL');

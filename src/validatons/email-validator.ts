@@ -6,9 +6,9 @@ const emailValidator = body('email')
     const isEmailValid = emailRegexp.test(value);
 
     if (isEmailValid) {
-      return Promise.resolve();
+      return true;
     } else {
-      return Promise.reject();
+      return false;
     }
   })
   .withMessage('INVALID_EMAIL_ADDRESS');

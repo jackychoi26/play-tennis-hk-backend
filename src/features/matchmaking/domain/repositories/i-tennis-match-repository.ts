@@ -5,7 +5,7 @@ import { MatchType } from '../../../../domain/match-type';
 import { District } from '../../../../domain/district';
 
 export interface SaveTennisMatchParam {
-  user: User;
+  userId: number;
   ntrpLevel: number;
   startDateTime: Date;
   endDateTime: Date;
@@ -30,8 +30,8 @@ export default interface ITennisMatchRepository {
     userId: number;
   }): Promise<Result<TennisMatch[]>>;
 
-  saveMatch({
-    user,
+  saveTennisMatch({
+    userId,
     ntrpLevel,
     startDateTime,
     endDateTime,

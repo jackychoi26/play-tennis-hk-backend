@@ -1,7 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import UnauthorizedError from './errors/unauthorized-error';
 
-// TODO: replace secret with
 export default class JwtHelper {
   // expires in 3 months
   static sign(data: TokenData, expiresIn: number = 60 * 60 * 24 * 90): string {

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import EditProfile from '../../domain/usecases/edit-profile';
 import { TokenData } from '../../../../core/jwt-helper';
+import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 
 export default class EditProfileController {
   constructor() {}
@@ -23,11 +24,11 @@ export default class EditProfileController {
       !signal &&
       !isProfilePublic
     ) {
-      res.status(400).json({ errorMessage: 'Invalid edit profile request' });
+      res.status(400).json({ message: 'INVALID_PARAM' });
     }
 
     if (!req.currentUser?.id) {
-      return res.status(401).json({ errorMessage: 'Unauthorized access' });
+      throw new UnauthorizedError();
     }
 
     const editProfile = new EditProfile();

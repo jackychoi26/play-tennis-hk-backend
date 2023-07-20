@@ -125,12 +125,14 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
         'player.id as player_id',
         'player.ntrp_level as player_ntrp_level',
         'player.districts as player_districts',
+        'tennis_match.is_deleted as tennis_match_is_deleted',
         '*'
       )
       .where('tennis_match.id', '=', tennisMatchId)
+      .andWhere('tennis_match.is_deleted', false)
       .limit(1);
 
-    if (tennisMatchQuery.length == 1) {
+    if (tennisMatchQuery.length > 0) {
       const data = tennisMatchQuery[0];
 
       const userProfile = new UserProfile({
@@ -166,8 +168,8 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
     return Result.fail('Unexpected error');
   }
 
-  saveMatch({
-    user,
+  async saveTennisMatch({
+    userId,
     ntrpLevel,
     startDateTime,
     endDateTime,
@@ -176,7 +178,34 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
     court,
     remarks
   }: SaveTennisMatchParam): Promise<Result<TennisMatch>> {
-    throw new Error('Method not implemented.');
+    let tennisMatchSaveObject = Object.assign(
+      {
+        poster_id: userId,
+        ntrp_level: ntrpLevel,
+        start_date_time: startDateTime,
+        end_date_time: endDateTime,
+        district: district,
+        match_type: matchType,
+        court: court
+      },
+      remarks === undefined ? null : { remarks }
+    );
+
+    try {
+      const tennisMatchCreation: [{ id: number }] = await knex('tennis_match')
+        .insert(tennisMatchSaveObject)
+        .returning('id');
+
+      if (tennisMatchCreation && tennisMatchCreation.length > 0) {
+        return this.getTennisMatchById({
+          tennisMatchId: tennisMatchCreation[0].id
+        });
+      } else {
+        return Result.fail('Cannot create tennis match');
+      }
+    } catch (err) {
+      return Result.fail('Cannot create tennis match');
+    }
   }
 
   async deleteTennisMatch({
@@ -184,10 +213,15 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
   }: {
     tennisMatchId: number;
   }): Promise<Result<void>> {
-    await knex('tennis_match')
+    const tennisMatchDeletion = await knex('tennis_match')
       .where('id', tennisMatchId)
-      .update('is_deleted', 'true');
+      .update('is_deleted', 'true')
+      .returning('*');
 
-    return Result.ok();
+    if (tennisMatchDeletion) {
+      return Result.ok();
+    } else {
+      return Result.fail('Cannot find the tennis match');
+    }
   }
 }

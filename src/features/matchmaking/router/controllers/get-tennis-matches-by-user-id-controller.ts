@@ -1,29 +1,26 @@
 import { Request, Response } from 'express';
-import DeleteTennisMatch from '../../domain/usecases/delete-tennis-match';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
+import GetTennisMatchByUserId from '../../domain/usecases/get-tennis-matches-by-user-id';
 
-export default class DeleteTennisMatchesController {
+export default class GetTennisMatchesByUserIdController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
-    const deleteTennisMatch = new DeleteTennisMatch();
-
-    const { tennisMatchId } = req.body;
+    const getTennisMatchByUserId = new GetTennisMatchByUserId();
 
     if (!req.currentUser?.id) {
       throw new UnauthorizedError();
     }
 
-    const result = await deleteTennisMatch.execute({
-      tennisMatchId,
+    const result = await getTennisMatchByUserId.execute({
       userId: req.currentUser.id
     });
 
     try {
       switch (result.message) {
-        case 'DELETE_TENNIS_MATCH_SUCCESS':
+        case 'GET_TENNIS_MATCHES_BY_USER_ID_SUCCESS':
           return res.status(200).json(result);
-        case 'DELETE_TENNIS_MATCH_FAILURE':
+        case 'GET_TENNIS_MATCHES_BY_USER_ID_FAILURE':
           return res.status(400).json(result);
       }
     } catch (err) {

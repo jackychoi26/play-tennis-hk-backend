@@ -20,7 +20,13 @@ export default class UserRepository implements IUserRepository {
     signal
   }: CreateUserParam): Promise<Result<User>> {
     let userRegistrationObject = Object.assign(
-      { username, email, password, isProfilePublic, ntrpLevel },
+      {
+        username,
+        email,
+        password,
+        is_profile_public: isProfilePublic,
+        ntrp_level: ntrpLevel
+      },
       imageUrl === undefined ? null : { image_url: imageUrl },
       description === undefined ? null : { description },
       telegram === undefined ? null : { telegram },
@@ -28,29 +34,36 @@ export default class UserRepository implements IUserRepository {
       signal === undefined ? null : { signal }
     );
 
+    let userCreation: any;
+
     try {
-      const userCreation = await knex('player')
+      userCreation = await knex('player')
         .insert(userRegistrationObject)
         .returning('*');
-
-      return User.create({
-        id: userCreation.id,
-        username: userCreation.username,
-        email: userCreation.email,
-        password: userCreation.password,
-        isProfilePublic: userCreation.is_profile_public,
-        createdAt: userCreation.created_at,
-        imageUrl: userCreation.image_url,
-        ntrpLevel: userCreation.ntrp_level,
-        districts: userCreation.districts,
-        age: userCreation.age,
-        description: userCreation.description,
-        telegram: userCreation.telegram,
-        whatsapp: userCreation.whatsapp,
-        signal: userCreation.signal
-      });
     } catch (err) {
       return Result.fail('Cannot insert user');
+    }
+
+    if (userCreation && userCreation.length > 0) {
+      const data = userCreation[0];
+      return User.create({
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        isProfilePublic: data.is_profile_public,
+        createdAt: data.created_at,
+        imageUrl: data.image_url,
+        ntrpLevel: data.ntrp_level,
+        districts: data.districts,
+        age: userCreation.age,
+        description: data.description,
+        telegram: data.telegram,
+        whatsapp: data.whatsapp,
+        signal: data.signal
+      });
+    } else {
+      return Result.fail('Something went wrong');
     }
   }
 
@@ -89,8 +102,6 @@ export default class UserRepository implements IUserRepository {
       .select('*')
       .whereRaw('LOWER(email) = LOWER(?)', email)
       .first();
-
-    console.log('Email', userQuery);
 
     if (userQuery == undefined) {
       return Result.fail('Failed to find user');

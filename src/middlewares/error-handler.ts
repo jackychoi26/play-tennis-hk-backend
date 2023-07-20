@@ -15,13 +15,13 @@ const errorHandler = (
 
     return res
       .status(err.statusCode)
-      .send({ errorMessage: 'Internal server error' });
+      .send({ message: 'Internal server error' });
   }
 
   console.error('❌ Unhandled Error: ', err);
 
   res.status(500).send({
-    errorMessage: 'Internal server error'
+    message: 'Internal server error'
   });
 };
 

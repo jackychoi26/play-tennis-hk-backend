@@ -38,6 +38,7 @@ describe('Register with unique username or email', () => {
     const result = await register.execute({
       username: 'tennisking',
       email: 'jones@gmail.com',
+      isProfilePublic: true,
       ntrpLevel: 3.5,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
@@ -60,6 +61,7 @@ describe('Register with unique username or email', () => {
       username: 'tennisking',
       email: 'jones@gmail.com',
       ntrpLevel: 3.5,
+      isProfilePublic: true,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });
@@ -86,6 +88,7 @@ describe('Register with an existing username or email', () => {
       username: 'tennisking',
       email: 'jones@gmail.com',
       ntrpLevel: 3.5,
+      isProfilePublic: false,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });
@@ -113,6 +116,7 @@ describe('Register with an existing username or email', () => {
       username: 'tennisking',
       email: 'jones@gmail.com',
       ntrpLevel: 3.5,
+      isProfilePublic: true,
       password: 'abcd1234',
       imageUrl: 'abcd1234'
     });

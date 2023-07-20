@@ -18,7 +18,7 @@ describe('Create match failure', () => {
   beforeEach(() => {
     userRepository.getFirstUserById.mockClear();
     tennisMatchRepository.getTennisMatches.mockClear();
-    tennisMatchRepository.saveMatch.mockClear();
+    tennisMatchRepository.saveTennisMatch.mockClear();
   });
 
   // https://www.google.com/search?q=nodejs+jest+Cannot+read+properties+of+undefined&rlz=1C5CHFA_enHK970HK970&oq=nodejs+jest+Cannot+read+properties+of+undefined&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABiiBDIHCAIQABiiBDIHCAMQABiiBNIBCTEwODEzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8

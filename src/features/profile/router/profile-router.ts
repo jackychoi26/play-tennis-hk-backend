@@ -17,6 +17,7 @@ import {
 import GetPublicProfilesController from './controllers/get-public-profiles-controller';
 import ChangePasswordController from './controllers/change-password-controller';
 import RegisterController from './controllers/register-controller';
+import GetProfileController from './controllers/get-profile-controller';
 
 export default class ProfileRouter {
   private router: Router = express.Router();
@@ -26,11 +27,19 @@ export default class ProfileRouter {
   private getPublicProfilesController = new GetPublicProfilesController();
   private changePasswordController = new ChangePasswordController();
   private registerController = new RegisterController();
+  private getProfileController = new GetProfileController();
 
   constructor() {}
 
   setup(): Router {
     this.router.get('/all', this.getPublicProfilesController.handle);
+
+    this.router.get(
+      '/',
+      requireAuth,
+      this.getProfileController.handle,
+      errorHandler
+    );
 
     this.router.post(
       '/login',

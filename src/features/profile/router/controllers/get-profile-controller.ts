@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { TokenData } from '../../../../core/jwt-helper';
-import ChangePassword from '../../domain/usecases/change-password';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
+import GetProfile from '../../domain/usecases/get-profile';
 
-export default class ChangePasswordController {
+export default class GetProfileController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
@@ -13,19 +12,17 @@ export default class ChangePasswordController {
       throw new UnauthorizedError();
     }
 
-    const editProfile = new ChangePassword();
+    const getProfile = new GetProfile();
 
     try {
-      const result = await editProfile.execute({
-        id: req.currentUser.id,
-        password
+      const result = await getProfile.execute({
+        id: req.currentUser.id
       });
 
       switch (result.message) {
-        case 'CHANGE_PASSWORD_SUCCESS':
+        case 'GET_PROFILE_SUCCESS':
           return res.status(200).json(result);
-        case 'CHANGE_PASSWORD_FAILURE':
-        case 'SAME_PASSWORD_FAILURE':
+        case 'GET_PROFILE_FAILURE':
           return res.status(400).json(result);
       }
     } catch (err) {

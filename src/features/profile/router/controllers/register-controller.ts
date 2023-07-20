@@ -37,7 +37,7 @@ export default class RegisterController {
           return res.status(201).json(result);
         case 'USERNAME_ALREADY_EXISTED_FAILURE':
         case 'EMAIL_ALREADY_EXISTED_FAILURE':
-          return res.status(401).json(result);
+          return res.status(400).json(result);
       }
     } catch (err) {
       console.error(err);

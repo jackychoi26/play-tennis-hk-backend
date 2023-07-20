@@ -5,6 +5,8 @@ import UseCase from '../../../../core/usecase';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 import IUserRepository from '../../../../features/profile/domain/repositories/i-user-repository';
 import User from '../../../../features/profile/domain/entities/user';
+import TennisMatchRepository from '../../data/repositories/tennis-match-repository';
+import UserRepository from '../../../profile/data/repositories/user-repository';
 
 interface CreateTennisMatchParam {
   userId: number;
@@ -44,8 +46,8 @@ export default class CreateTennisMatch
   implements UseCase<CreateTennisMatchParam, CreateTennisMatchResult>
 {
   constructor(
-    private tennisMatchRepository: ITennisMatchRepository,
-    private userRepository: IUserRepository
+    private tennisMatchRepository: ITennisMatchRepository = new TennisMatchRepository(),
+    private userRepository: IUserRepository = new UserRepository()
   ) {}
 
   async execute(
@@ -88,14 +90,14 @@ export default class CreateTennisMatch
             );
 
             // TODO: move to system param
-            if (tennisMatchesCreatedByCurrentUser.length > 3) {
+            if (tennisMatchesCreatedByCurrentUser.length > 99) {
               return {
                 message: 'TOO_MANY_MATCHES_CREATED_FAILURE'
               };
             } else {
               const tennisMatchResult =
-                await this.tennisMatchRepository.saveMatch({
-                  user,
+                await this.tennisMatchRepository.saveTennisMatch({
+                  userId: user.id,
                   ntrpLevel,
                   startDateTime,
                   endDateTime,

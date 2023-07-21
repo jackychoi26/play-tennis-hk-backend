@@ -43,6 +43,7 @@ export default class MatchmakingRouter {
     this.router.post(
       '/',
       requireAuth,
+      [body('ntrpLevel').exists().withMessage('MISSING_NTRP_LEVEL')],
       [ntrpLevelValidator],
       validateRequest,
       this.createTennisMatchController.handle,
@@ -55,7 +56,7 @@ export default class MatchmakingRouter {
       body('tennisMatchId')
         .isNumeric()
         .notEmpty()
-        .withMessage('Missing tennis match id'),
+        .withMessage('MISSING_TENNIS_MATCH_ID'),
       validateRequest,
       this.deleteTennisMatchController.handle,
       errorHandler

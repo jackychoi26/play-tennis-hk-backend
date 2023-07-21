@@ -26,7 +26,7 @@ export default class EditProfileController {
       !signal &&
       !isProfilePublic
     ) {
-      res.status(400).json({ message: 'INVALID_PARAM' });
+      res.status(400).json({ message: 'MISSING_PARAM' });
     }
 
     if (!req.currentUser?.id) {

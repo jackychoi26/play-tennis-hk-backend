@@ -44,7 +44,6 @@ export default class Register
 
   async execute(input: RegisterParam): Promise<RegisterResult> {
     const { username, email } = input;
-    console.log(input);
 
     const usernameSearchResult = await this.repository.getFirstUserByUsername({
       username

@@ -9,6 +9,7 @@ import signalValidator from './signal-validator';
 import telegramValidator from './telegram-validator';
 import usernameValidator from './username-validator';
 import whatsappValidator from './whatsapp-validator';
+import isProfilePublicValidator from './is-profile-public-validator';
 
 export {
   descriptionValidator,
@@ -20,6 +21,7 @@ export {
   districtValidator,
   districtsValidator,
   matchTypeValidator,
+  isProfilePublicValidator,
   whatsappValidator,
   usernameValidator
 };

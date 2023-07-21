@@ -11,7 +11,6 @@ export default class LoginController {
 
       switch (result.message) {
         case 'LOGIN_SUCCESS':
-          console.dir(result.userProfile);
           return res.status(200).json(result);
         case 'LOGIN_FAILURE':
           return res.status(400).json(result);

@@ -15,12 +15,13 @@ import {
   usernameValidator,
   whatsappValidator,
   districtValidator,
-  matchTypeValidator
+  isProfilePublicValidator
 } from '../../../validatons';
 import GetPublicProfilesController from './controllers/get-public-profiles-controller';
 import ChangePasswordController from './controllers/change-password-controller';
 import RegisterController from './controllers/register-controller';
 import GetProfileController from './controllers/get-profile-controller';
+import { body, check } from 'express-validator';
 
 export default class ProfileRouter {
   private router: Router = express.Router();
@@ -46,6 +47,10 @@ export default class ProfileRouter {
 
     this.router.post(
       '/login',
+      [
+        body('username').exists().withMessage('MISSING_USERNAME'),
+        body('password').exists().withMessage('MISSING_PASSWORD')
+      ],
       [usernameValidator, passwordValidator],
       validateRequest,
       this.loginController.handle,
@@ -55,15 +60,26 @@ export default class ProfileRouter {
     this.router.post(
       '/register',
       [
+        body('username').exists().withMessage('MISSING_USERNAME'),
+        body('email').exists().withMessage('MISSING_EMAIL'),
+        body('password').exists().withMessage('MISSING_PASSWORD'),
+        body('ntrpLevel').exists().withMessage('MISSING_NTRP_LEVEL'),
+        body('isProfilePublic')
+          .exists()
+          .withMessage('MISSING_IS_PROFILE_PUBLIC'),
+        body('districts').exists().withMessage('MISSING_DISTRICTS')
+      ],
+      [
+        ntrpLevelValidator,
         usernameValidator,
         districtsValidator,
         emailValidator,
         passwordValidator,
-        ntrpLevelValidator,
-        descriptionValidator.optional(),
-        signalValidator.optional(),
-        whatsappValidator.optional(),
-        telegramValidator.optional()
+        isProfilePublicValidator,
+        descriptionValidator,
+        signalValidator,
+        whatsappValidator,
+        telegramValidator
       ],
       validateRequest,
       this.registerController.handle,
@@ -73,6 +89,7 @@ export default class ProfileRouter {
     this.router.patch(
       '/change-password',
       requireAuth,
+      [body('password').exists().withMessage('MISSING_PASSWORD')],
       [passwordValidator],
       validateRequest,
       this.changePasswordController.handle,
@@ -83,12 +100,12 @@ export default class ProfileRouter {
       '/',
       requireAuth,
       [
-        ntrpLevelValidator.optional(),
-        descriptionValidator.optional(),
-        districtValidator.optional(),
-        signalValidator.optional(),
-        whatsappValidator.optional(),
-        telegramValidator.optional()
+        ntrpLevelValidator,
+        descriptionValidator,
+        districtValidator,
+        signalValidator,
+        whatsappValidator,
+        telegramValidator
       ],
       validateRequest,
       this.editProfileController.handle,

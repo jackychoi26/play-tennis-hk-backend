@@ -32,6 +32,7 @@ const districtsValidator = body('districts')
 
     return true;
   })
+  .optional()
   .withMessage('INVALID_DISTRICTS');
 
 export default districtsValidator;

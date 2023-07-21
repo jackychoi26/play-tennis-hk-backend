@@ -1,16 +1,12 @@
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
-const usernameValidator = body('username')
+const usernameValidator = check('username', 'INVALID_USERNAME')
   .custom((value: string) => {
+    if (typeof value !== 'string') return false;
     const usernameRegexp = /^[a-zA-Z0-9_]{4,12}$/;
     const isUsernameValid = usernameRegexp.test(value);
-
-    if (isUsernameValid) {
-      return true;
-    } else {
-      return false;
-    }
+    return isUsernameValid;
   })
-  .withMessage('INVALID_USERNAME');
+  .optional();
 
 export default usernameValidator;

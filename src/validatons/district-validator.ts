@@ -3,14 +3,11 @@ import { body } from 'express-validator';
 
 const districtValidator = body('district')
   .custom((value: string) => {
+    if (typeof value !== 'string') return false;
     const isValueInEnum = (Object.values(District) as string[]).includes(value);
-
-    if (isValueInEnum) {
-      return true;
-    } else {
-      return false;
-    }
+    return isValueInEnum;
   })
+  .optional()
   .withMessage('INVALID_DISTRICT');
 
 export default districtValidator;

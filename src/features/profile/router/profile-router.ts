@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express, { NextFunction, Router } from 'express';
 import LoginController from './controllers/login-controller';
 import EditProfileController from './controllers/edit-profile-controller';
 import requireAuth from '../../../middlewares/require-auth';
@@ -98,6 +98,7 @@ export default class ProfileRouter {
 
     this.router.patch(
       '/',
+
       requireAuth,
       [
         ntrpLevelValidator,

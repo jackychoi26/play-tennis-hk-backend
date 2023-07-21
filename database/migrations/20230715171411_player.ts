@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('player', (table) => {
-    table.increments().primary();
+    table.increments('id').primary();
     table.string('username').notNullable();
     table.string('email').notNullable();
     table.boolean('is_profile_public');

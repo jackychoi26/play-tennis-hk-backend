@@ -15,6 +15,7 @@ export default class UserRepository implements IUserRepository {
     isProfilePublic,
     ntrpLevel,
     description,
+    districts,
     telegram,
     whatsapp,
     signal
@@ -24,6 +25,7 @@ export default class UserRepository implements IUserRepository {
         username,
         email,
         password,
+        districts,
         is_profile_public: isProfilePublic,
         ntrp_level: ntrpLevel
       },

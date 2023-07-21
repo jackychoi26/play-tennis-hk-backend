@@ -4,6 +4,7 @@ import JwtHelper from '../../../../core/jwt-helper';
 import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 import { District } from '../../../../domain/district';
+import UserProfile from '../entities/user-profile';
 
 interface RegisterParam {
   username: string;
@@ -22,6 +23,7 @@ interface RegisterParam {
 type RegisterSuccess = {
   message: 'REGISTER_SUCCESS';
   accessToken: string;
+  userProfile: UserProfile;
 };
 
 type UsernameAlreadyExsitedFailure = {
@@ -77,7 +79,8 @@ export default class Register
             id: user.id,
             username: user.username,
             email: user.email
-          })
+          }),
+          userProfile: user.toUserProfile({ withEmail: true })
         };
       }
     }

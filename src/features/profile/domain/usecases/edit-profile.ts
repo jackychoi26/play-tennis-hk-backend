@@ -9,6 +9,7 @@ interface EditProfileParam {
   imageUrl?: string;
   ntrpLevel?: number;
   isProfilePublic?: boolean;
+  age?: number;
   districts: District[];
   description?: string;
   telegram?: string;
@@ -38,6 +39,7 @@ export default class EditProfile
       imageUrl,
       ntrpLevel,
       description,
+      age,
       telegram,
       districts,
       whatsapp,
@@ -59,6 +61,7 @@ export default class EditProfile
       ntrpLevel === undefined ? null : { ntrpLevel },
       isProfilePublic === undefined ? null : { isProfilePublic },
       description === undefined ? null : { description },
+      age === undefined ? null : { age },
       districts === undefined ? null : { districts },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },

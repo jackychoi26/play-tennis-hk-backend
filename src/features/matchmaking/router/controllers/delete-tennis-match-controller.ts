@@ -8,7 +8,7 @@ export default class DeleteTennisMatchesController {
   async handle(req: Request, res: Response) {
     const deleteTennisMatch = new DeleteTennisMatch();
 
-    const { tennisMatchId } = req.body;
+    const tennisMatchId: number = req.body;
 
     if (!req.currentUser?.id) {
       throw new UnauthorizedError();

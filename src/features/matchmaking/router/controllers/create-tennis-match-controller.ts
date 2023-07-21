@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import CreateTennisMatch from '../../domain/usecases/create-tennis-match';
-import { TokenData } from '../../../../core/jwt-helper';
+import { MatchType } from '../../../../domain/match-type';
+import { District } from '../../../../domain/district';
 
 export default class CreateTennisMatchesController {
   constructor() {}
@@ -9,30 +10,32 @@ export default class CreateTennisMatchesController {
   async handle(req: Request, res: Response) {
     const createTennisMatch = new CreateTennisMatch();
 
-    const {
-      ntrpLevel,
-      startDateTime,
-      endDateTime,
-      district,
-      matchType,
-      court,
-      remarks
-    } = req.body;
+    const ntrpLevel: number = req.body.ntrpLevel;
+    const startDateTime: Date = req.body.startDateTime;
+    const endDateTime: Date = req.body.endDateTime;
+    const district: District = req.body.district;
+    const matchType: MatchType = req.body.matchType;
+    const court: string = req.body.court;
+    const remarks: string | undefined = req.body.remarks;
 
     if (!req.currentUser?.id) {
       throw new UnauthorizedError();
     }
 
-    const result = await createTennisMatch.execute({
-      userId: req.currentUser.id,
-      ntrpLevel,
-      startDateTime,
-      endDateTime,
-      district,
-      matchType,
-      court,
-      remarks
-    });
+    const createTennisMatchInput = Object.assign(
+      {
+        userId: req.currentUser.id,
+        ntrpLevel,
+        startDateTime,
+        endDateTime,
+        district,
+        matchType,
+        court
+      },
+      remarks === undefined ? null : { remarks }
+    );
+
+    const result = await createTennisMatch.execute(createTennisMatchInput);
 
     try {
       switch (result.message) {

@@ -6,8 +6,6 @@ export default class GetProfileController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
-    const { password } = req.body;
-
     if (!req.currentUser?.id) {
       throw new UnauthorizedError();
     }

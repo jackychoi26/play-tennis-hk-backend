@@ -6,7 +6,9 @@ export default class LoginController {
 
   async handle(req: Request, res: Response) {
     try {
-      const { username, password } = req.body;
+      const username: string = req.body;
+      const password: string = req.body;
+
       const result = await new Login().execute({ username, password });
 
       switch (result.message) {

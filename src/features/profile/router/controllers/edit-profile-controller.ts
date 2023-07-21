@@ -2,20 +2,19 @@ import { Request, Response } from 'express';
 import EditProfile from '../../domain/usecases/edit-profile';
 import { TokenData } from '../../../../core/jwt-helper';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
+import { District } from '../../../../domain/district';
 
 export default class EditProfileController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
-    const {
-      ntrpLevel,
-      description,
-      telegram,
-      districts,
-      whatsapp,
-      signal,
-      isProfilePublic
-    } = req.body;
+    const ntrpLevel: number | undefined = req.body.ntrpLevel;
+    const description: string | undefined = req.body.description;
+    const telegram: string | undefined = req.body.telegram;
+    const districts: District[] | undefined = req.body.districts;
+    const whatsapp: string | undefined = req.body.whatsapp;
+    const signal: string | undefined = req.body.signal;
+    const isProfilePublic: boolean | undefined = req.body.isProfilePublic;
 
     if (
       !ntrpLevel &&

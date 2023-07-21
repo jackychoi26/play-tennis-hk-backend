@@ -45,6 +45,7 @@ export default class EditProfileController {
       ntrpLevel === undefined ? null : { ntrpLevel },
       telegram === undefined ? null : { telegram },
       districts === undefined ? null : { districts },
+      description === undefined ? null : { description },
       isProfilePublic === undefined ? null : { isProfilePublic },
       whatsapp === undefined ? null : { whatsapp },
       signal === undefined ? null : { signal }

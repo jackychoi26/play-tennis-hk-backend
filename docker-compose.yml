@@ -1,30 +1,36 @@
 version: '3'
 
 services:
-    db:
-        image: "postgres:15"
-        environment:
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-            POSTGRES_DB: ${POSTGRES_DB}
-        ports:
-            - "5432:5432"
-        volumes:
-            - ./pgdata:/var/lib/postgresql/data
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-    backend:
-        environment: 
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-            POSTGRES_DB: ${POSTGRES_DB}
-            POSTGRES_HOST: db
-            NODE_ENV: development
-            PORT: 3000
-        depends_on: 
-            - db
-        build:
-            context: ./
-            dockerfile: ./Dockerfile
-        image: "be/play_tennis_hk:latest"
-        ports:
-            - "3000:3000"
+  backend:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: "be/play_tennis_hk:latest"
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: db
+      NODE_ENV: development
+      PORT: 3000

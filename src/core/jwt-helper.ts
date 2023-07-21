@@ -3,10 +3,7 @@ import UnauthorizedError from './errors/unauthorized-error';
 
 export default class JwtHelper {
   // expires in 3 months
-  static sign(
-    data: TokenData,
-    expiresIn: number = 1000 * 60 * 60 * 24 * 90
-  ): string {
+  static sign(data: TokenData, expiresIn: number = 60 * 60 * 24 * 90): string {
     return jwt.sign(data, process.env.JWT_SECRET!, {
       expiresIn: expiresIn
     });

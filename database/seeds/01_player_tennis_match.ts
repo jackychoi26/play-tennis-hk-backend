@@ -4,7 +4,6 @@ export async function seed(knex: Knex): Promise<void> {
   // Inserts seed entries
   await knex('player').insert([
     {
-      id: 1,
       username: 'Hemingway',
       email: 'hemingway@gmail.com',
       age: 35,
@@ -15,7 +14,6 @@ export async function seed(knex: Knex): Promise<void> {
       telegram: 'hemingway'
     },
     {
-      id: 2,
       username: 'Fitzgerald',
       email: 'fitzgerald@gmail.com',
       districts: ['KOWLOON_CITY', 'SHAM_SHUI_PO'],
@@ -26,7 +24,6 @@ export async function seed(knex: Knex): Promise<void> {
       signal: '+852 6123 4213'
     },
     {
-      id: 3,
       username: 'Calvino',
       email: 'calvino@gmail.com',
       is_profile_public: false,

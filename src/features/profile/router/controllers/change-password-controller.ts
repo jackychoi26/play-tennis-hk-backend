@@ -7,7 +7,7 @@ export default class ChangePasswordController {
   constructor() {}
 
   async handle(req: Request, res: Response) {
-    const password: string = req.body;
+    const password: string = req.body.password;
 
     if (!req.currentUser?.id) {
       throw new UnauthorizedError();

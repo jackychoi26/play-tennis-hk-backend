@@ -98,7 +98,6 @@ export default class ProfileRouter {
 
     this.router.patch(
       '/',
-
       requireAuth,
       [
         ntrpLevelValidator,

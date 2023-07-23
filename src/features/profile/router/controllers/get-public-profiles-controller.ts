@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import GetPublicProfiles from '../../domain/usecases/get-public-profiles';
+import logger from '../../../../core/logger';
 
 export default class GetPublicProfilesController {
   constructor() {}
@@ -17,7 +18,7 @@ export default class GetPublicProfilesController {
           return res.status(400).json(result);
       }
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return res.status(500).json();
     }
   }

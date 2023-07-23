@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import GetProfile from '../../domain/usecases/get-profile';
+import logger from '../../../../core/logger';
 
 export default class GetProfileController {
   constructor() {}
@@ -24,7 +25,7 @@ export default class GetProfileController {
           return res.status(400).json(result);
       }
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return res.status(500).json();
     }
   }

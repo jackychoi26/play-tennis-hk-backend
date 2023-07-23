@@ -4,19 +4,12 @@ import { body } from 'express-validator';
 import DeleteTennisMatchesController from './controllers/delete-tennis-match-controller';
 import CreateTennisMatchesController from './controllers/create-tennis-match-controller';
 import GetTennisMatchesByUserIdController from './controllers/get-tennis-matches-by-user-id-controller';
+import { ntrpLevelValidator } from '../../../validatons';
 import {
-  descriptionValidator,
-  emailValidator,
-  ntrpLevelValidator,
-  passwordValidator,
-  signalValidator,
-  telegramValidator,
-  usernameValidator,
-  whatsappValidator
-} from '../../../validatons';
-import requireAuth from '../../../middlewares/require-auth';
-import validateRequest from '../../../middlewares/validate-request';
-import errorHandler from '../../../middlewares/error-handler';
+  requireAuth,
+  validateRequest,
+  errorHandler
+} from '../../../middlewares';
 
 export default class MatchmakingRouter {
   private router: Router = express.Router();

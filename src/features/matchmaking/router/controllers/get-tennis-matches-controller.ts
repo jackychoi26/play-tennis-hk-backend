@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import GetTennisMatches from '../../domain/usecases/get-tennis-matches';
+import logger from '../../../../core/logger';
 
 export class GetTennisMatchesController {
   constructor() {}
@@ -14,6 +15,9 @@ export class GetTennisMatchesController {
         case 'GET_TENNIS_MATCHES_FAILURE':
           return res.status(500).json(result);
       }
-    } catch (err) {}
+    } catch (err) {
+      logger.error(err);
+      res.status(500).send({ message: 'Internal server error' });
+    }
   }
 }

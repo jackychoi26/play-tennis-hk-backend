@@ -3,12 +3,24 @@ import 'express-async-errors';
 import MatchmakingRouter from './features/matchmaking/router/matchmaking-router';
 import ProfileRouter from './features/profile/router/profile-router';
 import SystemSettingRouter from './features/system-setting/system-setting-router';
+import { logRequest, logResponse } from './middlewares';
 
 const app = express();
 app.use(express.json());
 
-app.use('/matchmaking', new MatchmakingRouter().setup());
-app.use('/profile', new ProfileRouter().setup());
-app.use('/system-setting', new SystemSettingRouter().setup());
+app.use(
+  '/matchmaking',
+  logRequest,
+  logResponse,
+  new MatchmakingRouter().setup()
+);
+app.use('/profile', logRequest, logResponse, new ProfileRouter().setup());
+
+app.use(
+  '/system-setting',
+  logRequest,
+  logResponse,
+  new SystemSettingRouter().setup()
+);
 
 export { app };

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import DeleteTennisMatch from '../../domain/usecases/delete-tennis-match';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
+import logger from '../../../../core/logger';
 
 export default class DeleteTennisMatchesController {
   constructor() {}
@@ -27,6 +28,7 @@ export default class DeleteTennisMatchesController {
           return res.status(400).json(result);
       }
     } catch (err) {
+      logger.error(err);
       return res.status(500).json({ message: 'Internal server error' });
     }
   }

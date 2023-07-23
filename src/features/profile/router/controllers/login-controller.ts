@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Login from '../../../profile/domain/usecases/login';
+import logger from '../../../../core/logger';
 
 export default class LoginController {
   constructor() {}
@@ -8,7 +9,6 @@ export default class LoginController {
     try {
       const username: string = req.body.username;
       const password: string = req.body.password;
-
       const result = await new Login().execute({ username, password });
 
       switch (result.message) {
@@ -18,7 +18,7 @@ export default class LoginController {
           return res.status(400).json(result);
       }
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return res.status(500).json();
     }
   }

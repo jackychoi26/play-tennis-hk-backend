@@ -3,6 +3,7 @@ import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import CreateTennisMatch from '../../domain/usecases/create-tennis-match';
 import { MatchType } from '../../../../domain/match-type';
 import { District } from '../../../../domain/district';
+import logger from '../../../../core/logger';
 
 export default class CreateTennisMatchesController {
   constructor() {}
@@ -47,6 +48,7 @@ export default class CreateTennisMatchesController {
           return res.status(400).json(result);
       }
     } catch (err) {
+      logger.err(err);
       return res.status(500).json({ message: 'Internal server error' });
     }
   }

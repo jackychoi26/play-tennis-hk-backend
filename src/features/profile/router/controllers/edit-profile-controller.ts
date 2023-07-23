@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import EditProfile from '../../domain/usecases/edit-profile';
-import { TokenData } from '../../../../core/jwt-helper';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import { District } from '../../../../domain/district';
 
@@ -43,12 +42,12 @@ export default class EditProfileController {
         id: req.currentUser.id
       },
       ntrpLevel === undefined ? null : { ntrpLevel },
-      telegram === undefined ? null : { telegram },
       districts === undefined ? null : { districts },
-      description === undefined ? null : { description },
+      telegram === undefined || '' ? null : { telegram },
       isProfilePublic === undefined ? null : { isProfilePublic },
-      whatsapp === undefined ? null : { whatsapp },
-      signal === undefined ? null : { signal }
+      whatsapp === undefined || '' ? null : { whatsapp },
+      description === undefined || '' ? null : { description },
+      signal === undefined || '' ? null : { signal }
     );
 
     try {
@@ -62,16 +61,6 @@ export default class EditProfileController {
       }
     } catch (err) {
       return res.status(500).json();
-    }
-  }
-}
-
-// It's declared multiple times because of some typescript compile issue
-// removing this will throw compile error
-declare global {
-  namespace Express {
-    interface Request {
-      currentUser?: TokenData;
     }
   }
 }

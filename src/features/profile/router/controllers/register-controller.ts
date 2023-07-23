@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Register from '../../domain/usecases/register';
 import { District } from '../../../../domain/district';
+import logger from '../../../../core/logger';
 
 export default class RegisterController {
   constructor() {}
@@ -41,7 +42,7 @@ export default class RegisterController {
           return res.status(400).json(result);
       }
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return res.status(500).json();
     }
   }

@@ -5,6 +5,7 @@ import IUserRepository, {
   UpdateUserParam
 } from '../../domain/repositories/i-user-repository';
 const knex = require('../../../../../database/config').knex;
+import logger from '../../../../core/logger';
 
 export default class UserRepository implements IUserRepository {
   async createUser({
@@ -38,13 +39,9 @@ export default class UserRepository implements IUserRepository {
 
     let userCreation: any;
 
-    try {
-      userCreation = await knex('player')
-        .insert(userRegistrationObject)
-        .returning('*');
-    } catch (err) {
-      return Result.fail('Cannot insert user');
-    }
+    userCreation = await knex('player')
+      .insert(userRegistrationObject)
+      .returning('*');
 
     if (userCreation && userCreation.length > 0) {
       const data = userCreation[0];
@@ -65,6 +62,7 @@ export default class UserRepository implements IUserRepository {
         signal: data.signal
       });
     } else {
+      logger.warning('[user-repository]: cannot create user');
       return Result.fail('Something went wrong');
     }
   }
@@ -231,39 +229,35 @@ export default class UserRepository implements IUserRepository {
       .select('*')
       .where('is_profile_public', true);
 
-    try {
-      const publicProfiles: User[] = [];
+    const publicProfiles: User[] = [];
 
-      publicProfilesQuery.forEach((data: any) => {
-        const userResult = User.create({
-          id: data.id,
-          username: data.username,
-          email: data.email,
-          password: data.password,
-          isProfilePublic: data.is_profile_public,
-          createdAt: data.created_at,
-          imageUrl: data.image_url,
-          ntrpLevel: data.ntrp_level,
-          districts: data.districts,
-          age: data.age,
-          description: data.description,
-          telegram: data.telegram,
-          whatsapp: data.whatsapp,
-          signal: data.signal
-        });
-
-        if (userResult.isSuccess) {
-          const user = userResult.getValue();
-
-          if (user) {
-            publicProfiles.push(user);
-          }
-        }
+    publicProfilesQuery.forEach((data: any) => {
+      const userResult = User.create({
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        isProfilePublic: data.is_profile_public,
+        createdAt: data.created_at,
+        imageUrl: data.image_url,
+        ntrpLevel: data.ntrp_level,
+        districts: data.districts,
+        age: data.age,
+        description: data.description,
+        telegram: data.telegram,
+        whatsapp: data.whatsapp,
+        signal: data.signal
       });
 
-      return Result.ok(publicProfiles);
-    } catch (err) {
-      return Result.fail('Cannot get public profiles');
-    }
+      if (userResult.isSuccess) {
+        const user = userResult.getValue();
+
+        if (user) {
+          publicProfiles.push(user);
+        }
+      }
+    });
+
+    return Result.ok(publicProfiles);
   }
 }

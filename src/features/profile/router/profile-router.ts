@@ -106,7 +106,7 @@ export default class ProfileRouter {
       [
         ntrpLevelValidator,
         descriptionValidator,
-        districtValidator,
+        districtsValidator,
         signalValidator,
         whatsappValidator,
         telegramValidator

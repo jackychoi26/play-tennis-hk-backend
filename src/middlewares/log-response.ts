@@ -20,8 +20,9 @@ const logResponse = (req: Request, res: Response, next: NextFunction) => {
       res.send = oldSend;
       return res.send(data);
     } catch (err) {
-      logger.error('Throw error when trying to parse the response body', err);
-      throw new InternalError('Server went wrong');
+      logger.error(err);
+      res.send = oldSend;
+      return res.send(data);
     }
   };
 

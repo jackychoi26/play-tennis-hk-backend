@@ -13,6 +13,7 @@ interface RegisterParam {
   ntrpLevel: number;
   districts: District[];
   isProfilePublic: boolean;
+  age?: number;
   imageUrl?: string;
   description?: string;
   telegram?: string;

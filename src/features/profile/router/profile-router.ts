@@ -18,7 +18,7 @@ import {
   telegramValidator,
   usernameValidator,
   whatsappValidator,
-  districtValidator,
+  ageValidator,
   isProfilePublicValidator
 } from '../../../validatons';
 import GetPublicProfilesController from './controllers/get-public-profiles-controller';
@@ -78,6 +78,7 @@ export default class ProfileRouter {
         usernameValidator,
         districtsValidator,
         emailValidator,
+        ageValidator,
         passwordValidator,
         isProfilePublicValidator,
         descriptionValidator,
@@ -109,6 +110,7 @@ export default class ProfileRouter {
         districtsValidator,
         signalValidator,
         whatsappValidator,
+        ageValidator,
         telegramValidator
       ],
       validateRequest,

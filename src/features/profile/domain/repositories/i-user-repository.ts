@@ -8,6 +8,7 @@ export interface CreateUserParam {
   password: string;
   isProfilePublic: boolean;
   districts: District[];
+  age?: number;
   imageUrl?: string;
   ntrpLevel: number;
   description?: string;
@@ -22,6 +23,7 @@ export interface UpdateUserParam {
   imageUrl?: string;
   isProfilePublic?: boolean;
   districts?: District[];
+  age?: number;
   ntrpLevel?: number;
   description?: string;
   telegram?: string;
@@ -36,6 +38,7 @@ export default interface IUserRepository {
     password,
     isProfilePublic,
     districts,
+    age,
     imageUrl,
     ntrpLevel,
     description,
@@ -59,6 +62,7 @@ export default interface IUserRepository {
     imageUrl,
     ntrpLevel,
     districts,
+    age,
     description,
     telegram,
     whatsapp,

@@ -14,6 +14,7 @@ export default class RegisterController {
       const ntrpLevel: number = req.body.ntrpLevel;
       const isProfilePublic: boolean = req.body.isProfilePublic;
       const districts: District[] = req.body.districts;
+      const age: number | undefined = req.body.age;
       const imageUrl: string | undefined = req.body.imageUrl;
       const description: string | undefined = req.body.description;
       const telegram: string | undefined = req.body.telegram;
@@ -25,6 +26,7 @@ export default class RegisterController {
       const registerInput = Object.assign(
         { username, email, password, ntrpLevel, isProfilePublic, districts },
         imageUrl === undefined ? null : { imageUrl },
+        age === undefined ? null : { age },
         description === undefined ? null : { description },
         districts === undefined ? null : { districts },
         telegram === undefined ? null : { telegram },

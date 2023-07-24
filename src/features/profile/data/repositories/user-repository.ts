@@ -14,6 +14,7 @@ export default class UserRepository implements IUserRepository {
     password,
     imageUrl,
     isProfilePublic,
+    age,
     ntrpLevel,
     description,
     districts,
@@ -32,6 +33,7 @@ export default class UserRepository implements IUserRepository {
       },
       imageUrl === undefined ? null : { image_url: imageUrl },
       description === undefined ? null : { description },
+      age === undefined ? null : { age },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },
       signal === undefined ? null : { signal }
@@ -169,6 +171,7 @@ export default class UserRepository implements IUserRepository {
     isProfilePublic,
     description,
     districts,
+    age,
     telegram,
     whatsapp,
     signal
@@ -183,6 +186,7 @@ export default class UserRepository implements IUserRepository {
         : { is_profile_public: isProfilePublic },
       description === undefined ? null : { description },
       districts === undefined ? null : { districts },
+      age === undefined ? null : { age },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },
       signal === undefined ? null : { signal }

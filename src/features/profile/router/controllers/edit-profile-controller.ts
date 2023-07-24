@@ -10,6 +10,7 @@ export default class EditProfileController {
     const ntrpLevel: number | undefined = req.body.ntrpLevel;
     const description: string | undefined = req.body.description;
     const telegram: string | undefined = req.body.telegram;
+    const age: string | number = req.body.age;
     const districts: District[] | undefined = req.body.districts;
     const whatsapp: string | undefined = req.body.whatsapp;
     const signal: string | undefined = req.body.signal;
@@ -19,6 +20,7 @@ export default class EditProfileController {
       !ntrpLevel &&
       !description &&
       !telegram &&
+      !age &&
       !whatsapp &&
       !districts &&
       !signal &&
@@ -44,6 +46,7 @@ export default class EditProfileController {
       ntrpLevel === undefined ? null : { ntrpLevel },
       districts === undefined ? null : { districts },
       telegram === undefined || '' ? null : { telegram },
+      age === undefined || '' ? null : { age },
       isProfilePublic === undefined ? null : { isProfilePublic },
       whatsapp === undefined || '' ? null : { whatsapp },
       description === undefined || '' ? null : { description },

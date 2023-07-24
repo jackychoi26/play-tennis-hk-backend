@@ -10,10 +10,12 @@ import telegramValidator from './telegram-validator';
 import usernameValidator from './username-validator';
 import whatsappValidator from './whatsapp-validator';
 import isProfilePublicValidator from './is-profile-public-validator';
+import ageValidator from './age-validator';
 
 export {
   descriptionValidator,
   emailValidator,
+  ageValidator,
   ntrpLevelValidator,
   passwordValidator,
   signalValidator,

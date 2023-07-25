@@ -11,9 +11,13 @@ import usernameValidator from './username-validator';
 import whatsappValidator from './whatsapp-validator';
 import isProfilePublicValidator from './is-profile-public-validator';
 import ageValidator from './age-validator';
+import startDateTimeValidator from './start-date-time-validator';
+import endDateTimeValidator from './end-date-time-validator';
 
 export {
   descriptionValidator,
+  startDateTimeValidator,
+  endDateTimeValidator,
   emailValidator,
   ageValidator,
   ntrpLevelValidator,

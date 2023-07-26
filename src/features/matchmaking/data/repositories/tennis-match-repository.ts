@@ -4,7 +4,6 @@ import TennisMatch from '../../domain/entities/tennis-match';
 import ITennisMatchRepository, {
   SaveTennisMatchParam
 } from '../../domain/repositories/i-tennis-match-repository';
-import logger from '../../../../core/logger';
 
 const knex = require('../../../../../database/config').knex;
 
@@ -21,7 +20,9 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
         'player.districts as player_districts',
         '*'
       ])
-      .where('tennis_match.is_deleted', false);
+      .where('tennis_match.is_deleted', '=', false)
+      .andWhere('tennis_match.end_date_time', '>', knex.fn.now())
+      .orderBy('tennis_match.end_date_time', 'asc');
 
     const tennisMatches: TennisMatch[] = tennisMatchesQuery.map((data: any) => {
       const userProfile = new UserProfile({

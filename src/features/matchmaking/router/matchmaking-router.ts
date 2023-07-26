@@ -4,7 +4,13 @@ import { body } from 'express-validator';
 import DeleteTennisMatchesController from './controllers/delete-tennis-match-controller';
 import CreateTennisMatchesController from './controllers/create-tennis-match-controller';
 import GetTennisMatchesByUserIdController from './controllers/get-tennis-matches-by-user-id-controller';
-import { ntrpLevelValidator } from '../../../validatons';
+import {
+  districtValidator,
+  endDateTimeValidator,
+  matchTypeValidator,
+  ntrpLevelValidator,
+  startDateTimeValidator
+} from '../../../validatons';
 import {
   requireAuth,
   validateRequest,
@@ -36,8 +42,20 @@ export default class MatchmakingRouter {
     this.router.post(
       '/',
       requireAuth,
-      [body('ntrpLevel').exists().withMessage('MISSING_NTRP_LEVEL')],
-      [ntrpLevelValidator],
+      [
+        body('ntrpLevel').exists().withMessage('MISSING_NTRP_LEVEL'),
+        body('startDateTime').exists().withMessage('MISSING_START_DATE_TIME'),
+        body('endDateTime').exists().withMessage('MISSING_END_DATE_TIME'),
+        body('district').exists().withMessage('MISSING_DISTRICT'),
+        body('matchType').exists().withMessage('MISSING_MATCH_TYPE')
+      ],
+      [
+        ntrpLevelValidator,
+        startDateTimeValidator,
+        endDateTimeValidator,
+        districtValidator,
+        matchTypeValidator
+      ],
       validateRequest,
       this.createTennisMatchController.handle,
       errorHandler

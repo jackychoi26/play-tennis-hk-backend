@@ -4,6 +4,7 @@ import CreateTennisMatch from '../../domain/usecases/create-tennis-match';
 import { MatchType } from '../../../../domain/match-type';
 import { District } from '../../../../domain/district';
 import logger from '../../../../core/logger';
+import moment from 'moment';
 
 export default class CreateTennisMatchesController {
   constructor() {}
@@ -12,8 +13,8 @@ export default class CreateTennisMatchesController {
     const createTennisMatch = new CreateTennisMatch();
 
     const ntrpLevel: number = req.body.ntrpLevel;
-    const startDateTime: Date = req.body.startDateTime;
-    const endDateTime: Date = req.body.endDateTime;
+    const startDateTime: Date = moment(req.body.startDateTime).toDate();
+    const endDateTime: Date = moment(req.body.endDateTime).toDate();
     const district: District = req.body.district;
     const matchType: MatchType = req.body.matchType;
     const court: string = req.body.court;

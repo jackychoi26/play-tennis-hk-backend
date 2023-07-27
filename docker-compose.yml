@@ -34,3 +34,5 @@ services:
       POSTGRES_HOST: db
       NODE_ENV: development
       PORT: 3000
+    volumes:
+      - ./logs:/usr/src/app/logs

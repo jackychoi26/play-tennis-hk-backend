@@ -5,6 +5,7 @@ import UseCase from '../../../../core/usecase';
 import IUserRepository from '../repositories/i-user-repository';
 import { District } from '../../../../domain/district';
 import UserProfile from '../entities/user-profile';
+import User from '../entities/user';
 
 interface RegisterParam {
   username: string;
@@ -47,6 +48,8 @@ export default class Register
 
   async execute(input: RegisterParam): Promise<RegisterResult> {
     const { username, email } = input;
+
+    input.password = User.hashPassword(input.password);
 
     const usernameSearchResult = await this.repository.getFirstUserByUsername({
       username

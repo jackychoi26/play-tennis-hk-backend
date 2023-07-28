@@ -25,7 +25,8 @@ import GetPublicProfilesController from './controllers/get-public-profiles-contr
 import ChangePasswordController from './controllers/change-password-controller';
 import RegisterController from './controllers/register-controller';
 import GetProfileController from './controllers/get-profile-controller';
-import { body, check } from 'express-validator';
+import DeleteAccountController from './controllers/delete-account-controller';
+import { body } from 'express-validator';
 
 export default class ProfileRouter {
   private router: Router = express.Router();
@@ -36,6 +37,7 @@ export default class ProfileRouter {
   private changePasswordController = new ChangePasswordController();
   private registerController = new RegisterController();
   private getProfileController = new GetProfileController();
+  private deleteAccountController = new DeleteAccountController();
 
   constructor() {}
 
@@ -98,6 +100,13 @@ export default class ProfileRouter {
       [passwordValidator],
       validateRequest,
       this.changePasswordController.handle,
+      errorHandler
+    );
+
+    this.router.delete(
+      '/',
+      requireAuth,
+      this.deleteAccountController.handle,
       errorHandler
     );
 

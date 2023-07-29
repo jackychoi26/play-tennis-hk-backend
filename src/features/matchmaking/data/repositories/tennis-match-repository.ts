@@ -8,7 +8,11 @@ import ITennisMatchRepository, {
 const knex = require('../../../../../database/config').knex;
 
 export default class TennisMatchRepository implements ITennisMatchRepository {
-  async getTennisMatches(): Promise<Result<TennisMatch[]>> {
+  async getTennisMatches({
+    offset
+  }: {
+    offset: number;
+  }): Promise<Result<TennisMatch[]>> {
     const tennisMatchesQuery = await knex('player')
       .join('tennis_match', 'player.id', '=', 'tennis_match.poster_id')
       .select([
@@ -22,7 +26,9 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
       ])
       .where('tennis_match.is_deleted', '=', false)
       .andWhere('tennis_match.end_date_time', '>', knex.fn.now())
-      .orderBy('tennis_match.end_date_time', 'asc');
+      .orderBy('tennis_match.end_date_time', 'asc')
+      .limit(10)
+      .offset(offset);
 
     const tennisMatches: TennisMatch[] = tennisMatchesQuery.map((data: any) => {
       const userProfile = new UserProfile({

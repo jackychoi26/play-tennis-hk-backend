@@ -1,3 +1,4 @@
+import { District } from '../../../../../domain/district';
 import Result from '../../../../../core/result';
 import UserRepository from '../../../data/repositories/user-repository';
 import User from '../../entities/user';
@@ -23,7 +24,8 @@ describe('Update user profile success', () => {
     const result = await editProfile.execute({
       id: 1,
       description: 'testing',
-      ntrpLevel: 4.5
+      ntrpLevel: 4.5,
+      districts: [District.taiPo]
     });
 
     expect(result.message).toBe('EDIT_PROFILE_SUCCESS');
@@ -39,7 +41,8 @@ describe('Update user profile success', () => {
     expect(repository.updateUser).toBeCalledWith({
       id: 1,
       description: 'testing',
-      ntrpLevel: 4.5
+      ntrpLevel: 4.5,
+      districts: [District.taiPo]
     });
   });
 });
@@ -60,7 +63,8 @@ describe('Update user profile failure', () => {
     const result = await editProfile.execute({
       id: 1,
       description: 'testing',
-      ntrpLevel: 4.5
+      ntrpLevel: 4.5,
+      districts: [District.taiPo]
     });
 
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
@@ -83,7 +87,8 @@ describe('Update user profile failure', () => {
     const result = await editProfile.execute({
       id: 1,
       description: 'testing',
-      ntrpLevel: 4.5
+      ntrpLevel: 4.5,
+      districts: [District.taiPo]
     });
 
     expect(result.message).toBe('EDIT_PROFILE_FAILURE');
@@ -96,7 +101,8 @@ describe('Update user profile failure', () => {
     expect(repository.updateUser).toBeCalledWith({
       id: 1,
       description: 'testing',
-      ntrpLevel: 4.5
+      ntrpLevel: 4.5,
+      districts: [District.taiPo]
     });
   });
 });

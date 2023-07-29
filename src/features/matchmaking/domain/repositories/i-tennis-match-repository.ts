@@ -16,7 +16,11 @@ export interface SaveTennisMatchParam {
 }
 
 export default interface ITennisMatchRepository {
-  getTennisMatches(): Promise<Result<TennisMatch[]>>;
+  getTennisMatches({
+    offset
+  }: {
+    offset: number;
+  }): Promise<Result<TennisMatch[]>>;
 
   getTennisMatchById({
     tennisMatchId

@@ -80,18 +80,15 @@ export default class CreateTennisMatch
       if (user) {
         if (this.hasAtLeastOneContactInfo(user)) {
           const tennisMatchesResult =
-            await this.tennisMatchRepository.getTennisMatches();
+            await this.tennisMatchRepository.getTennisMatchesByUserId({
+              userId: user.id
+            });
 
           if (tennisMatchesResult.isSuccess) {
             const tennisMatches = tennisMatchesResult.getValue() ?? [];
 
-            // Optimize this part
-            const tennisMatchesCreatedByCurrentUser = tennisMatches.filter(
-              (tennisMatch) => tennisMatch.poster.id === user.id
-            );
-
             // TODO: move to system param
-            if (tennisMatchesCreatedByCurrentUser.length > 2) {
+            if (tennisMatches.length > 2) {
               return {
                 message: 'TOO_MANY_MATCHES_CREATED_FAILURE'
               };

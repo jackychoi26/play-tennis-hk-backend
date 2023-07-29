@@ -2,6 +2,7 @@ import Register from '../register';
 import UserRepository from '../../../data/repositories/user-repository';
 import Result from '../../../../../core/result';
 import User from '../../entities/user';
+import { District } from '../../../../../domain/district';
 
 jest.mock('../../../data/repositories/user-repository');
 
@@ -30,8 +31,9 @@ describe('Register with unique username or email', () => {
         username: 'tennisking',
         email: 'jones@gmail.com',
         ntrpLevel: 3.5,
-        password: 'abcd1234',
-        imageUrl: 'abcd1234'
+        password: '',
+        imageUrl: 'abcd1234',
+        districts: [District.taiPo]
       })
     );
 
@@ -40,8 +42,9 @@ describe('Register with unique username or email', () => {
       email: 'jones@gmail.com',
       isProfilePublic: true,
       ntrpLevel: 3.5,
-      password: 'abcd1234',
-      imageUrl: 'abcd1234'
+      password: '',
+      imageUrl: 'abcd1234',
+      districts: [District.taiPo]
     });
 
     expect(result.message).toBe('REGISTER_SUCCESS');
@@ -62,8 +65,9 @@ describe('Register with unique username or email', () => {
       email: 'jones@gmail.com',
       ntrpLevel: 3.5,
       isProfilePublic: true,
-      password: 'abcd1234',
-      imageUrl: 'abcd1234'
+      password: '',
+      imageUrl: 'abcd1234',
+      districts: [District.taiPo]
     });
 
     if (result.message === 'REGISTER_SUCCESS') {
@@ -90,7 +94,8 @@ describe('Register with an existing username or email', () => {
       ntrpLevel: 3.5,
       isProfilePublic: false,
       password: 'abcd1234',
-      imageUrl: 'abcd1234'
+      imageUrl: 'abcd1234',
+      districts: [District.taiPo]
     });
 
     expect(repository.getFirstUserByUsername).toBeCalledTimes(1);
@@ -118,7 +123,8 @@ describe('Register with an existing username or email', () => {
       ntrpLevel: 3.5,
       isProfilePublic: true,
       password: 'abcd1234',
-      imageUrl: 'abcd1234'
+      imageUrl: 'abcd1234',
+      districts: [District.taiPo]
     });
 
     expect(repository.getFirstUserByUsername).toBeCalledTimes(1);

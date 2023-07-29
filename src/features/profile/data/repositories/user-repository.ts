@@ -103,6 +103,7 @@ export default class UserRepository implements IUserRepository {
     const userQuery = await knex('player')
       .select('*')
       .whereRaw('LOWER(email) = LOWER(?)', email)
+      .andWhere('is_deleted', false)
       .first();
 
     if (userQuery == undefined) {
@@ -137,6 +138,7 @@ export default class UserRepository implements IUserRepository {
     const userQuery = await knex('player')
       .select('*')
       .whereRaw('LOWER(username) = LOWER(?)', username)
+      .andWhere('is_deleted', false)
       .first();
 
     if (userQuery == undefined) {
@@ -194,6 +196,7 @@ export default class UserRepository implements IUserRepository {
 
     const userUpdate = await knex('player')
       .where('id', id)
+      .andWhere('is_deleted', false)
       .first()
       .update(newUserProfileObject)
       .returning('*');
@@ -231,7 +234,8 @@ export default class UserRepository implements IUserRepository {
   async getPublicUsers(): Promise<Result<User[]>> {
     const publicProfilesQuery = await knex('player')
       .select('*')
-      .where('is_profile_public', true);
+      .where('is_profile_public', true)
+      .andWhere('is_deleted', false);
 
     const publicProfiles: User[] = [];
 
@@ -263,5 +267,9 @@ export default class UserRepository implements IUserRepository {
     });
 
     return Result.ok(publicProfiles);
+  }
+
+  async deleteAccount(id: number): Promise<void> {
+    await knex('player').where('id', id).update({ is_deleted: true });
   }
 }

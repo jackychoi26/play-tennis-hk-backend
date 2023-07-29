@@ -70,4 +70,6 @@ export default interface IUserRepository {
   }: UpdateUserParam): Promise<Result<User>>;
 
   getPublicUsers(): Promise<Result<User[]>>;
+
+  deleteAccount(id: number): Promise<void>;
 }

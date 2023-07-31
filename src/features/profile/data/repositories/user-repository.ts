@@ -57,7 +57,7 @@ export default class UserRepository implements IUserRepository {
         imageUrl: data.image_url,
         ntrpLevel: data.ntrp_level,
         districts: data.districts,
-        age: userCreation.age,
+        age: data.age,
         description: data.description,
         telegram: data.telegram,
         whatsapp: data.whatsapp,

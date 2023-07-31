@@ -16,6 +16,7 @@ const logRequest = (req: Request, res: Response, next: NextFunction) => {
     body
   };
 
+  console.dir(logObject);
   logger.info(logObject);
   next();
 };

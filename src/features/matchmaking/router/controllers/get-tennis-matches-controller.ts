@@ -7,7 +7,11 @@ export class GetTennisMatchesController {
 
   async handle(req: Request, res: Response) {
     try {
-      const result = await new GetTennisMatches().execute();
+      const offsetQuery = req.query.offset as string;
+      const parsedOffset = parseInt(offsetQuery);
+      const offset = isNaN(parsedOffset) ? 0 : parsedOffset;
+
+      const result = await new GetTennisMatches().execute({ offset });
 
       switch (result.message) {
         case 'GET_TENNIS_MATCHES_SUCCESS':

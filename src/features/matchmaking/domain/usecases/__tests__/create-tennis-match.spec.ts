@@ -17,7 +17,7 @@ const tennisMatchRepository: jest.Mocked<TennisMatchRepository> =
 describe('Create match failure', () => {
   beforeEach(() => {
     userRepository.getFirstUserById.mockClear();
-    tennisMatchRepository.getTennisMatches.mockClear();
+    tennisMatchRepository.getTennisMatchesByUserId.mockClear();
     tennisMatchRepository.saveTennisMatch.mockClear();
   });
 
@@ -57,7 +57,7 @@ describe('Create match failure', () => {
       userRepository
     );
 
-    tennisMatchRepository.getTennisMatches.mockResolvedValueOnce(
+    tennisMatchRepository.getTennisMatchesByUserId.mockResolvedValueOnce(
       Result.ok<TennisMatch[]>([
         TennisMatch.stub({}),
         TennisMatch.stub({}),

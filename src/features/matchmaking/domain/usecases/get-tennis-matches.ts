@@ -2,6 +2,10 @@ import TennisMatch from '../entities/tennis-match';
 import TennisMatchRepository from '../../data/repositories/tennis-match-repository';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
 
+interface GetTennisMatchesParam {
+  offset: number;
+}
+
 type GetTennisMatchesSuccess = {
   message: 'GET_TENNIS_MATCHES_SUCCESS';
   tennisMatches: TennisMatch[];
@@ -20,8 +24,12 @@ export default class GetTennisMatches {
     private repository: ITennisMatchRepository = new TennisMatchRepository()
   ) {}
 
-  async execute(): Promise<GetTennisMatchesResult> {
-    const tennisMatchesResult = await this.repository.getTennisMatches();
+  async execute(input: GetTennisMatchesParam): Promise<GetTennisMatchesResult> {
+    const { offset } = input;
+
+    const tennisMatchesResult = await this.repository.getTennisMatches({
+      offset
+    });
 
     if (tennisMatchesResult.isSuccess) {
       const tennisMatches = tennisMatchesResult.getValue();

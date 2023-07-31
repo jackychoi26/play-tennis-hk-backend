@@ -17,6 +17,7 @@ const logResponse = (req: Request, res: Response, next: NextFunction) => {
       };
 
       logger.info(logObject);
+      console.dir(logObject);
       res.send = oldSend;
       return res.send(data);
     } catch (err) {

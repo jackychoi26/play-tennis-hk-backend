@@ -235,7 +235,8 @@ export default class UserRepository implements IUserRepository {
     const publicProfilesQuery = await knex('player')
       .select('*')
       .where('is_profile_public', true)
-      .andWhere('is_deleted', false);
+      .andWhere('is_deleted', false)
+      .orderBy('updated_at', 'desc');
 
     const publicProfiles: User[] = [];
 

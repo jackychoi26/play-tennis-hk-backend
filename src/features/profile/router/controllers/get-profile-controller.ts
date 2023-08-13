@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import GetProfile from '../../domain/usecases/get-profile';
 import logger from '../../../../core/logger';
+import { TokenData } from '../../../../core/jwt-helper';
 
 export default class GetProfileController {
   constructor() {}
@@ -26,7 +27,17 @@ export default class GetProfileController {
       }
     } catch (err) {
       logger.error(err);
+      console.error(err);
       return res.status(500).json();
+    }
+  }
+}
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
     }
   }
 }

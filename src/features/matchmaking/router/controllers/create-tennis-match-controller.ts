@@ -5,6 +5,7 @@ import { MatchType } from '../../../../domain/match-type';
 import { District } from '../../../../domain/district';
 import logger from '../../../../core/logger';
 import moment from 'moment';
+import { TokenData } from '../../../../core/jwt-helper';
 
 export default class CreateTennisMatchesController {
   constructor() {}
@@ -50,7 +51,17 @@ export default class CreateTennisMatchesController {
       }
     } catch (err) {
       logger.err(err);
+      console.error(err);
       return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+}
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
     }
   }
 }

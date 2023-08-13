@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import GetTennisMatchByUserId from '../../domain/usecases/get-tennis-matches-by-user-id';
 import logger from '../../../../core/logger';
+import { TokenData } from '../../../../core/jwt-helper';
 
 export default class GetTennisMatchesByUserIdController {
   constructor() {}
@@ -26,7 +27,17 @@ export default class GetTennisMatchesByUserIdController {
       }
     } catch (err) {
       logger.error(err);
+      console.error(err);
       return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+}
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
     }
   }
 }

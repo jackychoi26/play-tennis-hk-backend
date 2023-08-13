@@ -25,3 +25,12 @@ const requireAuth = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default requireAuth;
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
+    }
+  }
+}

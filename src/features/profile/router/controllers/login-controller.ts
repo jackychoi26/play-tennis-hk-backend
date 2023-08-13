@@ -19,6 +19,7 @@ export default class LoginController {
       }
     } catch (err) {
       logger.error(err);
+      console.error(err);
       return res.status(500).json();
     }
   }

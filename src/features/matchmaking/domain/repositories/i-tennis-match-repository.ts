@@ -1,4 +1,3 @@
-import User from '../../../profile/domain/entities/user';
 import Result from '../../../../core/result';
 import TennisMatch from '../entities/tennis-match';
 import { MatchType } from '../../../../domain/match-type';
@@ -17,9 +16,15 @@ export interface SaveTennisMatchParam {
 
 export default interface ITennisMatchRepository {
   getTennisMatches({
-    offset
+    offset,
+    lowerNtrpLevel,
+    upperNtrpLevel,
+    selectedDistricts
   }: {
     offset: number;
+    lowerNtrpLevel: number;
+    upperNtrpLevel: number;
+    selectedDistricts: District[];
   }): Promise<Result<TennisMatch[]>>;
 
   getTennisMatchById({

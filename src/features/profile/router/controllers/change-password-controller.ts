@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import ChangePassword from '../../domain/usecases/change-password';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import logger from '../../../../core/logger';
+import { TokenData } from '../../../../core/jwt-helper';
 
 export default class ChangePasswordController {
   constructor() {}
@@ -30,7 +31,17 @@ export default class ChangePasswordController {
       }
     } catch (err) {
       logger.error(err);
+      console.error(err);
       return res.status(500).json();
+    }
+  }
+}
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
     }
   }
 }

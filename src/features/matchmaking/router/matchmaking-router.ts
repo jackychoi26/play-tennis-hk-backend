@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { GetTennisMatchesController } from './controllers/get-tennis-matches-controller';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import DeleteTennisMatchesController from './controllers/delete-tennis-match-controller';
 import CreateTennisMatchesController from './controllers/create-tennis-match-controller';
 import GetTennisMatchesByUserIdController from './controllers/get-tennis-matches-by-user-id-controller';
@@ -28,7 +28,17 @@ export default class MatchmakingRouter {
   constructor() {}
 
   setup(): Router {
-    this.router.get('/all', this.getTennisMatchesController.handle);
+    // TODO: add validation
+    this.router.get(
+      '/all',
+      [
+        query('lowerNtrpLevel').exists().withMessage('MISSING_NTRP_LEVEL'),
+        query('upperNtrpLevel').exists().withMessage('MISSING_NTRP_LEVEL'),
+        query('selectedDistricts').exists().withMessage('MISSING_DISTRICTS')
+      ],
+      validateRequest,
+      this.getTennisMatchesController.handle
+    );
 
     this.router.get(
       '/',

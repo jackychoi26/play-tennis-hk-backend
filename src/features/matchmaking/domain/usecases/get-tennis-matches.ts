@@ -1,9 +1,13 @@
 import TennisMatch from '../entities/tennis-match';
 import TennisMatchRepository from '../../data/repositories/tennis-match-repository';
 import ITennisMatchRepository from '../repositories/i-tennis-match-repository';
+import { District } from '../../../../domain/district';
 
 interface GetTennisMatchesParam {
   offset: number;
+  lowerNtrpLevel: number;
+  upperNtrpLevel: number;
+  selectedDistricts: District[];
 }
 
 type GetTennisMatchesSuccess = {
@@ -25,10 +29,13 @@ export default class GetTennisMatches {
   ) {}
 
   async execute(input: GetTennisMatchesParam): Promise<GetTennisMatchesResult> {
-    const { offset } = input;
+    const { offset, lowerNtrpLevel, upperNtrpLevel, selectedDistricts } = input;
 
     const tennisMatchesResult = await this.repository.getTennisMatches({
-      offset
+      offset,
+      lowerNtrpLevel,
+      upperNtrpLevel,
+      selectedDistricts
     });
 
     if (tennisMatchesResult.isSuccess) {

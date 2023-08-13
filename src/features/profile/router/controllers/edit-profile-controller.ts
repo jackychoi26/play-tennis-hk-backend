@@ -3,6 +3,7 @@ import EditProfile from '../../domain/usecases/edit-profile';
 import UnauthorizedError from '../../../../core/errors/unauthorized-error';
 import { District } from '../../../../domain/district';
 import logger from '../../../../core/logger';
+import { TokenData } from '../../../../core/jwt-helper';
 
 export default class EditProfileController {
   constructor() {}
@@ -36,10 +37,6 @@ export default class EditProfileController {
 
     const editProfile = new EditProfile();
 
-    const data = Object.fromEntries(
-      Object.entries(req.body).filter(([_, value]) => value !== undefined)
-    );
-
     const editProfileInput = Object.assign(
       {
         id: req.currentUser.id
@@ -65,7 +62,17 @@ export default class EditProfileController {
       }
     } catch (err) {
       logger.error(err);
+      console.error(err);
       return res.status(500).json();
+    }
+  }
+}
+
+// This is decalred many times because of compilation error bug
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: TokenData;
     }
   }
 }

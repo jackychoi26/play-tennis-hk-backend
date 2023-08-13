@@ -4,16 +4,23 @@ import TennisMatch from '../../domain/entities/tennis-match';
 import ITennisMatchRepository, {
   SaveTennisMatchParam
 } from '../../domain/repositories/i-tennis-match-repository';
+import { District } from '../../../../domain/district';
 
 const knex = require('../../../../../database/config').knex;
 
 export default class TennisMatchRepository implements ITennisMatchRepository {
   async getTennisMatches({
-    offset
+    offset,
+    lowerNtrpLevel,
+    upperNtrpLevel,
+    selectedDistricts
   }: {
     offset: number;
+    lowerNtrpLevel: number;
+    upperNtrpLevel: number;
+    selectedDistricts: District[];
   }): Promise<Result<TennisMatch[]>> {
-    const tennisMatchesQuery = await knex('player')
+    let tennisMatchesQuery = knex('player')
       .join('tennis_match', 'player.id', '=', 'tennis_match.poster_id')
       .select([
         'tennis_match.id as tennis_match_id',
@@ -23,8 +30,19 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
         'player.ntrp_level as player_ntrp_level',
         'player.districts as player_districts',
         '*'
-      ])
-      .where('tennis_match.is_deleted', '=', false)
+      ]);
+
+    if (selectedDistricts.length > 0) {
+      tennisMatchesQuery = tennisMatchesQuery.whereIn(
+        'tennis_match.district',
+        selectedDistricts
+      );
+    }
+
+    tennisMatchesQuery = await tennisMatchesQuery
+      .andWhere('tennis_match.is_deleted', '=', false)
+      .andWhere('tennis_match.ntrp_level', '>=', lowerNtrpLevel)
+      .andWhere('tennis_match.ntrp_level', '<=', upperNtrpLevel)
       .andWhere('tennis_match.end_date_time', '>', knex.fn.now())
       .orderBy('tennis_match.end_date_time', 'asc')
       .limit(10)

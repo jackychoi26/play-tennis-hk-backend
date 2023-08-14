@@ -7,9 +7,13 @@ export default class GetPublicProfilesController {
 
   async handle(req: Request, res: Response) {
     try {
+      const offsetQuery = req.query.offset as string;
+      const parsedOffset = parseInt(offsetQuery);
+      const offset = isNaN(parsedOffset) ? 0 : parsedOffset;
+
       const getPublicProfiles = new GetPublicProfiles();
 
-      const result = await getPublicProfiles.execute();
+      const result = await getPublicProfiles.execute({ offset });
 
       switch (result.message) {
         case 'GET_PUBLIC_PROFILES_SUCCESS':

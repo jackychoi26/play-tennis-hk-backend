@@ -231,12 +231,14 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async getPublicUsers(): Promise<Result<User[]>> {
+  async getPublicUsers(offset: number): Promise<Result<User[]>> {
     const publicProfilesQuery = await knex('player')
       .select('*')
       .where('is_profile_public', true)
       .andWhere('is_deleted', false)
-      .orderBy('updated_at', 'desc');
+      .orderBy('updated_at', 'desc')
+      .limit(10)
+      .offset(offset);
 
     const publicProfiles: User[] = [];
 

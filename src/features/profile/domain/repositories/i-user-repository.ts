@@ -69,7 +69,7 @@ export default interface IUserRepository {
     signal
   }: UpdateUserParam): Promise<Result<User>>;
 
-  getPublicUsers(): Promise<Result<User[]>>;
+  getPublicUsers(offset: number): Promise<Result<User[]>>;
 
   deleteAccount(id: number): Promise<void>;
 }

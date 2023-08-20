@@ -1,4 +1,5 @@
 import { Knex } from 'knex';
+const { onUpdateTrigger } = require('../config');
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema
@@ -9,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string('token').notNullable();
       table.timestamps(true, true);
     })
-    .then(() => knex.raw(onUpdateTrigger('tennis_match')));
+    .then(() => knex.raw(onUpdateTrigger('fcm_token')));
 }
 
 export async function down(knex: Knex): Promise<void> {

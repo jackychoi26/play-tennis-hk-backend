@@ -1,6 +1,6 @@
-import Result from 'core/result';
+import Result from '../../../core/result';
 import IPushTokenRepository from '../domain/repositories/i-push-token-repository';
-const knex = require('../../../../../database/config').knex;
+const knex = require('../../../../database/config').knex;
 
 export default class PushTokenRepository implements IPushTokenRepository {
   async getTokenByUserId({ id }: { id: number }): Promise<Result<string>> {

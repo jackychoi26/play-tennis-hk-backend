@@ -17,6 +17,7 @@ export default class EditProfileController {
     const whatsapp: string | undefined = req.body.whatsapp;
     const signal: string | undefined = req.body.signal;
     const isProfilePublic: boolean | undefined = req.body.isProfilePublic;
+    const notifyBadWeather: boolean | undefined = req.body.notifyBadWeather;
 
     if (
       !ntrpLevel &&
@@ -26,7 +27,8 @@ export default class EditProfileController {
       !whatsapp &&
       !districts &&
       !signal &&
-      !isProfilePublic
+      isProfilePublic === undefined &&
+      notifyBadWeather === undefined
     ) {
       res.status(400).json({ message: 'MISSING_PARAM' });
     }
@@ -48,7 +50,8 @@ export default class EditProfileController {
       isProfilePublic === undefined ? null : { isProfilePublic },
       whatsapp === undefined || '' ? null : { whatsapp },
       description === undefined || '' ? null : { description },
-      signal === undefined || '' ? null : { signal }
+      signal === undefined || '' ? null : { signal },
+      notifyBadWeather === undefined ? null : { notifyBadWeather }
     );
 
     try {

@@ -15,6 +15,7 @@ interface EditProfileParam {
   telegram?: string;
   whatsapp?: string;
   signal?: string;
+  notifyBadWeather?: boolean;
 }
 
 type EditProfileSuccess = {
@@ -44,7 +45,8 @@ export default class EditProfile
       districts,
       whatsapp,
       signal,
-      isProfilePublic
+      isProfilePublic,
+      notifyBadWeather
     } = input;
 
     const userResult = await this.repository.getFirstUserById({ id });
@@ -65,7 +67,8 @@ export default class EditProfile
       districts === undefined ? null : { districts },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },
-      signal === undefined ? null : { signal }
+      signal === undefined ? null : { signal },
+      notifyBadWeather === undefined ? null : { notifyBadWeather }
     );
 
     const updatedUserResult = await this.repository.updateUser(

@@ -2,7 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import MatchmakingRouter from './features/matchmaking/router/matchmaking-router';
 import ProfileRouter from './features/profile/router/profile-router';
-import SystemSettingRouter from './features/system-setting/system-setting-router';
+import SettingsRouter from './features/settings/router/settings-router';
 import { logRequest, logResponse } from './middlewares';
 
 const app = express();
@@ -16,11 +16,6 @@ app.use(
 );
 app.use('/profile', logRequest, logResponse, new ProfileRouter().setup());
 
-app.use(
-  '/system-setting',
-  logRequest,
-  logResponse,
-  new SystemSettingRouter().setup()
-);
+app.use('/settings', logRequest, logResponse, new SettingsRouter().setup());
 
 export { app };

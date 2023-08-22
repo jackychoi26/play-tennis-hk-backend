@@ -20,6 +20,7 @@ export default class User {
   public readonly telegram: Nullable<string>;
   public readonly whatsapp: Nullable<string>;
   public readonly signal: Nullable<string>;
+  public readonly notifyBadWeather: boolean;
 
   private constructor(data: Partial<User>) {
     Object.assign(this, data);
@@ -71,7 +72,8 @@ export default class User {
     description = 'description',
     telegram = '1213',
     whatsapp = '78123',
-    signal = '123421'
+    signal = '123421',
+    notifyBadWeather = false
   }: Partial<User>): Result<User> {
     return User.create({
       id,
@@ -87,7 +89,8 @@ export default class User {
       description,
       telegram,
       whatsapp,
-      signal
+      signal,
+      notifyBadWeather
     });
   }
 }

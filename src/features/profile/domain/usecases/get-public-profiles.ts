@@ -3,6 +3,10 @@ import UseCase from '../../../../core/usecase';
 import IUserRepository from 'features/profile/domain/repositories/i-user-repository';
 import UserRepository from '../../data/repositories/user-repository';
 
+interface GetPublicProfilesParam {
+  offset: number;
+}
+
 type GetPublicProfilesSuccess = {
   message: 'GET_PUBLIC_PROFILES_SUCCESS';
   userProfiles: UserProfile[];
@@ -17,12 +21,14 @@ type GetPublicProfilesResult =
   | GetPublicProfilesFailure;
 
 export default class GetPublicProfiles
-  implements UseCase<null, GetPublicProfilesResult>
+  implements UseCase<GetPublicProfilesParam, GetPublicProfilesResult>
 {
   constructor(private repository: IUserRepository = new UserRepository()) {}
 
-  async execute(): Promise<GetPublicProfilesResult> {
-    const publicUserResult = await this.repository.getPublicUsers();
+  async execute(
+    input: GetPublicProfilesParam
+  ): Promise<GetPublicProfilesResult> {
+    const publicUserResult = await this.repository.getPublicUsers(input.offset);
 
     if (publicUserResult.isFailure) {
       return {

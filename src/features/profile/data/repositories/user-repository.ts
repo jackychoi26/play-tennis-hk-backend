@@ -61,7 +61,8 @@ export default class UserRepository implements IUserRepository {
         description: data.description,
         telegram: data.telegram,
         whatsapp: data.whatsapp,
-        signal: data.signal
+        signal: data.signal,
+        notifyBadWeather: data.notify_bad_weather
       });
     } else {
       logger.warning('[user-repository]: cannot create user');
@@ -88,7 +89,8 @@ export default class UserRepository implements IUserRepository {
         description: data.description,
         telegram: data.telegram,
         whatsapp: data.whatsapp,
-        signal: data.signal
+        signal: data.signal,
+        notifyBadWeather: data.notify_bad_weather
       });
     } else {
       return Result.fail('Cannot find user');
@@ -126,7 +128,8 @@ export default class UserRepository implements IUserRepository {
       description: data.description,
       telegram: data.telegram,
       whatsapp: data.whatsapp,
-      signal: data.signal
+      signal: data.signal,
+      notifyBadWeather: data.notify_bad_weather
     });
   }
 
@@ -161,7 +164,8 @@ export default class UserRepository implements IUserRepository {
       description: data.description,
       telegram: data.telegram,
       whatsapp: data.whatsapp,
-      signal: data.signal
+      signal: data.signal,
+      notifyBadWeather: data.notify_bad_weather
     });
   }
 
@@ -176,7 +180,8 @@ export default class UserRepository implements IUserRepository {
     age,
     telegram,
     whatsapp,
-    signal
+    signal,
+    notifyBadWeather
   }: UpdateUserParam): Promise<Result<User>> {
     let newUserProfileObject = Object.assign(
       {},
@@ -191,7 +196,10 @@ export default class UserRepository implements IUserRepository {
       age === undefined ? null : { age },
       telegram === undefined ? null : { telegram },
       whatsapp === undefined ? null : { whatsapp },
-      signal === undefined ? null : { signal }
+      signal === undefined ? null : { signal },
+      notifyBadWeather === undefined
+        ? null
+        : { notify_bad_weather: notifyBadWeather }
     );
 
     const userUpdate = await knex('player')
@@ -221,7 +229,8 @@ export default class UserRepository implements IUserRepository {
       description: data.description,
       telegram: data.telegram,
       whatsapp: data.whatsapp,
-      signal: data.signal
+      signal: data.signal,
+      notifyBadWeather: data.notify_bad_weather
     });
 
     if (userResult.isSuccess) {
@@ -231,12 +240,14 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async getPublicUsers(): Promise<Result<User[]>> {
+  async getPublicUsers(offset: number): Promise<Result<User[]>> {
     const publicProfilesQuery = await knex('player')
       .select('*')
       .where('is_profile_public', true)
       .andWhere('is_deleted', false)
-      .orderBy('updated_at', 'desc');
+      .orderBy('updated_at', 'desc')
+      .limit(10)
+      .offset(offset);
 
     const publicProfiles: User[] = [];
 

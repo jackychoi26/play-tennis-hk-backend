@@ -29,6 +29,7 @@ export interface UpdateUserParam {
   telegram?: string;
   whatsapp?: string;
   signal?: string;
+  notifyBadWeather?: boolean;
 }
 
 export default interface IUserRepository {
@@ -66,10 +67,11 @@ export default interface IUserRepository {
     description,
     telegram,
     whatsapp,
-    signal
+    signal,
+    notifyBadWeather
   }: UpdateUserParam): Promise<Result<User>>;
 
-  getPublicUsers(): Promise<Result<User[]>>;
+  getPublicUsers(offset: number): Promise<Result<User[]>>;
 
   deleteAccount(id: number): Promise<void>;
 }

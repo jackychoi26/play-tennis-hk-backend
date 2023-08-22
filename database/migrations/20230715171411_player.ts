@@ -17,6 +17,9 @@ export async function up(knex: Knex): Promise<void> {
       table.string('telegram');
       table.string('whatsapp');
       table.string('signal');
+      table.boolean('notify_bad_weather').defaultTo(false);
+      table.boolean('notify_new_qualifying_tennis_match').defaultTo(false);
+      table.boolean('notify_new_qualifying_player').defaultTo(false);
       table.timestamps(true, true);
       table.boolean('is_deleted').notNullable().defaultTo(false);
     })

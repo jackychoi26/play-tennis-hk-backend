@@ -14,6 +14,7 @@ export default class UserProfile {
   public readonly telegram: Nullable<string>;
   public readonly whatsapp: Nullable<string>;
   public readonly signal: Nullable<string>;
+  public readonly notifyBadWeather: boolean;
 
   constructor(data: Partial<UserProfile>, withEmail: boolean = false) {
     this.id = data.id as number;
@@ -32,5 +33,6 @@ export default class UserProfile {
     this.telegram = data.telegram as Nullable<string>;
     this.whatsapp = data.whatsapp as Nullable<string>;
     this.signal = data.signal as Nullable<string>;
+    this.notifyBadWeather = data.notifyBadWeather as boolean;
   }
 }

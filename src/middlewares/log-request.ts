@@ -11,6 +11,7 @@ const logRequest = (req: Request, res: Response, next: NextFunction) => {
   delete body['accessToken'];
 
   const logObject = {
+    endpoint: req.protocol + '://' + req.get('host') + req.originalUrl,
     type: 'request',
     headers,
     body

@@ -43,7 +43,12 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
       .andWhere('tennis_match.is_deleted', '=', false)
       .andWhere('tennis_match.ntrp_level', '>=', lowerNtrpLevel)
       .andWhere('tennis_match.ntrp_level', '<=', upperNtrpLevel)
-      .andWhere('tennis_match.end_date_time', '>', knex.fn.now())
+      // TODO: add scheduled job to clean up outdated stuff
+      .andWhere(
+        'tennis_match.end_date_time',
+        '>',
+        knex.raw("CURRENT_TIMESTAMP AT TIME ZONE 'UTC' + INTERVAL '8 hour'")
+      )
       .orderBy('tennis_match.end_date_time', 'asc')
       .limit(10)
       .offset(offset);
@@ -97,6 +102,12 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
         '*'
       )
       .where('tennis_match.is_deleted', false)
+      // TODO: add scheduled job to clean up outdated stuff
+      .andWhere(
+        'tennis_match.end_date_time',
+        '>',
+        knex.raw("CURRENT_TIMESTAMP AT TIME ZONE 'UTC' + INTERVAL '8 hour'")
+      )
       .andWhere('player.id', userId);
 
     const tennisMatches = tennisMatchesQuery.map((data: any) => {
@@ -150,6 +161,12 @@ export default class TennisMatchRepository implements ITennisMatchRepository {
       )
       .where('tennis_match.id', '=', tennisMatchId)
       .andWhere('tennis_match.is_deleted', false)
+      // TODO: add scheduled job to clean up outdated stuff
+      .andWhere(
+        'tennis_match.end_date_time',
+        '>',
+        knex.raw("CURRENT_TIMESTAMP AT TIME ZONE 'UTC' + INTERVAL '8 hour'")
+      )
       .limit(1);
 
     if (tennisMatchQuery.length > 0) {
